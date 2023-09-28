@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coding Philosophy</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="Description">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
+    <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    
+    <style>
+        .mermaid {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            flowchart: {
+                htmlLabels: false
+            }
+        });
+        
+        function makeid(len) {
+            var text = new Array(len);
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            for (var i = 0; i < len; i++) text[i] = possible.charAt(Math.floor(Math.random() * possible.length));
+            return text.join("");
+        };
+    
+        window.$docsify = {
+            loadSidebar: true,
+            loadNavbar: true,
+            alias: {
+                // '/.*/_sidebar.md': '/_sidebar.md',
+            },
+            subMaxLevel: 2,         // max levels for viewing
+            auto2top: false,         // scroll to top on route change
+            homepage: 'README.md',
+            relativePath: true,     // enable relative links
+            
+            el: '#app',
+            name: '',
+            
+            search: 'auto',
+            
+            markdown: {
+                renderer: {
+                  code: function(code, lang) {
+                    if (lang === "mermaid") {
+                        var id = makeid(10);
+                        var svg = mermaid.render(id,code);  // needed for unique id creation?
+                        return (
+                            svg
+                        );
+                    }
+                    return this.origin.code.apply(this, arguments);
+                  }
+                }
+            }
+        }
+    </script>
+    <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+    <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
+</body>
+</html>

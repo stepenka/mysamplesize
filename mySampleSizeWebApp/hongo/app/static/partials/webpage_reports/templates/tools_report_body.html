@@ -1,0 +1,327 @@
+
+
+<!-- this block sets some variables for display purposes, depending on the design type -->
+{% set displayGroups = false %}
+
+{% set measSD, treatmentsTotal, nGroups = row["esSD"],row["treatmentsTotal"],row["groups"] %}
+
+{% if row["isTest"]["oneT"] or row["isTest"]["twoT"] or row["isTest"]["pairedT"] %}
+    {% set effectSizeType = 'd' %}
+{% elif row["isTest"]["oneAOV"] or row["isTest"]["twoAOV"] %}
+    {% set effectSizeType,displayGroups,measSD = 'f', 'Groups', row["esSD_AOV"] %}
+{% elif row["isTest"]["multAOV"] %} 
+    {% set effectSizeType,displayGroups,measSD = 'f', 'Groups', row["esSD_AOV"] %}
+{% elif row["isTest"]["rmPS1"] %}
+    {% set effectSizeType,displayGroups = 'f2', 'Groups' %}
+{% elif row["isTest"]["rmCS1"] %}
+    {% set effectSizeType,displayGroups,measSD = 'd', 'Groups', row["wsSD_RM"] %}
+{% elif row["isTest"]["slm"] %}
+    {% set effectSizeType,displayGroups = 'f2', 'Groups' %}
+{% endif %}
+
+{% if addlControls is defined and addlControls != None %}
+    {% set nGroups = nGroups+addlControls %}
+{% endif %}
+
+
+{% if row["isTest"]["twoAOV"] or row["isTest"]["multAOV"] or row["isTest"]["rmPS1"] or row["isTest"]["rmCS1"]%}
+    {% set nGroups = row["totalNGroups"] %}
+{% endif %}
+
+<table class="table">
+{% if projectname %}
+    <tr>
+        <td class="text-right">Project:</td>
+        <td>{{projectname}}</td>
+    </tr>
+{% endif %}
+    <tr>
+        <td class="text-right">Statistical Test:</td>
+        <td>{{row["test"]}}</td>
+    </tr>
+    <tr>
+        <td class="text-right">Significance Level:</td>
+        <td>{{row["sig"]}}</td> 
+        <td></td>
+        <td></td>
+    </tr>
+{% if not row["isTest"]["rmPS1"] %}
+    <tr>
+        <td class="text-right">Measurement SD:</td>
+        <td>{{measSD}}</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="text-right">Absolute Effect Size:</td>
+        <td>{{row["esMean"]}}</td> 
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="text-right">Relative Effect Size (<em>{{effectSizeType}}</em>):</td>
+        <td>{{row["es"]}}</td> 
+        <td></td>
+        <td></td>
+    </tr>
+{% else %}
+    <tr>
+        <td class="text-right">Between-Subjects SD:</td>
+        <td>{{row["bsSD_RM"]}}</td> 
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="text-right">Within-Subjects SD:</td>
+        <td>{{row["wsSD_RM"]}}</td> 
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="text-right">Absolute Effect Size :</td>
+    {% if row["esMultiple"] %}
+    
+        {% for es in row["esComb"]["effect"] %}
+            <td>{{es}}</td>
+        {% endfor %}
+    {% else %}
+        <td> {{row["es"]}} </td> 
+    {% endif %}
+    </tr>
+{% endif %}
+{% if displayGroups %}
+    <tr>
+        <td class="text-right">Total {{displayGroups}}:</td>
+        <td>{{nGroups}}</td> 
+        <td></td>
+    </tr>
+{% endif %}
+
+{% if row["tool"] == 'samplesize' %}
+    <tr>
+        <td class="text-right">Statistical Power:</td>
+        <td>{{row["pow"]}}</td> 
+        <td></td>
+    </tr>
+{% elif row["tool"] == 'power' %}
+    <tr>
+        <td class="text-right">
+        {% if row["isTest"]["oneT"] %}
+            Total Sample Size:
+        {% elif row["isTest"]["pairedT"] %}
+            Sample Size in Total Pairs:
+        {% else %}
+            Sample Size in Subjects per Group:
+        {% endif %}
+        </td>
+        <td>{{row["samplesize"]}}</td> 
+        <td></td>
+    </tr>
+{% endif %}
+</table>
+<br><br><br>
+
+{% set isSampleCalc = False %}
+
+<!-- Display of tools output -->
+{% if row["tool"] == 'power' %}
+    {% set calcType, outputVector = 'Power', row["pow"] %}
+    {% set outputVectorPD, outputVectorPT = row["powPD"], row["powPT"] %}
+{% elif row["tool"] == 'samplesize' %}
+    {% set calcType, outputVector, isSampleCalc = 'Sample Size', row["samplesize"], True %}
+    {% set outputVectorPD, outputVectorPT = row["samplesizePD"], row["samplesizePT"] %}
+{% endif %}
+
+<div class="text-center" style="border:thin solid black;">
+    <h4><strong> The results of the {{ calcType }} Calculation are </strong></h4>
+    
+	<!-- for nGroup=3; 2-Way, Multi-Way, and Repeated Measures Parallel ANOVA -->
+    {% if row["isTest"]["twoAOV"] or row["isTest"]["multAOV"] or nGroups == '3' or row["isTest"]["rmPS1"] %}
+        <h5>
+            The estimates of {{calcType}} below are listed by Effect, followed by all possible Interactions.
+        </h5>
+
+        <table class="table text-center">
+			<thead><tbody>
+				<td>Effect</td>
+				{% if isSampleCalc %}
+					<td> Sample Size (per group) </td>
+					<td> Sample Size (total) </td>
+				{% else %}
+					<td> Statistical Power </td>
+				{% endif %}
+			</tbody></thead>
+			<tbody>
+			    {% if  row["isTest"]["twoAOV"] or row["isTest"]["multAOV"] %}
+					<tr><td align="left">
+						<h5><b> ANOVA Test </b></h5>
+					</td></tr>
+				{% endif %}
+				{% for cc in outputVector %}
+					{% if row["isTest"]["rmPS1"] %}
+						<tr>
+							<td>
+								{% set outer_loop = loop %}
+								{% if loop.index == 1 %}
+									Time Factor
+								{% elif loop.index <= treatmentsTotal %}
+									Factor {{loop.index0}}
+								{% else %}
+									Interaction:
+										{% for tmp2 in row["combinations"][outer_loop.index0] %}
+											
+											{% set factor_ndx = tmp2|int %}
+											
+											{% if factor_ndx==1 %}
+												Time
+											{% else %}
+												Factor {{factor_ndx -1}}
+											{% endif %}
+											{% if not loop.last %}
+												and 
+											{% endif %}
+										{% endfor %}
+								{% endif %}
+							</td>
+							<td> {{cc}} </td>
+							{% if isSampleCalc %}
+								<td> {{cc*nGroups}} </td>
+							{% endif %}
+						</tr>        
+					{% else %}
+						<tr>
+							<td>
+								{% if loop.index <= treatmentsTotal %}
+									Factor {{loop.index}}
+								{% else %}
+									Interaction: 
+										{% for tmp in row["combinations"][loop.index0] %}
+											Factor {{tmp}}
+											{% if not loop.last %}
+											and
+											{% endif %}
+										{% endfor %}
+								{% endif %}
+							</td>
+							<td> {{cc}} </td>
+							
+							{% if isSampleCalc %}
+								<td> {{cc*nGroups}} </td>
+							{% endif %}
+							
+						</tr>
+					{% endif %}
+				{% endfor %}
+			</tbody>
+
+			<!-- Post hoc test for 2-way or multi-way anova -->
+			{% if row["isTest"]["twoAOV"] or row["isTest"]["multAOV"] %}
+				<!-- Dunnett Test -->
+				<tbody>
+					<tr><td style="border-bottom: 1px solid;" align="left">
+						<h5><b> Post hoc Dunnett Test </h5></b>
+					</td></tr>
+					{% for cc1 in outputVectorPD %}
+						<tr>
+							<td>
+								{% if loop.index <= treatmentsTotal %}
+									Factor {{loop.index}}
+								{% else %}
+									Interaction: 
+										{% for tmp in row["combinations"][loop.index0] %}
+											Factor {{tmp}}
+											{% if not loop.last %}
+											and
+											{% endif %}
+										{% endfor %}
+								{% endif %}
+							</td>
+							<td> {{cc1}} </td>
+							{% if isSampleCalc %}
+								<td> {{cc1*nGroups}} </td>
+							{% endif %}
+						</tr>
+					{% endfor %}
+				</tbody>
+				
+				<!-- Tukey Test -->
+				<tbody>
+					<tr><td style="border-bottom: 1px solid;" align="left">
+						<h5><b> Post hoc Tukey Test </h5></b>
+					</td></tr>
+					{% for cc2 in outputVectorPT %}
+						<tr>
+							<td>
+								{% if loop.index <= treatmentsTotal %}
+									Factor {{loop.index}}
+								{% else %}
+									Interaction: 
+										{% for tmp in row["combinations"][loop.index0] %}
+											Factor {{tmp}}
+											{% if not loop.last %}
+											and
+											{% endif %}
+										{% endfor %}
+								{% endif %}
+							</td>
+							<td> {{cc2}} </td>
+							{% if isSampleCalc %}
+								<td> {{cc2*nGroups}} </td>
+							{% endif %}
+						</tr>
+					{% endfor %}
+				</tbody>
+			{% endif %} <!-- for 2-way & multi-way ANOVA post-hoc tests -->
+		</table>
+
+	<!-- for T-Tests -->
+    {% else %}
+        {% if row["tool"] == 'samplesize' %}
+			{% set sampSize1 = row["samplesize"][0] %}
+			{% if  row["isTest"]["oneAOV"] or row["isTest"]["twoAOV"] or row["isTest"]["multAOV"] %}
+				<hr>
+				<h4> ANOVA Test </h4>
+			{% endif %}
+            <p> {{ sampSize1 }}            
+            {% if row["isTest"]["oneT"] %}
+                Total Subjects 
+            {% elif row["isTest"]["pairedT"] %}
+                Pairs 
+            {% else %}
+				Subjects per Group </p>
+                <p> {{sampSize1 * nGroups}} Total Subjects </p>
+            {% endif %}
+			{% if row["test"] == '1-Way ANOVA' %}
+			<!-- {% block content %} -->
+			    {% set sampSizePD = row["samplesizePD"][0] %}
+			    {% set sampSizePT = row["samplesizePT"][0] %}
+				<hr>
+			    <h4> Post hoc Dunnett Test </h4>
+				<p> {{ sampSizePD }} Subject per Group </p>
+                <p> {{sampSizePD * nGroups}} Total Subjects </p>
+				<hr>
+			    <h4> Post hoc Tukey Test </h4>
+				<p> {{ sampSizePT }} Subject per Group </p>
+                <p> {{sampSizePT * nGroups}} Total Subjects </p>
+
+			<!-- {% endblock %} -->
+			{% endif %}
+        {% else %}
+            {% set powSize1 = row["pow"][0] %}
+            <h4> {{ powSize1 }} </h4>
+			
+            {% if row["test"] == '1-Way ANOVA' %}
+			    {% set powSizePD = row["powPD"][0] %}
+			    {% set powSizePT = row["powPT"][0] %}
+				<hr>
+			    <h4> Post hoc Dunnett Test </h4>
+				<h5> {{ powSizePD }} </h5>
+				<hr>
+			    <h4> Post hoc Tukey Test </h4>
+				<h5> {{ powSizePT }} </h5>
+			{% endif %}
+			
+        {% endif %}
+        </h4>
+    {% endif %}
+</div>

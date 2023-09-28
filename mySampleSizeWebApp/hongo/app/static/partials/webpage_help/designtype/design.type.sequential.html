@@ -1,0 +1,100 @@
+<h2 class="text-grey" id="dt-sequential">Sequential</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-newspaper-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            Sequential designs are experiments where the treatment is applied in a stepwise, or sequential, method and at each time period the results are analyzed before the next time period begins. At each analysis, a decision is made to move the experimental unit to the next sequential treatment or to stop treatment. This design is appropriate when results can be obtained quickly and the study is constrained to a small sample size. A predefined decision tree is required to determine the sequence of treatments and a stopping rule.
+        </p>
+        <p>
+            For example, a design may include 2 groups and a level of treatments. Treatment is applied to one group and the results are analyzed. If a specified positive result is observed (such as statistical significance or a level of a measured response) then the experiment continues to next sequential treatment. If at any point a specified negative result is observed, or the null hypothesis is rejected (non statistical significance, a level of a measured response, or death), then the treatment will be stopped or the experimental unit replaced.
+        <p>
+        <img ng-src="{{imgPath}}/design/design_sequential.png" class="img-responsive"></img>
+    </div>
+</div>
+
+<h2 class="text-grey">example</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-picture-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            A researcher is interested in the level of toxicity for a drug. The drug is divided into sequential levels of increasing doses (A, B, C, D, E) for testing. The first analysis will start with level 3 and the experiment can move up or down depending on the stepwise analyses. The analysis will be performed on 1 group with 3 subjects per group. The toxicity of the drug is measured and analyzed at each time period. If a specified level of toxicity is reached in 2 or all 3 subjects, the experiment is conducted with a lower dosage of the treatment. If the specified level of toxicity is reach in 0 or 1 subjects, the sequential experiment will be conducted at a higher dosage level. After treatment level A or E is reached, the experiment will be terminated.
+        </p>
+    </div>
+    <div class="col-sm-12">
+         <img ng-src="{{imgPath}}/design/design_sequential2.png" class="img-responsive"></img>
+    </div> 
+    <div class="col-sm-12">
+        <p>Table of Results: Cells indicate how many of the 3 randomly assigned subjects reached a specified level of toxicity.</p>
+        <table class="table table-striped padding-top-2em"> 
+            <thead>
+                <tr>
+              <th></th>
+              <th>Time 1</th>
+              <th>Time 2</th>
+              <th>Time 3</th>
+              <th>...</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th>Treatment A</th>
+            <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <th>Treatment B</th>
+            <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <th>Treatment C</th>
+               <td>1</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+              <tr>
+              <th>Treatment D</th>
+              <td>-</td>
+              <td>1</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+             <tr>
+              <th>Treatment E</th>
+              <td>-</td>
+              <td>-</td>
+              <td>3</td>
+              <td>-</td>
+            </tr>
+            </tbody>
+        </table>
+    </div> <!-- end col --> 
+</div><!-- end row --> 
+
+<h2 class="text-grey">statistical tests</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-line-chart text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>Statistical tests that are commonly appropriate for this design:</p>
+        <ul class="fa-ul">
+            <li><i class="fa-li fa fa-square text-green"></i>ANOVA</li>
+            <li><i class="fa-li fa fa-square text-green"></i>2-Way ANOVA</li>
+            <li><i class="fa-li fa fa-square text-green"></i>Regression</li>
+        </ul> <br>
+    </div>
+</div>
+
+<blockquote>
+    <footer>
+        Diener, W., and Schlede, E. (1999) Acute Toxic Class Methods: Alternatives to LD/LC50 Tests. 
+        <cite title="Source Title">ALTEX</cite>, 16(3), 129-134.
+    </footer>
+</blockquote>

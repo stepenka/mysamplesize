@@ -1,0 +1,40 @@
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: $main_green_dk;
+    -moz-transition: color 0.2s ease-in-out;
+    -webkit-transition: color 0.2s ease-in-out;
+    -o-transition: color 0.2s ease-in-out;
+    -ms-transition: color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out;
+    
+    &:active,
+    &:hover,
+    &:focus {
+        /* text-decoration: none; */
+        color: $main_green;
+    }
+    
+    .no_link & {
+        color: black;
+        
+        &:hover {
+            color: $main_green_dk;
+        }
+    }
+    
+    > tooltip-modal,
+    > tooltip-link {
+        color: black;
+    }
+    
+    &.keyword-directive {
+        /* text-decoration: underline; */
+        font-weight: bold;
+    }
+}
+
+// used for uib-accordion headings
+.grey-hover:hover {
+    background-color: $grey0;
+}

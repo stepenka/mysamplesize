@@ -1,0 +1,23 @@
+<div class="modal-header" id="dataLoad">
+    <h3 class="modal-title"> Save Data </h3>
+</div>
+
+<div class="modal-body">
+    Select a project to save your DesignGuide data to. Note: this will overwrite any existing DesignGuide data saved to that project!
+    
+    <div ng-include src="'static/partials/webpage_tools/tools.saveBtn.html'"></div>
+    
+    
+    <hr class="padding-top-2em">
+    View projects
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1" ng-disabled="true">
+            
+            <div ng-include="'static/partials/webpage_reports/projects_list.html'"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">close</button>
+</div>

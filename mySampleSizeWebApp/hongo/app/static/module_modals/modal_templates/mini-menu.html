@@ -1,0 +1,66 @@
+<div id="xsd-menu">
+<div class="modal-header">
+    <h3 class="modal-title">
+        Menu
+        <button type="button" class="btn btn-primary pull-right" ng-click="cancel()" style="border-radius:5pt;">
+            <i class="fa fa-bars"></i>
+        </button>
+    </h3>
+</div>
+        
+<div class="modal-body">
+    <uib-accordion class="nav">
+    
+        <!-- Complicated divs here to mimic other uib-accordion-groups below for a single link -->
+        <div class="panel ng-scope ng-isolate-scope panel-default" ng-class="panelClass || 'panel-default'">
+            <div role="tab" aria-selected class="panel-heading panel-title cursor-pointer">
+                <p ng-show="!authService.authenticated"><a ui-sref="auth.home" ng-click="cancel()" id="xsd-login">Login | Sign Up</a></p>
+                <p ng-show="authService.authenticated"><a ui-sref="account.home" ng-click="cancel()" id="xsd-loggedin">My Account</a></p>
+            </div>
+        </div>
+        
+        <!-- *****************HOME********************** -->
+        <div class="panel ng-scope ng-isolate-scope panel-default" ng-class="panelClass || 'panel-default'">
+            <div role="tab" aria-selected class="panel-heading panel-title">
+                <a ui-sref="home" ng-click="cancel()" class="accordion-toggle" id="xsd-home"> HOME </a>
+            </div>
+        </div>
+        
+        <!-- *****************DESIGN GUIDE********************** -->
+        <div uib-accordion-group>
+            <uib-accordion-heading> DESIGN </uib-accordion-heading>
+            <ul uib-dropdown-menu class="list-unstyled navbar-modal">
+                <li ui-sref-active="active"><a ui-sref="design_guide" ng-click="cancel()" id="xsd-design_guide"> Design Guide</a></li>
+            </ul>
+        </div>
+        
+        <!-- *****************TOOLS********************** -->
+        <div uib-accordion-group is-open="menuopen1"> 
+            <uib-accordion-heading>
+                TOOLS<i class="fa padding-left-1em" ng-class="{'fa-angle-up': menuopen1, 'fa-angle-down': !menuopen1}"></i>
+            </uib-accordion-heading>
+            <ul id="xsd-tools" uib-dropdown-menu class="list-unstyled navbar-modal" ng-include="'/static/partials/webpage_core/navlist_tools.html'"></ul>
+        </div>
+        
+        <!-- *****************REPORTS********************** -->
+        <div uib-accordion-group is-open="menuopen2"> 
+            <uib-accordion-heading>
+                REPORTS<i class="fa padding-left-1em" ng-class="{'fa-angle-up': menuopen2, 'fa-angle-down': !menuopen2}"></i>
+            </uib-accordion-heading>
+            <ul id="xsd-reports" uib-dropdown-menu class="list-unstyled navbar-modal" ng-include="'/static/partials/webpage_core/navlist_reports.html'"></ul>
+        </div>
+        
+        <!-- *******************HELP******************** -->
+        <div uib-accordion-group is-open="menuopen3"> 
+            <uib-accordion-heading>
+                HELP<i class="fa padding-left-1em" ng-class="{'fa-angle-up': menuopen3, 'fa-angle-down': !menuopen3}"></i>
+            </uib-accordion-heading>
+            <ul id="xsd-help" uib-dropdown-menu class="list-unstyled navbar-modal" ng-include="'/static/partials/webpage_core/navlist_help.html'"></ul>
+        </div>
+    </uib-accordion>
+<div>
+
+<div class="modal-footer">
+</div>
+
+</div>

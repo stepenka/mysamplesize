@@ -1,0 +1,14 @@
+
+    test card: 4242 4242 4242 4242
+    cvc fail: 4000000000000101 
+    declined: 4000000000000002 
+    wrong cvc: 4000000000000127
+    wrong number: 4242424242424241
+    expired: 4000000000000069 
+    process error: 4000000000000119 
+    zip fail: 4000000000000036 
+    
+    
+    
+    dae2etests@tempest-tech.com
+    funtimes310

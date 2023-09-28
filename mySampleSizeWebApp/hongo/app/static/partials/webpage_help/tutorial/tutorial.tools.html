@@ -1,0 +1,153 @@
+<h2 class="text-grey text-lowercase">Tools</h2>
+<hr>
+<div class="row margin-bottom-2em" ng-init="ipathTools=imgPath+'/tutorial/Tools'; heads=tutorialContents[2].groups;">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-map-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p><b>Tools verifies your design is statistically valid and reasonable for your needs.</b></p>
+        <p>
+            Once you have determined an appropriate Experimental Design for your study, an estimation of the Statistical Power of the results should always be calculated. It is important to calculate Statistical Power before collecting data in order to ensure that the Experimental Design will yield results that have sufficient ability to detect effect sizes. If the estimate of Statistical Power calculated is too low to suit your experimental needs, you can always try to increase Sample Size or alternatively, reconsider your Experimental Design.
+        </p>
+        <p>
+            To learn more about Statistical Power and why it is important, see <power></power> in the Statistical Basics.
+        </p>
+        <p>
+            We offer a variety of tools to assist you in refining your Design Type Choice. The Power Size Calculator, the Sample Size Calculator and the Power Plot all are different ways of understanding the Statistical Power of your design. The Statistical Power calculator allows you to calculate Statistical Power when there is a known Sample Size and Effect Size. Similarly, the Sample Size Calculator allows you to calculate Sample Size when there is a known Statistical Power and Effect Size. The Power Plots allow you to visualize the trade offs of Statistical Power across a range of given Sample and Effect Sizes. The Random Number Generator can be used once a Design Type has been finalized. This tools allows you to choose between several different Design Types and then generate random numbers to assist you in assigning treatments to subjects randomly.
+        </p>
+        <p>
+            A help center is available to help understand the variables used and help icons in the calculators assist with the calculation of variables.
+        </p>
+        <p>
+            Each statistical tool, except for RANDOM NUMBER GENERATOR, offers choices for type of statistical test for analysis.  
+        </p>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-10 col-md-offset-1 padding-top-1em">
+                <img class="img-responsive" ng-src="{{ipathTools}}/type_of_stats_test_for_analysis.png">
+                </br></br>
+            </div>
+        </div>
+        
+        <uib-accordion id="tutTools">
+            <div uib-accordion-group is-open="heads[0].active" id="{{heads[0].id}}">
+                <uib-heading-with-icon title="'Sample Size Calculator'" active="heads[0].active"></uib-heading-with-icon>
+                <div class="row margin-top" id="{{heads[0].id}}-content">
+                    <div class="col-sm-12 padding-bottom-1em">
+                        <h4>Statistical Power and Effect Size are Known</h4>
+                        <p>
+                            On this page, enter in the appropriate information about your Experimental Design and the calculator will calculate the Sample Size necessary to achieve these results. If the Design Guide has been completed, the suggested results will be displayed. However, alternative Statistical Tests may also be used by choosing a Statistical Test from the drop-down box at the top of the calculator.
+                        </p>
+                        <p>
+                            For help, hover over the green help icons <tooltip content="'Hovering...'"></tooltip>.
+                        </p>
+                        <p>
+                            <strong>Our Case Study</strong> a 1-Way ANOVA was used with 4 groups and a significance level of 0.05. It was known that a Statistical Power of at least 0.8 and an Effect Size of at least 75 was required. The results show that Sample Size = 12 Subjects per Group would be necessary to achieve this level of Statistical Power and Effect Size.
+                        </p>
+                    </div>
+                    <div class="col-sm-12 col-md-10 col-md-offset-1">
+                        <img class="img-responsive width-100" ng-src="{{ipathTools}}/sample_calc.png">
+                    </div>
+                </div>
+            </div>
+
+            <div uib-accordion-group is-open="heads[1].active" id="{{heads[1].id}}">
+                <uib-heading-with-icon title="'Statistical Power Calculator'" active="heads[1].active"></uib-heading-with-icon>
+                <div class="row margin-top" id="{{heads[1].id}}-content">
+                    <div class="col-sm-12 padding-bottom-1em">
+                        <h4><strong>Statistical Power Calculator:</strong> Sample and Effect Sizes are Known</h4>
+                        <p>
+                            On this page, enter in the appropriate information about your Experimental Design and the calculator will calculate Statistical Power. If the Design Guide has been completed, the suggested results will be displayed. However, alternative Statistical Tests may also be used by choosing a Statistical Test from the drop-down box at the top of the calculator.
+                        </p>
+                        <p>
+                            For help, hover over the green help icons <tooltip content="'Hovering...'"></tooltip>.
+                        </p>
+                        <p>
+                            <strong>Our Case Study</strong> a 1-Way ANOVA was used with 4 groups and a significance level of 0.05. It was known that a Statistical Power of at least 0.8 and an Effect Size of at least 75 was required. The results show that a Sample Size = 12 would be the minimum value that achieves a Statistical Power over 0.8 at 0.8353.
+                        </p>
+                    </div>
+
+                    <div class="col-sm-12 col-md-10 col-md-offset-1">
+                        <img class="img-responsive width-100" ng-src="{{ipathTools}}/power_calc.png">
+                    </div>
+                </div>
+            </div>
+
+            <div uib-accordion-group is-open="heads[2].active" id="{{heads[2].id}}">
+                <uib-heading-with-icon title="'Power Plot'" active="heads[2].active"></uib-heading-with-icon>
+                <div class="row margin-top" id="{{heads[2].id}}-content">
+                    <div class="col-sm-12 padding-bottom-1em">
+                        <h4><strong>Power Plots:</strong> Interactive Graphics Tool</h4>
+                        <p>
+                            On this page, enter in the appropriate information about your Experimental Design and the graphing tool will generate a plot for easy visualization of the trade-offs between Sample Size and Statistical Power.
+                        </p>
+                        <p>
+                            For each test, the tool will require you to choose a level of statistical significance (the pull down menu in the middle right) and may also require further information about the specific Experimental Design (such as the number of Treatments). Use the sliders to choose a range of Statistical Power, Relative Effect Size and Sample Size you wish to plot.
+                        </p>
+
+                        <div class="col-sm-12 col-md-8 col-md-offset-2">
+                            <img class="img-responsive width-100" ng-src="{{ipathTools}}/power_plot.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div uib-accordion-group is-open="heads[3].active" id="{{heads[3].id}}">
+                <uib-heading-with-icon title="'Random Number Generator'" active="heads[3].active"></uib-heading-with-icon>
+                <div class="row margin-top" id="{{heads[3].id}}-content">
+                    <div class="col-sm-12 padding-bottom-1em">
+                        <p>
+                            From the drop-down box, select the Statistical Test you will be using to analyze your results. If the Design Guide has been completed, the suggested results will be displayed.
+                        </p>
+                        <p>
+                            Fill in the appropriate information about your Experimental Design and then download the generated table for use or documentation.
+                        </p>
+                    </div>
+
+                    <div class="col-sm-12 col-md-10 col-md-offset-1">
+                        <img class="img-responsive width-100" ng-src="{{ipathTools}}/rng.png">
+                    </div>
+                </div>
+            </div>
+
+            <div uib-accordion-group is-open="heads[4].active" id="{{heads[4].id}}">
+                <uib-heading-with-icon title="'Simulations'" active="heads[4].active"></uib-heading-with-icon>
+                <div class="row margin-top" id="{{heads[4].id}}-content">
+                    <div class="col-sm-12 padding-bottom-1em">
+                        <p>
+                            On this page, enter in the appropriate information about your Experimental Design and the simulator will simulate random experiments and display the p-value for the simulation. Type of information you need to provide depends on the statistical test you select. For 1-Way ANOVAE, you will provide number of subjects per group, number of comparison groups, effect size, standard deviation and significance level. You also have choice of treatment response shapes: linear, saturating curve, and inverted U shape. 
+                        </p> 
+                    </div>
+                    <div class="col-sm-12 col-md-10 col-md-offset-1">
+                        <img class="img-responsive width-100" ng-src="{{ipathTools}}/simulation_required_info.png">
+                        </br></br>
+                    </div>
+                    
+                    <div class="col-sm-12 padding-bottom-1em">
+                        <p> 
+                            Each time you click highlighted <bdi style="border:1px; border-style:solid; border-color:lightblue; color:#343434; background-color:#a0b33c">Simulate Random Experiment</bdi>, a random experiment is simulated and a different p-value will result. 
+                        </p>
+                        <p>
+                            The simulation results, the p-value and graph will be saved when you click <bdi style="border:2px; color:#a0b33c; background-color:#343434"><strong>Click Here to Save Your Results</strong></bdi>.
+                        </p>
+                        <p>
+                            <strong>Our Case Study</strong> a 1-Way ANOVA was used with 4 groups, 12 subjects per group and a resulting statistical power of 0.835.  One simulation resulted a p-value of 0.0059.
+                    </div>
+
+                    <div class="col-sm-12 col-md-10 col-md-offset-1">
+                        <img class="img-responsive width-100" ng-src="{{ipathTools}}/simulation.png">
+                    </div>
+                </div>
+            </div>
+            
+            <div uib-accordion-group is-open="heads[5].active" id="{{heads[5].id}}">
+                <uib-heading-with-icon title="'Data Analysis'" active="heads[5].active"></uib-heading-with-icon>
+                <div class="row margin-top" id="{{heads[5].id}}-content">
+                    <div class="col-sm-12 padding-bottom-1em">
+                        <p>
+                            To be added.
+                        </p> 
+                    </div>
+                </div>
+            </div>
+        </uib-accordion>
+    </div>
+</div>

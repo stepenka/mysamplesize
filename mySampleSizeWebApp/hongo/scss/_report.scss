@@ -1,0 +1,139 @@
+
+/* hide "Control Name" part of DesignGuide table for small screens */
+@media (max-width: 768px) { 
+    .form-group table td:nth-child(5),
+    .form-group table th:nth-child(5)
+        {
+        display: none;
+    }
+}
+select:disabled
+{
+    background: rgb(235, 235, 228); /* this is close to $grey1 */
+}
+
+/* Buttons for add/remove in Design Guide tables */
+.form-group tr > td > .btn {
+    float: right;
+}
+
+.form-group tr > td > input {
+    max-width: 150px;
+}
+
+.basic-form {
+    position:relative;
+    min-height:300px;
+    overflow:hidden;
+    padding:30px;
+    
+    input[type="number"]
+    {
+        width: 60px;
+    }
+    select
+        {
+        height:26px;
+    }
+}
+
+/* ANIMATION STYLINGS
+============================================================================= */
+
+/* basic styling for entering and leaving */
+/* left and right added to ensure full width */
+.swipe-views.ng-enter,
+.swipe-views.ng-leave      { position:absolute; left:30px; right:30px;
+    transition:0.5s all ease; -moz-transition:0.5s all ease; -webkit-transition:0.5s all ease; 
+}
+
+.swipe-views {
+
+    &.swipe-views-left {
+        /* enter animation */
+        &.ng-enter,
+        &.ng-active-enter {
+            -webkit-animation:slideInLeft 0.5s both ease;
+            -moz-animation:slideInLeft 0.5s both ease;
+            animation:slideInLeft 0.5s both ease; 
+        }
+        
+        /* leave animation */
+        &.ng-leave,
+        &.ng-active-leave {
+            -webkit-animation:slideOutRight 0.5s both ease;
+            -moz-animation:slideOutRight 0.5s both ease;
+            animation:slideOutRight 0.5s both ease;
+        }
+    }
+    
+    &.swipe-views-right {
+        /* enter animation */
+        &.ng-enter,
+        &.ng-active-enter {
+            -webkit-animation:slideInRight 0.5s both ease;
+            -moz-animation:slideInRight 0.5s both ease;
+            animation:slideInRight 0.5s both ease; 
+        }
+        
+        /* leave animation */
+        &.ng-leave,
+        &.ng-active-leave {
+            -webkit-animation:slideOutLeft 0.5s both ease;
+            -moz-animation:slideOutLeft 0.5s both ease;
+            animation:slideOutLeft 0.5s both ease;
+        }
+    }
+}
+
+/* ANIMATIONS
+============================================================================= */
+/* slide out to the left */
+@keyframes slideOutLeft {
+	to 		{ transform: translateX(-200%); }
+}
+@-moz-keyframes slideOutLeft {	
+	to 		{ -moz-transform: translateX(-200%); }
+}
+@-webkit-keyframes slideOutLeft {
+	to 		{ -webkit-transform: translateX(-200%); }
+}
+
+/* slide out to the right */
+@keyframes slideOutRight {
+	to 		{ transform: translateX(200%); }
+}
+@-moz-keyframes slideOutRight {	
+	to 		{ -moz-transform: translateX(200%); }
+}
+@-webkit-keyframes slideOutRight {
+	to 		{ -webkit-transform: translateX(200%); }
+}
+
+/* slide in from the right */
+@keyframes slideInRight {
+	from 	{ transform:translateX(200%); }
+	to 		{ transform: translateX(0); }
+}
+@-moz-keyframes slideInRight {
+	from 	{ -moz-transform:translateX(200%); }
+	to 		{ -moz-transform: translateX(0); }
+}
+@-webkit-keyframes slideInRight {
+	from 	{ -webkit-transform:translateX(200%); }
+	to 		{ -webkit-transform: translateX(0); }
+}
+
+/* slide in from the left */
+@keyframes slideInLeft {
+	from 	{ transform:translateX(-200%); }
+	to 		{ transform: translateX(0); }
+}
+@-moz-keyframes slideInLeft {
+	from 	{ -moz-transform:translateX(-200%); }
+	to 		{ -moz-transform: translateX(0); }
+}
+@-webkit-keyframes slideInLeft {
+	from 	{ -webkit-transform:translateX(-200%); }
+	to 		{ -webkit-transform: translateX(0); }
+}

@@ -1,0 +1,12 @@
+
+- [Home](/)
+- [Database Home](./)
+- [Python control via sqlite](/sqlite3/)
+- [Visualizing](visualizing.md)
+- Flow
+    - [Creating the Database](/create/)
+    - [Editing the Database](/edit_db/)
+    - [Saving Data](saving_data/)
+    - [Generating Reports](accessing_data/)
+- [Deploying](deploy/)
+    - (How to preserve information)

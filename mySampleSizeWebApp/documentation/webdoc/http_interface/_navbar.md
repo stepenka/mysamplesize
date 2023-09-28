@@ -1,0 +1,12 @@
+
+- [Home](/)
+- [HTTP Home](./)    
+- [AngularJS](/routes.js)
+    - [Routes](/routes.js)
+    - [Controllers and Services](/controllers_and_services/versus)
+    - [Calling the server](/js_http)
+    - [Debugging](/js_debug)
+- [Python](/routes.py)
+    - [Flask Routes](/routes.py)
+    - [Standalone functions by file](/py/by_file)
+    - [Debugging](/py/debug)

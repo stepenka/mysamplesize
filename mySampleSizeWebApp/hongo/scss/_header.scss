@@ -1,0 +1,80 @@
+/*********************************************************************************/
+/*                HEADER                                                         */
+/*********************************************************************************/
+
+.navbarIMG img {
+    max-width: 500px;
+    padding-top: 1em;
+    
+
+    height: 75%;
+}
+
+/* For the grey/black bar area  */
+.header  {
+    height: 2em;
+    
+    p {
+        letter-spacing: 0.2em;
+        padding-top: 0.2em;
+    }
+
+    a {
+        color: $main_green;
+        /* text-decoration: none; */
+    }
+
+    p a:hover, a:hover {
+        color: $main_green_dk;
+        /* text-decoration: none;*/
+    }
+
+    .navbarIMG  img{
+        
+    }
+    
+}
+
+#main-header {
+    @media (min-width: $large)                                { height: $header-height-large; }
+    @media (min-width: $medium) and (max-width: ($large - 1)) { height: $header-height-medium; }
+    @media (min-width: $small)       and (max-width: ($medium - 1))   { height: $header-height-small; }
+    @media (min-width: $xsmall) and (max-width: ($small - 1)) { height: $header-height-xsmall; }
+    
+    #main-header-content > ul {
+        margin-left: -15px;
+        margin-right: 0px;
+        
+        @media (min-width: $large)                                { margin-top: -15px; }
+        @media (min-width: $medium) and (max-width: ($large - 1)) { margin-top: 0px; }
+        @media (min-width: $small)       and (max-width: ($medium - 1))   { margin-top: 0px; }
+        @media (min-width: $xsmall) and (max-width: ($small - 1)) { margin-top: 0px; margin-left: 0px; }
+        
+    }
+    
+    & > *
+        {
+        height: inherit;
+    }
+}
+
+
+/* large size nav menu */
+.navbar-default .navbar-nav {
+    >.active > a {
+        color: $main_green;
+        background-color: $grey5;
+        
+        &:hover, &:focus {
+            color: $main_green;
+            background-color: $grey5;
+        }
+    }
+    
+    >li > a {
+        &:hover, &:active, &:focus {
+            color: $main_green;
+            background-color: $grey5;
+        }
+    }
+}

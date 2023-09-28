@@ -1,0 +1,264 @@
+
+/**
+ * The CSS shown here will not be introduced in the Quickstart guide, but shows
+ * how you can use CSS to style your Element's container.
+ */
+ /*
+.StripeElement {
+  background-color: white;
+  height: 40px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+
+
+
+#stripe-form * {
+
+}
+*/
+#stripe-form ,
+#payment-update-form {
+    font-family: Roboto, Open Sans, Segoe UI, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    
+    background-color: $grey4;
+    
+    @include padding-half;
+    
+    color: $grey1;
+    
+    fieldset {
+      margin: 0 15px 20px;
+      padding: 0;
+      border-style: none;
+      background-color: $grey1;
+      box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 $grey1;
+      border-radius: 4px;
+    }
+    
+    .row {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-align: center;
+      align-items: center;
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+
+    .row + .row {
+      border-top: 1px solid $grey2;
+    }
+
+    .coupon-entry {
+        color: white;
+        label {
+            color: inherit;
+            display: inline;
+        }
+        input {
+            color: black;
+            width: 70%;
+            display: inline;
+            background-color: $grey1;
+        }
+        button .btn.btn-coupon {
+            display: inline;
+            background-color: $main_blue;
+            width: fit-content;
+            margin: none;
+        }    
+    }
+    
+    label {
+      width: 35%;
+      min-width: 70px;
+      padding: 11px 0;
+      color: $grey3;
+
+      /*
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      */
+    }
+
+    input {
+        width: 100%;
+        padding: 11px 15px 11px 10px;
+        color: $black;
+        background-color: transparent;
+        -webkit-animation: 1ms void-animation-out;
+
+        &:-webkit-autofill {
+            -webkit-text-fill-color: #fce883;
+            transition: background-color 100000000s;
+            -webkit-animation: 1ms void-animation-out;
+        }
+
+        /* note: have to separate to work for some reason */
+        &::placeholder
+                {
+            color: $grey2;
+        }
+
+        &::-webkit-input-placeholder
+                {
+            color: $grey2;
+        }
+
+        &::-moz-placeholder
+                {
+            color: $grey2;
+        }
+
+        &:-ms-input-placeholder 
+                {
+            color: $grey2;
+        }
+    }
+
+    button {
+        display: block;
+        width: calc(100% - 30px);
+        height: 40px;
+        margin: 15px 15px 0;
+        background-color: $main_green;
+        box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08),
+            inset 0 1px 0 $main_green;
+        border-radius: 4px;
+
+        color: black;    /* font color for "pay" button */
+        font-weight: 600;
+        cursor: pointer;
+
+        &:active {
+          background-color: $white;
+          box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08),
+            inset 0 1px 0 #e298d8;
+        }
+        
+        &[disabled], 
+        &:disabled {
+            //background-color: $grey2;
+            cursor: not-allowed;
+        }
+        
+        &.btn.btn-info {
+            background-color: $main_blue;
+        }
+    }
+
+    .StripeElement--webkit-autofill {
+      background: transparent !important;
+    }
+
+    .StripeElement {
+      width: 100%;
+      padding: 11px 15px 11px 10px;
+    }
+
+    .error {
+        svg .base {
+          fill: #fff;
+        }
+
+        svg .glyph {
+          fill: #6772e5;
+        }
+
+        .message {
+          color: #fff;
+        }
+    }
+    
+    .success {
+        .icon .border {
+          stroke: #87bbfd;
+        }
+
+        .icon .checkmark {
+          stroke: #fff;
+        }
+
+        .title {
+          color: #fff;
+        }
+
+        .message {
+          color: #9cdbff;
+        }
+
+        .reset path {
+          fill: #fff;
+        }
+    }
+}
+
+#stripe-form {
+    input, 
+    button {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      outline: none;
+      border-style: none;
+    }
+    
+    #eula_accept {
+        a:hover {
+            cursor: pointer;
+        }
+        input{
+            margin-left: 1em;
+            width: 60px;
+            -webkit-appearance: checkbox;
+            -moz-appearance: checkbox;
+            appearance: checkbox;
+            outline: none;
+            border-style: none;
+        }
+    }
+}
+
+.stripe-logo {
+    margin: 10px;
+}
+
+.stripe-nav {
+    .uib-tab {
+        background: $grey0;
+        
+        border-left: 1px solid $grey3;
+    }
+    
+    .uib-tab:not(.active){
+        border-bottom: 1px solid $grey3;
+    }
+    
+    .uib-tab.active {
+        a, a:focus {
+            color: black;
+            background: $main_green;
+        }
+    }
+}

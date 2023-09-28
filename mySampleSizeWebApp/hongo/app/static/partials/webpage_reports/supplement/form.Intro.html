@@ -1,0 +1,25 @@
+<div id="suppRpt-intro">
+
+    <fieldset class="form-group">
+        <label>Title</label>
+        <input type="text" class="form-control"  value="{{formData.title}}" ng-model="formData.title">
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label>Authors</label>
+        <input type="text" class="form-control" value="{{formData.authors}}" ng-model="formData.authors">
+    </fieldset>
+
+    <fieldset class="form-group">
+        <label>Does your abstract contain the following key elements:</label>
+        
+        <div ng-repeat='elems in formData.abstractElements' class="radio">
+            <label>
+                <input type="checkbox" value="{{elems.id}}" 
+                    ng-checked="elems.selected" ng-model="formData.abstractElements[$index].selected">
+                    {{::elems.name}}
+            </label>
+        </div>
+    </fieldset>
+    
+</div>

@@ -1,0 +1,97 @@
+<h2 class="text-grey">one-way ANOVA</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-newspaper-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            A one-way ANOVA test is a statistical test to compare a single outcome measure that is collected from at least two separate, independent groups of subjects.  Typically these groups correspond to a control condition and multiple experimentally-specified (e.g., treatment) conditions.  
+        </p>
+    </div>
+</div>
+
+<h2 class="text-grey">considerations</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-newspaper-o text-green"></i></span><br></div>
+    <div class="col-sm-10">
+        <p>
+            ANOVA is used when more than two groups are to be compared.  One-way ANOVA and the independent-samples T-test are equivalent for exactly two groups, but the T-test cannot handle more than two groups.
+        </p>
+        <p>
+            A typical experiment that uses one-way ANOVA for analysis might have a single control setting and several treatment doses (say low, medium, and high, for example). Subjects are randomly assigned into the groups.  The number of groups is the number of treatment settings plus one (for the control group).  It is also the same as the number of levels of the factor for a one-way ANOVA.
+        </p>
+        <p>
+            Another use of one-way ANOVA might arise when comparing two distinct treatments (e.g., two different medicines, say A and B).  Subjects are randomly assigned into three groups, namely control, medicine A, and medicine B.
+        </p>
+        <p>
+            As with T-tests, to design an experiment using ANOVA, four quantities are necessary: 
+            the <standard-deviation></standard-deviation> of the measures,
+            the <significance></significance>,
+            the <power></power>,
+            and the <effect-size></effect-size>.
+        </p>
+        <p>
+            The <standard-deviation></standard-deviation> here is the standard deviation of the outcome measure. As with the independent-samples T-test, there is the possibility that the different treatments (or different subject characteristics) making for the grouping have different standard deviations for the outcome measure.  MySampleSize assumes both standard deviations are the same. If you suspect you have different standard deviations, please contact us for consultation.
+        </p>
+        <p>
+            The <effect-size></effect-size> for ANOVA can be difficult to get at: with multiple comparison groups, there is not a single “difference of means” like there is with T tests. With ANOVA, we define the effect size as the standard deviation of the population means of the groups. That is, we consider a “grand mean” of all the groups, and we look at the average distance of the group means from the grand mean.  Mathematically this looks like:
+            <div katex>
+                \text{effect size} = \sqrt{
+                    \frac{1}{\text{nGroups}-1} 
+                    \sum_{i=1}^{\text{nGroups}} \left ( \mu_i - \bar{\mu} \right )^2 }
+            </div>
+            where <katex>\bar{\mu}</katex> is the grand mean.
+            
+            The reason for this particular choice of effect size (as opposed to, say, the maximum difference among all means) is that the power of the hypothesis test is determined by this value, the standard deviation of the outcome measure, number of subjects per group, and significance.  
+        </p>
+        <p>
+            To compute an effect size using this formula, you would need a priori knowledge of the population means for each group in the study, a situation that seems like too much information.
+        </p>
+        <p>
+            Since this value is pretty challenging to determine, you may want to try  a simpler estimate. One way is to imagine the biggest difference between group means you might expect and divide that number by 6. The rationale is that over 99% of normal data lies within +/- three standard deviations (the effect size) of the mean (here the grand mean of all the groups), so there’s a very high chance that the difference between any two values is less than 6 standard deviations.  
+        </p>
+        <p>
+            The divide-by-6 rule of thumb can be conservative, leading to a small effect size and a large number of subjects per group.  If the means for the different factor levels are equally spaced, then the difference between the largest and smallest group means is a reasonable approximate value for the effect size.  
+        </p>
+        <p>
+            Because there are only two groups, the effect size for a T-test is much easier to conceptualize: it’s just the difference in population means of the two groups. It’s important to note that one-way ANOVA with two groups and independent-samples T-test are equivalent, but the difference in effect size definition may create some problems in comparing them.  The grand mean for a two-group ANOVA is just the average of the two means, and the effect size of the ANOVA is the difference in means divided by the square root of 2:
+            <div katex>
+                \begin{aligned}
+                    \text{T-Test effect} &= | \mu_1 - \mu_2 | \\
+                    \text{ANOVA effect} &= \frac{| \mu_1 - \mu_2 |}{\sqrt{2}}
+                \end{aligned}
+            </div>
+        </p>
+        <p>
+            If you plug these into MySampleSize in the respective tools, you will see you get the sample power and sample size results for a two-group experiment.  
+        </p>
+        <p>
+            An aside: while we’re on the topic of conversions and conventions, it is important to note that different references and calculators may use different definitions of effect size. Our definition comports with that of Lenth (2001), and we emphasize that effect size in MySampleSize has the same units as the outcome measure.  G*Power, however, uses a relative effect size (that is unitless) and scales by the number of groups rather than the number of groups – 1, so that the relationship between effect size in MySampleSize and G*power is
+            <div katex>
+                \text{effectSize}_{\text{MySampleSize}} = \sigma \cdot \text{effectSize}_{\text{G*Power}} 
+                \sqrt{ \frac{\text{nGroups}}{\text{nGroups}-1} }
+            </div>
+        </p>
+    </div>
+</div>
+
+
+<h2 class="text-grey">example of a one-way ANOVA</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-newspaper-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            The role of metabotropic glutamate receptor activation after traumatic brain injury (TBI) is not well understood. In vitro studies suggest that activation of Group II metabotropic glutamate receptors may provide some degree of neuroprotection and may be potential targets for the development of therapeutic strategies. The effects of a Group II selective agonist on neuronal degeneration after in vivo TBI are to be studied.
+        </p>
+        <p>
+            The researcher selected a vehicle control and three doses of the agonist DCG-IV: 20 fmol, 100 fmol, and 500 fmol. Degenerating cells are to be counted in 4 coronal sections in the hippocampus in a 1.5 mm block of brain tissue. From pilot studies, the researcher estimated the outcome measure’s standard deviation to be about 125 degenerated neurons.
+        </p>
+        <p>
+            The effect size of interest is difficult to assess, as the magnitudes of the outcome measure, namely degenerated cells within the selected block of tissue, are not well-understood. Again, some preliminary data led the researcher to think the largest difference among the dosages would be about 600 degenerated cells.  Using the “divide by 6” rule of thumb, we estimate the effect size for this one-way ANOVA with four groups to be 100 degenerated brain cells.
+        </p>
+        <p>
+            MySampleSize recommends 7 subjects per group or 28 total subjects. The researcher must randomly assign 28 subjects into 4 distinct groups, 7 subjects per group. One group will receive the saline vehicle control, and each of the other three will receive its specified dose of DCG-IV.
+        </p>
+    </div>
+</div>

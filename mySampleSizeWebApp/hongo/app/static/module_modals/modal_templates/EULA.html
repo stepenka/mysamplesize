@@ -1,0 +1,17 @@
+<div class="modal-header" id="EULA_modal">
+    <h3 class="modal-title">End User License Agreement </h3>
+</div>
+
+<div class="modal-body small">
+    <div ng-include="'static/module_modals/modal_templates/EULA_content.html'"></div>
+<div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    
+    <a class="btn btn-primary" type="button" href="EULA" target="_blank" tooltip-placement="top" 
+        uib-tooltip="Open the content in a new tab to print.">
+        PRINT
+    </a>
+</div>
+

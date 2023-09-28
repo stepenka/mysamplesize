@@ -1,0 +1,118 @@
+<div class="text-center padding-bottom-2em" id="casestudy3">
+    <h3>Case Study 3: Repeated Measures Design<br><small class="text-black">Effects of NAAG peptidase inhibitor on spatial learning and memory after traumatic brain injury in rats.</small></h3>
+</div>
+
+<h2 class="text-grey">objective</h2>
+<hr>
+ <div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-newspaper-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            Traumatic brain injury (TBI) leads to a rapid and excessive elevation in extracellular glutamate in brain which is strongly associated with excitotoxicity and behavioral deficits. The peptide neurotransmitter, N-acetylaspartylglutamate (NAAG), is co-released with glutamate during periods of excessive brain excitation. NAAG activates pre-synaptic autoreceptors that suppress neurotransmitter release. However, extracellular NAAG is rapidly hydrolyzed in the synapse by peptidase activity. In theory, inhibiting NAAG peptidase activity would increase the concentration of NAAG in the synapse and thereby inhibit further glutamate release and reduce  excitotoxicity.
+        </p>
+        <ul class="fa-ul">
+            <li>
+                <i class="fa-li fa fa-square text-green"></i>
+                In this study, the NAAG peptidase inhibitor, PGI-02776 was tested for effects on behavioral performance in the Morris water maze (MWM) after experimental TBI in rats.
+            </li>
+        </ul>
+        <h4 class="green_break padding-half text-grey text-bold"> hypothesis </h4>  
+        <blockquote><p>
+            Pharmacological inhibition of NAAG peptidase with PGI-02776 will reduce cognitive deficits associated with experimental TBI.
+        </p></blockquote>  
+      </div>
+</div>
+
+<h2 class="text-grey">methods</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-list-ul text-green"></i></span></div>
+    <div class="col-sm-10">
+    <p>Subjects were assigned to 3 groups and performance was recorded over 5 consecutive days;</p>
+        <table class="table table-striped" ng-init="tmpVec = range(5)">
+            <thead><tr>
+                <th width="33%"></th>
+                <th width="33%"></th>
+                <th ng-repeat="day in tmpVec"> Day {{::day+1}} </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="subj in range(25)">
+                    <td>
+                        <strong ng-if="$index == 0">Sham TBI control</strong>
+                        <strong ng-if="$index == 5">TBI + saline vehicle</strong>
+                        <strong ng-if="$index == 15">TBI + 10mg/kg PGI-02776</strong>
+                    </td>
+                    <td> Subject {{::subj+1}} </td>
+                    <td ng-repeat="num in tmpVec">{{::num+1}}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p>
+            Anesthetized rats were administered a moderate magnitude of TBI. Thirty minutes after TBI, PGI-02776 or saline vehicle was administered intraperitoneal. A sham control group was subjected to identical surgical and anesthetic procedures with the exception of receiving a TBI. Rats were tested in the MWM on days 11-15 after TBI.
+        </p>
+        <p>
+            Rats received a total of 4 MWM trials per day from different starting point, over 5 consecutive days. Mean latency to find the submerged, hidden platform was calculated for each day to assess learning.
+        </p>
+    </div>
+</div>
+
+<h2 class="text-grey">statistics</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-file-code-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            A 3(group) X 5(assessment days) repeated measures ANOVA with assessment days as the repeated variable within subjects followed by Dunnett’s test comparing each TBI group to sham control.
+        </p>
+        <pre><code>
+    library(multcomp)
+    set.seed(12345)
+    case_study <- read.csv(sampledata.csv)
+
+    aov_result <- aov(performance ~ treatment * day + Error(subj/treatment*day), data=case_study1)
+    summary(aov_result1)
+
+    dunnet_result <- glht(aov_result, linfct=mcp(Group="Dunnett")))
+    summary(dunnet_result)
+        </code></pre>
+        <p>Results:</p>
+        <pre><code>
+    Multiple Comparisons of Means: Dunnett Contrasts
+
+
+    Fit: aov(formula = cell_count ~ group, data = case_study1)
+
+    Linear Hypotheses:
+               Estimate Std. Error t value Pr(>|t|)   
+    B - A == 0 -0.35990    0.37009  -0.972  0.76545   
+    C - A == 0 -0.26896    0.37009  -0.727  0.90019   
+    D - A == 0 -0.09026    0.37009  -0.244  0.99894
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+    (Adjusted p values reported -- single-step method)
+        </code></pre>
+    </div>
+</div>
+
+
+<h2 class="text-grey">results</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-line-chart text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            There was a significant main effect of time [F(4,88)=96.92, p < 0.001] indicating that all groups learned the task over time. There was a significant time by group interaction [F(8,88)=4.06, p < 0.001] indicating that the rate of learning differed between groups. There was a significant main effect of group on latency to find the platform [F(2,22)=8.719, p < 0.005]. Post hoc Dunnett’s test indicated that over 5 days the TBI + saline group took significantly more time to locate the hidden platform (p < 0.001) compared to the sham TBI group on days 11-15 post-injury. Latency to locate the hidden platform was not significantly different between the TBI+PGI-02776 group and sham TBI group. Variation bars in the figure are standard error of the mean.
+        </p>
+        
+        <h4 class="green_break padding-half text-grey text-bold"> conclusions </h4>
+        <p>
+            TBI produced significant cognitive deficits compared to sham. The performance of TBI animals treated with the NAAG peptidase inhibitor, PGI-02776 was not significantly different from the sham control group. Thus, PGI-02776 improved cognitive performance measured by spatial learning and memory in the MWM.
+        </p> 
+        <figure class="row figure margin-top-2em">
+            <img ng-src="{{::imgPath}}/cs3_result1.jpg" alt="" class="img-responsive text-center"/>
+            <figcaption class="figure-caption text-xs-right">Fig. 1</figcaption>
+        </figure>
+    </div>
+</div>

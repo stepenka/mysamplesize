@@ -1,0 +1,44 @@
+<div class="padding-top-2em padding-bottom-2em" ng-init="reset(undefined, 'noauth RESET');">
+
+    <div class="form-container">
+        <div class="page-header spacing text-center padding-bottom-1em">
+            <h2 ng-if="state.current.name == 'tools.samplesize'">   Sample Size Calculator </h2>
+            <h2 ng-if="state.current.name == 'tools.powersize'">    Power Size Calculator </h2>
+            <h2 ng-if="state.current.name == 'tools.pwrgraph'">     Power Plots </h2>
+            <h2 ng-if="state.current.name == 'tools.rng'">          Random Number Generator </h2>
+            <h2 ng-if="state.current.name == 'tools.sims'">         Experiment Simulations </h2>
+            <h2 ng-if="state.current.name == 'tools.analysis'">     Data Analysis </h2>
+            <br>
+        </div>
+        
+        <ng-form class="form_tools background-grey padding-bottom-2em">
+            <div>
+                <div ng-if="state.current.name == 'tools.samplesize'">
+                    <div ng-include src="toolsPath+'noauth/tools.sample.html'"></div>
+                </div>
+                
+                <div ng-if="state.current.name == 'tools.powersize'">
+                    <div ng-include src="toolsPath+'noauth/tools.power.html'"></div>
+                </div>
+                
+                <div ng-if="state.current.name == 'tools.pwrgraph'">
+                    <div ng-include src="toolsPath+'noauth/tools.pwr_graph.html'"></div>
+                </div>
+                
+                <div ng-if="state.current.name == 'tools.sims'">
+                    <div ng-include src="toolsPath+'noauth/tools.sims.html'"></div>
+                </div>
+                
+                <div ng-if="state.current.name == 'tools.rng'">
+                    <div ng-include src="toolsPath+'noauth/tools.rng.html'"></div>
+                </div>
+                
+                <div ng-if="state.current.name == 'tools.analysis'">
+                    <div ng-include src="toolsPath+'noauth/tools.analysis.html'"></div>
+                </div>
+                
+                <p class="padding-top-2em padding-bottom-2em"></p>
+            </div>
+        </ng-form>
+    </div>
+</div>

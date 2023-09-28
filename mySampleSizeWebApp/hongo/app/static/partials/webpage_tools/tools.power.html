@@ -1,0 +1,247 @@
+<div class="padding-bottom-2em" ng-init="register( empty )">
+    <label class="padding-top-1em padding-bottom-2em">
+        Please select a value for each of the following: 
+    </label>
+    
+    <div class="row text-right tools_label" ng-model-options="{debounce: 200}">
+        <div ng-repeat="item in design.stat.selectedOption.power_items track by $index" ng-form="nestedForm">
+
+            <!-- "NORMAL" INPUTS -->
+            <div class="col-xs-8" ng-class="{'col-md-5': design.notEmbedded}" ng-if="item.flag == 0 || item.flag === undefined">
+                <label>{{item.label}}</label>
+                
+                <input type="number" name="inp{{$index}}" min="{{item.min}}" max="{{item.max}}" step="{{item.step}}" 
+                    ng-model="calculator['data'][item.model]" ng-change="calculate();" ng-disabled="item.disabled && !design.notEmbedded" 
+                    uib-tooltip-html="esTooltip.content" tooltip-trigger="'focus'" tooltip-enable="esTooltip.enabled(item.label)" tooltip-popup-delay="1000" 
+                    required>
+            
+                <tooltip-link content="item.tooltip" url="{{item.tooltip_link}}" ng-show="nestedForm.inp{{$index}}.$valid"></tooltip-link>
+                
+                <tooltip-warn content="'Please fill out this field'" ng-show="nestedForm.inp{{$index}}.$error.required"></tooltip-warn>
+                
+                <tooltip-warn content="'Please select a value between '+item.min+' and '+item.max+'.'"
+                    ng-show="(nestedForm.inp{{$index}}.$error.min || nestedForm.inp{{$index}}.$error.max) && !nestedForm.inp{{$index}}.$error.required">
+                </tooltip-warn>
+            </div>
+            
+            <!-- TREATMENTS -->
+            <div ng-if="item.flag" class="col-xs-8" ng-class="{'col-md-5': design.notEmbedded}">
+                <div ng-repeat="treat in item.treatments track by $index">
+                    <label>{{treat.label}}</label>
+                    
+                    <input type="number" name="treat{{$index}}" min="{{treat.min}}" max="{{treat.max}}" step="{{treat.step}}" 
+                        ng-model="calculator['treatments'][$index].levels" ng-change="calculate();"
+                        ng-disabled="treat.disabled && !design.notEmbedded" required>
+                    
+                    <tooltip-link content="treat.tooltip" url="{{treat.tooltip_link}}" ng-show="nestedForm.treat{{$index}}.$valid"></tooltip-link>
+                    
+                    <tooltip-warn content="'Please fill out this field'" ng-show="nestedForm.treat{{$index}}.$error.required"></tooltip-warn>
+                    
+                    <tooltip-warn content="'Please select a value between '+treat.min+' and '+treat.max+'.'"
+                        ng-show="(nestedForm.treat{{$index}}.$error.min || nestedForm.treat{{$index}}.$error.max) && 
+                                !nestedForm.treat{{$index}}.$error.required">
+                    </tooltip-warn>
+                </div>
+            </div>
+
+            <!-- Repeated Measures effect size -->
+            <div ng-if="item.flag == 2" class="text-left padding-top-2em col-xs-8 col-xs-offset-2">
+                <div ng-include="'static/partials/webpage_tools/repMeasuresES.html'"></div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Answer Box -->
+<div class="background-dkgrey spacing text-center padding-bottom-2em" id="scrollArea">
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1 text-red" ng-show="calculator.data.es==0 || design.isNone()">
+            <h2 ng-hide="design.isNone()">The Effect Size is 0. Please select alternative values to calculate Effect Size.</h2>
+        </div>
+        
+        <div class="col-sm-10 col-sm-offset-1 text-white" id="Panswer" ng-hide="calculator.data.es==0 || design.isNone()">
+            <h2> Estimated Statistical Power: </h2>
+            
+            <div ng-show="anyError.tf" class="padding-left-2em">
+                <h3><strong class="text-red"> -- {{ anyError.msg }} </strong></h3>
+            </div>
+        
+            <div ng-show="!anyError.tf" class=" padding-left-2em">    
+                <!--div ng-hide="design.isANOVA2() || design.isANOVAm() || design.isRMPS1()">
+                    <h3><strong class="text-green" ng-bind="calculator.data.pow[0]"></strong>
+                        <tooltip-warn ng-show="calculator.data.pow[0]<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                    </h3>
+                </div-->
+                <div ng-hide="design.isANOVA1() || design.isANOVA2() || design.isANOVAm() || design.isRMPS1()">
+                    <h3><strong class="text-green" ng-bind="calculator.data.pow[0]"></strong>
+                        <tooltip-warn ng-show="calculator.data.pow[0]<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                    </h3>
+                </div>
+
+                <!-- 1-Way ANOVA -->
+                <div ng-show="design.isANOVA1()" class="padding-left-1em">
+					<p class="padding-top-1em green_break" style="text-align:left"> ANOVA Test </p>
+                    <h3><strong class="text-green" ng-bind="calculator.data.pow[0]"></strong>
+                        <tooltip-warn ng-show="calculator.data.pow[0]<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                    </h3>
+					
+					<p class="padding-top-1em green_break" style="text-align:left"> Post hoc Dunnett Test </p>
+                    <h3><strong class="text-green" ng-bind="calculator.data.powPD[0]"></strong>
+                        <tooltip-warn ng-show="calculator.data.powPD[0]<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                    </h3>
+					
+					<p class="padding-top-1em green_break" style="text-align:left"> Post hoc Tukey Test </p>
+                    <h3><strong class="text-green" ng-bind="calculator.data.powPT[0]"></strong>
+                        <tooltip-warn ng-show="calculator.data.powPT[0]<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                    </h3>		
+				</div>
+				
+                <!-- 2-Way ANOVA -->
+                <div ng-show="design.isANOVA2()" class="padding-left-1em">
+					<p class="padding-top-1em green_break" style="text-align:left"> ANOVA Test </p>
+					<h4>
+                        <strong class="text-green" ng-bind="calculator.data.pow[0]"></strong> in Effect 1 {{calculator.treatments[0].description}} 
+                        <tooltip-warn ng-show="calculator.data.pow[0]<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                    </h4>
+                    <h4>
+                        <strong class="text-green" ng-bind="calculator.data.pow[1]"></strong> in Effect 2  {{calculator.treatments[1].description}} 
+                        <tooltip-warn ng-show="calculator.data.pow[1]<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                    </h4>
+                    <h4>
+                        <strong class="text-green" ng-bind="calculator.data.pow[2]"></strong> in Interaction 
+                        <tooltip-warn ng-show="calculator.data.pow[2]<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                    </h4>
+					
+                    <p class="padding-top-1em green_break" style="text-align:left"> Post hoc Dunnett Test </p>
+					<h4>
+                        <strong class="text-green" ng-bind="calculator.data.powPD[0]"></strong> in Effect 1  {{calculator.treatments[3].description}} 
+                        <tooltip-warn ng-show="calculator.data.powPD[0]<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                    </h4>
+                    <h4>
+                        <strong class="text-green" ng-bind="calculator.data.powPD[1]"></strong> in Effect 2  {{calculator.treatments[4].description}} 
+                        <tooltip-warn ng-show="calculator.data.powPD[1]<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                    </h4>
+                    <h4>
+                        <strong class="text-green" ng-bind="calculator.data.powPD[2]"></strong> in Interaction 
+                        <tooltip-warn ng-show="calculator.data.powPD[2]<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                    </h4>
+					
+                    <p class="padding-top-1em green_break" style="text-align:left"> Post hoc Tukey Test </p>
+                    <h4>
+                        <strong class="text-green" ng-bind="calculator.data.powPT[0]"></strong> in Effect 1 {{calculator.treatments[6].description}} 
+                        <tooltip-warn ng-show="calculator.data.powPT[0]<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                    </h4>
+                    <h4>
+                        <strong class="text-green" ng-bind="calculator.data.powPT[1]"></strong> in Effect 2 {{calculator.treatments[7].description}} 
+                        <tooltip-warn ng-show="calculator.data.powPT[1]<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                    </h4>
+                    <h4>
+                        <strong class="text-green" ng-bind="calculator.data.powPT[2]"></strong> in Interaction
+                        <tooltip-warn ng-show="calculator.data.powPT[2]<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                    </h4>
+					
+                </div>
+            
+                <!-- Multi-Way ANOVA -->
+                <div ng-show="design.isANOVAm()">
+                  <table class="col-sm-5 table borderless"><tbody>
+					<p class="padding-top-1em green_break" style="text-align:left"> ANOVA Test </p>
+                    <tr ng-repeat="statPower in calculator.data.pow track by $index">
+                        <td class="text-right" ng-class="{'h4' : design.notEmbedded}">
+                            <strong class="text-green" ng-bind="statPower"></strong>
+                        </td>
+
+                        <td ng-class="{'h4' : design.notEmbedded}">
+                            in 
+                            <span ng-show="AOVMcomb.values[$index].length > 1"> interaction between </span>
+                            Factor 
+                            
+                            <span ng-repeat="tmp in AOVMcomb.values[$index] track by $index">
+                                {{tmp}} <span ng-hide="$last"> and </span>
+                            </span>					
+							<tooltip-warn ng-show="statPower<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                            
+                            <span ng-if="$index < calculator.data.treatmentsTotal" ng-bind="calculator.treatments[$index].description"></span>
+                        </td>
+                    </tr> 
+				  </tbody></table>				  
+				  
+                  <table class="col-sm-5 table borderless"><tbody>
+					<p class="padding-top-1em green_break" style="text-align:left"> Post hoc Dunnett Test </p>			
+                    <tr ng-repeat="statPower in calculator.data.powPD track by $index">
+                        <td class="text-right" ng-class="{'h4' : design.notEmbedded}">
+                            <strong class="text-green" ng-bind="statPower"></strong>
+                        </td>
+
+                        <td ng-class="{'h4' : design.notEmbedded}">
+                            in 
+                            <span ng-show="AOVMcomb.values[$index].length > 1"> interaction between </span>
+                            Factor 
+                            
+                            <span ng-repeat="tmp in AOVMcomb.values[$index] track by $index">
+                                {{tmp}} <span ng-hide="$last"> and </span>
+                            </span>
+							<tooltip-warn ng-show="statPower<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                            
+                            <span ng-if="$index < calculator.data.treatmentsTotal" ng-bind="calculator.treatments[$index].description"></span>
+                        </td>
+                    </tr>
+				  </tbody></table>
+				  
+                  <table class="col-sm-5 table borderless"><tbody>
+					<p class="padding-top-1em green_break" style="text-align:left"> Post hoc Tukey Test </p>			
+                    <tr ng-repeat="statPower in calculator.data.powPT track by $index">
+                        <td class="text-right" ng-class="{'h4' : design.notEmbedded}">
+                            <strong class="text-green" ng-bind="statPower"></strong>
+                        </td>
+
+                        <td ng-class="{'h4' : design.notEmbedded}">
+                            in 
+                            <span ng-show="AOVMcomb.values[$index].length > 1"> interaction between </span>
+                            Factor 
+                            
+                            <span ng-repeat="tmp in AOVMcomb.values[$index] track by $index">
+                                {{tmp}} <span ng-hide="$last"> and </span>
+                            </span>
+							<tooltip-warn ng-show="statPower<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                            
+                            <span ng-if="$index < calculator.data.treatmentsTotal" ng-bind="calculator.treatments[$index].description"></span>
+                        </td>
+                    </tr>
+                  </tbody></table>
+                </div>
+             
+                <!-- Repeated Measures: Parallel -->
+                <div ng-show="design.isRMPS1()">
+            
+                  <!-- NOTE: this requires calculator.data.pow to be the same length as treatment.display. CHECK THIS. -->
+                  <table class="padding-left-2em table table-condensed borderless" ng-show="!anyError.tf"><tbody>
+                    <tr ng-repeat="pow in calculator.data.pow track by $index">
+                        <td class="text-right" ng-class="{'h4' : design.notEmbedded}">
+                            <strong class="text-green" ng-bind="pow"></strong>
+                        </td>
+
+                        <td ng-class="{'h4' : design.notEmbedded}">
+                            in
+                            <span ng-show="calculator.data.esComb.index[$index].length > 1"> interaction </span>
+                            <span ng-repeat="tmp in calculator.data.esComb.index[$index] track by $index">
+                                <span ng-if="tmp==1"> Time Factor </span>
+                                <span ng-if="tmp>1">  Factor {{tmp-1}} </span> 
+                                <span ng-hide="$last"> & </span>
+                            </span>
+
+							<tooltip-warn ng-show="pow<=0.8" uib-tooltip="Warning: Your Statistical Power is less than 0.8! It is unlikely you will detect a true positive results.  Please consider to re-design you experiment."></tooltip-warn>
+                            
+                            <span ng-if="$index < calculator.data.treatmentsTotal" ng-bind="calculator.treatments[$index].description"></span>
+                        </td>
+                    </tr>
+                  </tbody></table>
+                </div>
+            
+            </div> <!-- ng-show="!anyError.tf" -->
+        </div>
+        <div class="col-sm-12 padding-2em" ng-show="calculator.data.es==0 || design.isNone()"></div>
+        
+    </div><!-- end row-->
+</div><!-- end answer box -->

@@ -1,0 +1,28 @@
+<!-- Report for Reports Page of Design Guide Questionnaire -->
+<div ng-hide="state.current.name == 'design_guide'">  
+    <div class="container text-center padding-bottom-2em padding-top-2em">
+        <h2 class="text-grey">Design Guide Summary Report</h2> 
+        <p>a downloadable summary of your Design Guide Results is provided below</p>
+    </div>
+</div>
+
+<!-- Iframe Design Guide Questionnaire -->
+<div class="row background-transparent" ng-controller="reportsController">
+    <div class="form-container">
+    
+        <!--
+        <h1 ng-show="!DGcompleted" class="warning-bar">
+            <tooltip-warn></tooltip-warn>
+            Please complete the <a ui-sref="design_guide">Design Guide</a> to generate a report.
+        </h1>
+        -->
+        
+        <div class="wait-icon col-xs-2 col-xs-offset-5" style="top:0;margin-top:25em;opacity: 1;z-index:0;">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+        </div>
+        <iframe id='dg-sumRptIframe' class="report" scrolling="yes" seamless="seamless" src="{{design_report_url}}" height="1000vh">
+        </iframe>
+        
+    </div>
+</div>
+

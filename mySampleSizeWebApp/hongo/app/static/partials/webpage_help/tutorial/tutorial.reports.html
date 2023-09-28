@@ -1,0 +1,118 @@
+<h2 class="text-grey text-lowercase">Reports</h2>
+<hr>
+<div class="row margin-bottom-2em" ng-init="ipathReport=imgPath+'/tutorial/Reports'; heads=tutorialContents[3].groups;">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-map-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p><b>Save and Download your results for future reference and reporting.</b></p>
+        <p>
+            The reporting tools are designed to simplify the documentation process. We recapture summary reports generated in DESIGN GUIDE and TOOLS. The ARRIVE Supplement Form is a comprehensive form that encompasses all of the necessary information about your Experimental Design and Methods so that your study can be easily replicated and understood by others. If you have filled out the Design Guide, some information will be automatically propagated to the Supplement form so that redundant information does not have to be entered. This form is intended to be used as a supplement to documentation or publications but may also be a useful guide for researchers to ensure that all necessary and good practices were followed throughout the design process.
+        </p>
+        <p>
+            A checklist version of the ARRIVE Supplement form is also available to assist researchers throughout the design process as a quick reference to ensure that all methods are on track.
+        </p>
+        <p>
+            A User Database allows researchers to save working projects or past results for future reference.
+        </p>
+        
+        <uib-accordion id="tutReports">
+            <div uib-accordion-group is-open="heads[0].active" id="{{heads[0].id}}">
+                <uib-heading-with-icon title="'Design Guide'" active="heads[0].active"></uib-heading-with-icon>
+                
+                <div class="row margin-top" id="{{heads[0].id}}-content">
+                    <div class="col-sm-12">
+                        <p>
+                            If you have gone through the DESIGN GUIDE, the DESIGN GUIDE has already generated a Summary Report. This page displays the same report. The PDF report can be downloaded or printed. 
+                        </p>
+                    </div>
+                    <div class="col-sm-12 padding-bottom-2em">
+                        <img class="img-responsive width-100" ng-src="{{ipathReport}}/design_guide.png">
+                    </div>
+
+                    <br><br>
+                    <div class="col-sm-12">
+                        <p>
+                            If you have not gone through the DESIGN GUIDE, you will not see the report. Instead, you will get a warning.
+                        </p>
+                    </div>
+                    <div class="col-sm-12 col-md-10 col-md-offset-1">
+                        <img class="img-responsive" ng-src="{{ipathReport}}/design_guide_warning.png">
+                    </div>                            
+                </div>
+            </div>
+            
+            <div uib-accordion-group is-open="heads[1].active" id="{{heads[1].id}}">
+                <uib-heading-with-icon title="'Statistical Tools'" active="heads[1].active"></uib-heading-with-icon>
+                
+                <div class="row margin-top" id="{{heads[1].id}}-content">
+                    <div class="col-sm-12">
+                        <p>
+                            If you have gone through the TOOLS and generated a Summary Report, it will be displayed here.
+                        </p>
+                    </div>
+                    <div class="col-sm-12 col-md-10 col-md-offset-1">
+                        <img class="img-responsive width-100" ng-src="{{ipathReport}}/statistical_tools.png">
+                    </div>                            
+                </div>
+            </div>
+            
+            <div uib-accordion-group is-open="heads[2].active" id="{{heads[2].id}}">
+                <uib-heading-with-icon title="'ARRIVE Supplement Form'" active="heads[2].active"></uib-heading-with-icon>
+                
+                <div class="row margin-top" id="{{heads[2].id}}-content">
+                    <div class="col-sm-12">
+                        <p>
+                            On this page, enter in your design data and answer some questions. The information will be used to generate a supplement ARRIVE (Animal Research: Reporting of In Vivo Experiment).
+                        </p>
+                        <h4> Getting Started:</h4>
+                        <p>
+                            Click through every tab and on each page, enter in all information that pertains to your specific study.
+                        </p>
+                    </div>
+                    <div class="col-sm-12 col-md-10 col-md-offset-1 padding-bottom-1em">
+                        <img class="img-responsive" ng-src="{{ipathReport}}/sum_form_start.png">
+                    </div>
+                    <div class="col-sm-12">
+                        <h4>Submit</h4>
+                        <p>
+                            When all information has been filled out for every tab, click on the 'Generate LaTeX File' button and a LaTeX version of this report will automatically begin to download. This report can be edited or modified in LaTeX as necessary for your specific design requirements.
+                        </p>
+                    </div>
+                    <div class="col-sm-12 col-md-10 col-md-offset-1">
+                        <img class="img-responsive" ng-src="{{ipathReport}}/sum_form_end.png">
+                    </div>
+                </div>
+            </div>
+            
+            <div uib-accordion-group is-open="heads[3].active" id="{{heads[3].id}}">
+                <uib-heading-with-icon title="'ARRIVE Supplement Checklist'" active="heads[3].active"></uib-heading-with-icon>
+                
+                <div class="row margin-top" id="{{heads[3].id}}-content">
+                    <div class="col-sm-12">
+                        <p>
+                            This is a supplement ARRIVE checklist to help you check if you have completed items required by ARRIVE. You will go through listed items and check off each. When done, you can download the checklist and file with your proposals.
+                        </p>
+                    </div>
+                    <div class="col-sm-12 col-md-10 col-md-offset-1">
+                        <img class="img-responsive width-100" ng-src="{{ipathReport}}/checklist.png">
+                    </div>                            
+                </div>
+            </div>
+            
+            <div uib-accordion-group is-open="heads[4].active" id="{{heads[4].id}}">
+                <uib-heading-with-icon title="'User Projects'" active="heads[4].active"></uib-heading-with-icon>
+                
+                <div class="row margin-top" id="{{heads[4].id}}-content">
+                    <div class="col-sm-12">
+                        <p>
+                            This page lets you view, edit, or delete your saved projects.
+                        </p>
+                    </div>
+                    <div class="col-sm-12 col-md-10 col-md-offset-1">
+                        <img class="img-responsive width-100" ng-src="{{ipathReport}}/user_projects.png">
+                    </div>                            
+                </div>
+            </div>
+            
+        </uib-accordion>
+    </div>
+</div>

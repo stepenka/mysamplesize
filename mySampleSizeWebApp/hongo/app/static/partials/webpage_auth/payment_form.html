@@ -1,0 +1,225 @@
+<div ng-controller="stripeController">
+
+<form id="payment-form" name="paymentForm" class="padding-top-2em" ng-hide="stripe.info.processed" ng-init="make_stripe_element()">
+
+    <div ng-show="stripe.info.error" class="col-xs-12 text-red text-bold">
+        <b>Error</b>: <span ng-bind="stripe.info.message"></span>
+    </div>
+    
+    <uib-tabset active="0" justified="true" class="stripe-nav margin-bottom-2em">
+        <uib-tab index="0" heading="Monthly Subscription" select="stripe.info.tab_selected=0; stripe.initSingleUserInfo()">
+        </uib-tab>
+        
+        <uib-tab index="1" heading="Yearly Subscription" select="stripe.info.tab_selected=1; updateGroupPrice()">
+            <p class="padding-top-1em">
+                We offer discounts on group subscriptions for your team!
+            </p>
+        </uib-tab>
+        
+        <uib-tab index="2" heading="Enter license code" select="stripe.info.tab_selected=2;">
+            <p class="padding-top-1em">
+                Enter your group license code here.
+            </p>
+        </uib-tab>
+    </uib-tabset>
+    
+    <div id="stripe-form" class="col-md-10 col-sm-offset-1 margin-bottom-2em">
+        <!-- Input data, show if not currently logged in -->
+        <fieldset ng-if="!authService.authenticated">
+            <div class="row">
+                <label for="example1-name" data-tid="elements_examples.form.name_label">Full Name *</label>
+                <input id="example1-name" data-tid="elements_examples.form.name_placeholder"
+                    type="text" placeholder="Jane Doe" ng-model="stripe.info.name" required="">
+            </div>
+            <div class="row">
+                <label for="example1-title" data-tid="elements_examples.form.title_label">Affiliation *</label>
+                <input id="example1-title" data-tid="elements_examples.form.title_placeholder"
+                    type="text" placeholder="ACME University" ng-model="stripe.info.affiliation" required="">
+            </div>
+            <div class="row">
+                <label for="example1-email" data-tid="elements_examples.form.email_label">Email *</label>
+                <input id="example1-email" data-tid="elements_examples.form.email_placeholder" 
+                    type="email" placeholder="janedoe@gmail.com" ng-model="stripe.info.email" required="">
+            </div>
+			
+            <div class="row" uib-tooltip="Password length must be at least 8 characters including a lower-case letter, an upper-case letter, and a number" tooltip-trigger="mouseover" tooltip-placement="top" >
+                <label for="example1-password">Create Password *</label>
+                <input id="example1-password" type="password" placeholder="********" ng-model="stripe.info.password" required="">
+            </div>
+			
+			<!--
+            <div class="row">
+                <label for="example1-password">Create Password *</label>
+                <input id="example1-password" type="password" placeholder="********" ng-model="stripe.info.password" required="">
+            </div> -->
+			
+			<div class="row">
+                <label for="example1-phone" data-tid="elements_examples.form.phone_label">Phone</label>
+                <input id="example1-phone" data-tid="elements_examples.form.phone_placeholder"
+                    type="tel" placeholder="(941) 555-0123" ng-model="stripe.info.phone">
+            </div>
+        </fieldset>
+        
+        <!-- First tab: single user 
+        <div ng-if="stripe.info.tab_selected==0" class="row padding-bottom-2em">
+            <div class="col-sm-6">
+                <em>Select plan type:</em>
+                <select class="form-control" ng-model="stripe.info.subscription" 
+                    ng-change="stripe.info.selected_plan_id = stripe.info.subscription.id; stripe.updateFinalPrice( stripe.info.subscription.amount )"
+                    ng-options="tmp.interval+'ly' for tmp in stripe.stripe_plans track by tmp.id">
+                </select>
+            </div>
+            <div class="col-sm-6">
+                You have selected the 
+                    {{stripe.info.subscription.interval+'ly'}} plan of ${{stripe.info.subscription.amount/100}}
+                    per {{stripe.info.subscription.interval}}.
+            </div>
+        </div>
+        -->
+        <!-- Second tab: buy group license -->
+        <div ng-if="stripe.info.tab_selected==1" ng-init="stripe.updateGroupPrice()" class="col-xs-12 padding-bottom-2em">
+            <div class="col-xs-12 col-sm-6">
+                <em>Yearly subscription tiered pricing:</em>
+                <br>
+                <table class="table table-condensed text-center">
+                    <thead>
+                        <td> Price per user </td>
+                        <td> Number of users </td>
+                    </thead>
+                    <tr ng-repeat="tmp in stripe.info.group.plan.tiers track by $index">
+                        <td> ${{tmp.unit_amount/100}} </td>
+                        <td>{{tmp.up_to}}</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="col-xs-6">
+                <label for="example1-quantity" data-tid="elements_examples.form.quantity_label">
+                    <span class="text-white">Quantity</span>
+                </label>
+                <fieldset class="padding-left-1em">
+                    <input id="example1-quantity" name="quant" type="number"
+                        data-tid="elements_examples.form.quantity_placeholder" 
+                        min="{{stripe.info.group.plan.tiers[0].up_to}}" 
+                        ng-model="stripe.info.quantity" 
+                        ng-change="stripe.updateGroupPrice()" 
+                        ng-pattern="/^-?[0-9][^\.]*$/"  required>
+                </fieldset>
+                <div ng-show="!paymentForm.quant.$valid">
+                    <tooltip-warn content="'Invalid number'" ng-show="!paymentForm.quant.$valid"></tooltip-warn>
+                    <span class="text-red text-bold">Invalid input</span>
+                </div>
+                <p class="text-muted">
+                    By purchasing multiple subscriptions, you will obtain a code to distribute to your team that can then be used in the "Enter license code" tab.
+                </p>
+            </div>
+        </div>
+		
+		<!-- A temporaty fix for password policy -->
+        <div class="col-xs-12 padding-bottom-1em">
+            <strong> Note: Password length must be at least 8 characters including a lower-case letter, an upper-case letter, and a number. </strong>
+        </div>
+
+
+        <!-- License agreement -->
+        <div class="col-xs-12 padding-bottom-1em" id="eula_accept">
+            <input type="checkbox" required></input>
+            I have read and accept the <a ng-click="authService.showEULA()">End-User License Agreement</a>.
+        </div>
+        
+        <div ng-show="stripe.info.error" class="col-xs-12 text-red text-bold">
+            <b>Error</b>: <span ng-bind="stripe.info.message"></span>
+        </div>
+
+        <!-- Actual card payment entry -->
+        <!-- Show this if on Yearly Subscription tab, and/or if logged in. -->
+        <div class="col-xs-12" ng-show="(stripe.info.tab_selected==1 || authService.authenticated) && !(stripe.info.tab_selected==2)">
+            <fieldset>
+                <div class="form-row" id="">
+                    <div id="card-element">
+                    <!-- A Stripe Element will be inserted here. -->
+                    </div>
+
+                    <!-- Used to display form errors. -->
+                    <div id="card-errors" role="alert"></div>
+                </div>
+            </fieldset>
+            
+            <div class="width-100" style="display: inline-block;"
+                uib-tooltip="Enter all data to proceed" tooltip-trigger="mouseover" tooltip-placement="top" tooltip-enable="paymentForm.$invalid">
+                
+                <button type="submit" name="pay_1" data-tid="elements_examples.form.pay_button" 
+                    ng-disabled="paymentForm.$invalid">
+                    <i class="fa fa-1x fa-lock text-grey"></i>
+                    Pay ${{stripe.info.display_price/100}}
+                </button>
+            </div>
+
+            <p class="padding-1em">
+                <span ng-show="stripe.info.tab_selected==0 && stripe.info.subscription.trial_period_days && !authService.authenticated">
+                    You will not be charged if you cancel your subscription within 
+                    {{stripe.info.subscription.trial_period_days}} day(s).
+                </span>
+            </p>
+        </div>
+        <div ng-if="stripe.info.tab_selected==2" class="col-xs-12">
+            <fieldset>
+                <div class="row">
+                    <label for="example1-license" data-tid="elements_examples.form.name_label">License Key *</label>
+                    <input id="example1-license" data-tid="elements_examples.form.name_placeholder"
+                        type="text" placeholder="*******" ng-model="stripe.info.license_code" required="">
+                </div>
+            </fieldset>
+        </div>
+        
+        <!-- Show "submit" if entering code, or on Monthly tab but NOT logged in.
+        Logged in users should not get access to another trial period -->
+        <div class="col-xs-12 margin-bottom-1em" ng-show="(stripe.info.tab_selected != 1 && !authService.authenticated) || (stripe.info.tab_selected==2)"
+            style="display: inline-block;"
+            uib-tooltip="Enter all data to proceed" tooltip-trigger="mouseover" tooltip-placement="top" tooltip-enable="paymentForm.$invalid">
+            <button type="submit" name="pay_2" data-tid="elements_examples.form.pay_button" ng-disabled="paymentForm.$invalid">
+                <i class="fa fa-1x fa-lock text-grey"></i>
+                Submit
+            </button>
+        </div>
+        <br>
+        
+        <p class="padding-1em">
+            <span ng-if="stripe.info.tab_selected==0 && !authService.authenticated">
+                You trial period will end in {{stripe.info.subscription.trial_period_days}} day(s) and you will be asked to submit your credit card information.
+            </span>
+            <span ng-if="stripe.info.tab_selected==1">
+                You will be charged immediately.
+            </span>
+            If you have any questions, please <a ui-sref="help.contact">contact us</a>.
+            <img class="pull-right stripe-logo" ng-src="static/img/stripe-badges/powered_by_stripe.outline.light.svg" />
+        </p>
+    </div>
+</form>
+
+<div class="green_break"></div>
+<div ng-show="stripe.info.processed" class="col-xs-12 col-xs-offset-1 success">
+    <h3> Success! </h3>
+    <ul class="padding-bottom-2em">
+        <li class="padding-top-1em">
+            <span ng-if="stripe.info.tab_selected==1">Payment processed. </span>
+            
+            <span ng-hide="authService.authenticated">
+                An account with the email {{stripe.info.email}} has been created.
+            </span>
+            
+            Please refer to authorization code <i>{{stripe.info.message.id}}</i> for your records.
+        </li>
+        <li class="padding-top-1em" ng-if="stripe.info.license_code && (stripe.info.tab_selected!=2)">
+            Your license is <b>{{stripe.info.license_code}}</b>, valid for up to {{stripe.info.quantity}} users.
+        </li>
+        <li class="padding-top-1em" ng-if="stripe.info.tab_selected==1">
+            You will receive a receipt from Stripe to the email provided.
+        </li>
+        <li class="padding-top-1em" ng-hide="authService.authenticated">
+            You must <i class="text-bold">verify your email</i> before logging in to your account.
+        </li>
+    </ul>
+</div>
+
+</div>

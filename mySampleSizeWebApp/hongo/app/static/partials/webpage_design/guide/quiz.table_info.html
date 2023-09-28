@@ -1,0 +1,136 @@
+<!-- Table layout for Treatments Tab and Factors Tab under DESIGN GUIDE -->
+<table class="table table-hover" ng-init="factorsPage=2" id="trtTable">
+<thead>
+    <tr> 
+        <th> </th>
+        <th> Name </th>
+        <th> Number of Settings <br> <span style="font-weight:normal; font-size:11px;">don't include control</span> </th>
+        <th> Control Type <tooltip-modal content="tooltip.ctrl" modal="'ctrl'"></tooltip-modal> </th>
+        <th> Control Name</th>
+        <th></th>
+    </tr>
+</thead>
+<tbody>
+    <tr ng-show="!(formData.treatments).length">
+        <td>
+            <small><b> No treatments entered </b></small>
+        </td>
+        <td colspan="4"> </td>
+    </tr>
+    
+    <tr ng-repeat-start="n in formData.factors" class="">
+        <td> Nontreatment {{$index+1}}</td>
+        <td>
+            <input type="text" maxlength="20" value="{{n.description}}" ng-model="formData.factors[$index].description" />
+        </td>
+        <td>
+            <output ng-class="{disabled: formData.step!=factorsPage}"> 
+                {{ n.level.length }}
+                <div class="pull-right" ng-hide="formData.step!=factorsPage">
+                    <button type="button" class="pull-top"    ng-click="levelUp(n)">   &#x25B2 </button>
+                    <button type="button" class="pull-bottom" ng-click="levelDown(n)"> &#x25BC </button>
+                </div>
+            </output>
+            
+            <a ng-click="fcollapse[$index].isCollapsed = !fcollapse[$index].isCollapsed">
+                <span class="fa fa-chevron-up treatment-animate" ng-class="{down: fcollapse[$index].isCollapsed}"></span>
+            </a>
+
+        </td>
+        <td colspan="2"></td>
+        <td>
+            <button type="button" class="icon btn btn-default" ng-click="removeRow('factors', $index )" id="case1-t1cNameRemove">
+                <span class="fa fa-remove"></span>
+            </button>
+        </td>
+    </tr>
+    <tr ng-repeat-end="n in formData.factors" ng-show="!fcollapse[$index].isCollapsed" class="tcollapse"  ng-disabled="formData.step!=factorsPage">
+        <td class="text-right" colspan="2">
+            <div ng-repeat="tmp in n.level track by $index" style="line-height:26px;">
+                Level {{tmp.id}}
+            </div>
+        </td>
+        <td colspan="2">
+            <div ng-repeat="tmp in n.level track by $index">
+                <input type="text" maxlength="20" placeholder="name" ng-model="tmp.name" ng-disabled="formData.step!=factorsPage"/>
+            </div>
+        </td>
+        <td colspan="2"></td>
+    </tr>
+    
+    <!--
+    <tr ng-repeat="n in formData.covariates" class="" ng-hide="true">
+        <div>
+            <td> Covariate {{$index+1}}</td>
+            <td> <input type="number" min="1" ng-model="formData.covariates[$index].level" /> </td>
+            <td> <input type="text" value="{{n.description}}" ng-model="formData.covariates[$index].description" /> </td>
+            <td></td>
+            <td></td>
+            <td>
+                <button type="button" class="icon btn btn-default" ng-click="removeRow('covariates', $index )">
+                    <span class="fa fa-remove"></span>
+                </button>
+            </td>
+        </div>
+    </tr>
+    -->
+    
+    <tr ng-repeat="ct in formData.controlTypes" ng-show="ct.selected==true" class="">
+        <td> {{ ct.name }}</td>
+        <td colspan="3"></td>
+        <td> <input id="dg-ctName" ng-disabled="true" maxlength="20" type="text" value="{{ct.name}} Control"/></td>
+        <td> </td> 
+    </tr>
+    <tr ng-repeat-start="n in formData.treatments" class="" id="trtGrp">
+        <td> Treatment {{$index+1}} </td>
+        <td>
+            <input ng-disabled="formData.step==factorsPage" maxlength="20" type="text" 
+                ng-model="formData.treatments[$index].description" id="case1-t1Name"/>
+        </td>
+        <td>
+            <output ng-class="{disabled: formData.step==factorsPage}" id="case1-t1nLevel">
+                {{ n.level.length }}
+                <div class="pull-right" ng-hide="formData.step==factorsPage">
+                    <button type="button" class="pull-top" ng-click="levelUp(n)">   &#x25B2 </button>
+                    <button type="button" class="pull-bottom" ng-click="levelDown(n)"> &#x25BC </button>
+                </div>
+            </output>
+            
+            <a ng-click="tcollapse[$index].isCollapsed = !tcollapse[$index].isCollapsed">
+                <span class="fa fa-chevron-up treatment-animate" ng-class="{down: tcollapse[$index].isCollapsed}"></span>
+            </a>
+        </td>
+        <td ng-init="myIndex=$index" id="case1-t1cType">
+            <select 
+                ng-options="controlTypes2.name for controlTypes2 in controlTypes2 track by controlTypes2.id"
+                ng-model="n.control"
+                ng-disabled="formData.step==factorsPage">
+            </select>
+        </td>
+        <td>
+            <input ng-disabled="formData.step==factorsPage" type="text" maxlength="20"
+                ng-model="n.control_desc" id="case1-t1cName"/>
+        </td>
+        <td>
+            <button ng-hide="(formData.step==factorsPage)" type="button" class="icon btn btn-default" ng-click="removeRow('treatments', $index )" id="case1-t1NameRemove">
+                <span class="fa fa-remove"></span>
+            </button>
+        </td>
+    </tr>
+    
+    <tr ng-repeat-end="n in formData.treatments" ng-show="!tcollapse[$index].isCollapsed" class="tcollapse" id="case1-t1Levels">
+        <td class="text-right" colspan="2">
+            <div ng-repeat="tmp in n.level track by $index" style="line-height:26px;">
+                Setting {{tmp.id}}
+            </div>
+        </td>
+        <td colspan="2" id="case1-treatment1">
+            <div ng-repeat="tmp in n.level track by $index" >
+                <input type="text" maxlength="20" placeholder="description" ng-model="tmp.name" ng-disabled="formData.step==factorsPage" name="trtLevelInp" id="trtLevelInp{{$parent.$index}}"/>
+            </div>
+        </td>
+        <td colspan="2"></td>
+    </tr>
+
+</tbody>    
+</table>

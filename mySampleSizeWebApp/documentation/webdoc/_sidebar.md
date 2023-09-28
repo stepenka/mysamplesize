@@ -1,0 +1,11 @@
+
+- [Home](/)
+- [Adding Routes & Pages](adding_routes_and_pages/)
+- [AWS Configuration](AWS_configuration/)
+- [Coding Philosophy](coding_philosophy/) 
+- [database](database/) 
+- [Debugging](debugging/) 
+- [http Interface](http_interface/) 
+- [Securing Pages](securing_pages/) 
+- [SSH](SSH/) 
+- [Stripe](stripe/) 

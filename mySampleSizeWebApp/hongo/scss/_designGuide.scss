@@ -1,0 +1,203 @@
+@import "_common";
+
+/*********************************************************************************/
+/*                DESIGN GUIDE                                                   */
+/*********************************************************************************/
+
+.left-border {
+    border-left: 1px solid $grey2;
+}
+
+
+.right-border {
+    border-right: 1px solid $grey2;
+}
+
+/* only used for DG nav */
+$nav-offset: 50px;
+.sticky-nav {
+    position: fixed;
+    margin-top: -3em;
+    padding-top: 0.5em;
+    padding-bottom: 0.0em;
+    left: 0;
+    background: $grey5;
+    z-index: 30;
+    width: 100%;
+    
+    .nav > li > a {
+        font-size: 10px;
+    }
+    
+    @media (min-width: $large)                                { margin-top: ($nav-offset -  $header-height-large); }
+    @media (min-width: $medium) and (max-width: ($large - 1))       { margin-top: ($nav-offset - $header-height-medium); }
+    @media (min-width: $small) and (max-width: ($medium - 1)) { margin-top: ($nav-offset - $header-height-small); }
+    @media (min-width: $xsmall) and (max-width: ($small - 1))        { margin-top: ($nav-offset - $header-height-xsmall); }
+    
+}
+
+#walkthrough_container {
+    li {
+        display: inline;
+    }
+}
+
+/*** Experimental Design Quiz nav, also Report supplement */
+.dg-nav {
+    
+    .nav > li > a {
+        padding: 0;
+        padding-bottom: 3px;
+        padding-top: 3px;
+        margin: 0;
+        letter-spacing: normal;
+    }
+    
+    .uib-tab {
+        margin: 10px;
+        border-left: 1px solid $grey5;
+        border-right: 1px solid $grey5;
+        background: $main_green;
+        cursor: pointer;
+    }
+    .uib-tab.active {
+        background: $main_green_lt;
+    }
+}
+
+/*********************************************************************************/
+/*                WALKTHROUGH                                                    */
+/*********************************************************************************/
+
+.ui-tour-backdrop {
+    position: fixed;
+    height: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 2000;                          /* needed to modify this so that it goes over header (z-index: 1030) */
+    background-color: rgba(0, 0, 0, 0.3);
+    fill: rgba(0, 0, 0, 0.3);
+}
+
+.tourStep {
+    /* offset-x | offset-y | blur-radius | spread-radius | color */
+    box-shadow: 0 0 15px 5px $main_green_lt;
+    
+    .tour-step-inner
+    {
+        color: $grey5;
+        
+        .popover-title { 
+            font-weight: bold;
+            
+        }
+        
+        .popover-content {
+            font-size: 13px;
+        }
+    }
+}
+/*********************************************************************************/
+
+/* treatment-animate animates the chevron to spin up or down in the treatment table */
+.treatment-animate
+{
+         -ms-transform: -ms-transform 0.3s linear;
+       -moz-transition: -moz-transform 0.3s linear;
+    -webkit-transition: -webkit-transform 0.3s linear;
+            transition: transform 0.3s linear;
+}
+.treatment-animate.down
+{
+        -ms-transform: rotate(180deg);
+       -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+}
+
+.table>tbody>tr.tcollapse>td
+{
+    font-size: 12px;
+    line-height: 20px;
+}
+
+/* tcollapse collapses #of levels in the treatment table */
+.tcollapse
+{
+    opacity: 1;
+    line-height: 30px;
+    height: 30px;
+    
+    &.ng-hide-add,
+    &.ng-hide-remove {
+      transition: all linear 0.5s;
+    }
+    
+    &.ng-hide {
+        height: 0;
+        line-height: 0;
+        opacity: 0;
+    }
+}
+
+.table>tbody>tr>td>output
+{
+    display: inline-block;
+    width: 60px;
+    height: 26px;
+    -webkit-appearance: textfield;
+    background: white;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    -webkit-rtl-ordering: logical;
+    -webkit-user-select: text;
+    cursor: auto;
+    padding: 1px;
+    border-width: 2px;
+    border-style: inset;
+    border-color: initial;
+    
+    &.disabled
+    {
+        background: rgb(235, 235, 228); /* this is close to $grey1 */
+    }
+    
+    button {
+        padding: 0;
+        margin: 0;
+        margin-right: -2px;
+        width: 15px;
+        height: 20px;
+        /*line-height: 85%;*/
+        box-sizing: border-box;
+        border: 0;
+        display: block;
+        background: rgb(235, 235, 228);
+        &.pull-top
+        {
+            margin-top: -5px;
+        }
+        &.pull-bottom
+                {
+            margin-top: -10px;
+        }
+
+        &:hover
+                {
+            background: #c5c5c5;
+        }
+    }
+}
+
+.table output button 
+{
+    font-size: 13px;
+    transform: scale(0.9, 0.5);
+}
+
+/* ngAnimate functions */

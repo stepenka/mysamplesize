@@ -1,0 +1,83 @@
+<h2 class="text-grey text-lowercase">Effect Size</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-newspaper-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            Effect Size captures the unknown-but-true difference between experimental groups.
+        </p>
+        
+        <div class="row padding-bottom-2em">
+            <div class="col-sm-8 col-sm-offset-2">
+                <img ng-src="{{imgPath}}/efctSizePic.png" class="width-100" src="{{imgPath}}/efctSizePic.png" spinner-img-load>
+            </div>
+        </div>
+
+        <p>
+            Effect size may be the toughest part of experimental design. Significance and power are often selected based on research community conventions, and standard deviation can be estimated from pilot data. Effect size requires careful thought about the desired experimental outcome.
+        </p>
+        
+        <div style="border:2px; border-style:solid; font-weight:bold; padding:1em; margin:2em">
+            <ul>
+                <li> Ideally effect size is the hypothesized amount of true change in outcome provided by your experimental conditions </li>
+                <li> With a small effect size, more subjects are needed. </li>
+                <li> Larger doses or manipulation strengths may make for larger effect sizes and hence smaller sample sizes </li>
+            </ul>
+        </div>
+        
+        <p>
+            To some extent, pilot studies can help you understand the causal relationship between your experimental conditions and settings and your outcome measure, which can give you an idea of the effect size you might be expecting. This information, however, is only part of the picture. Detecting *some* effect that is distinguishable from biological variability and measurement noise is not the same as finding an effect that is scientifically or clinically relevant. These latter concerns should drive selection of an effect size for hypothesis testing.
+        </p>
+    </div>
+</div>
+
+<h2 class="text-grey margin-top text-lowercase">Test Your Understanding</h2>
+<hr>
+<div class="row">
+    <div class="col-md-5 green_side"> <!--margin-right-1em"-->
+        <div class="row col-sm-offset-1">
+            <div ng-include src="'static/partials/webpage_help/statbasics/test_understanding_blurb.html'"></div>
+            <p class="text-bold">
+                Move the slider to see how changing Effect Size affects power.
+            </p>
+        </div>
+
+        <div class="row padding-bottom-2em" ng-init="initPlotType('effectSize')">
+            <div class="col-xs-12">
+                <nvd3 options="esPlotOptions" data="esPlotData"></nvd3>
+            </div>
+            
+            <div class="col-sm-11 col-sm-offset-1 sliderWithLabel"> 
+                <div class="padding-bottom-2em">
+                    Effect Size 
+                    <br><br>
+                    <rzslider rz-slider-model="effectSize_slider.value" rz-slider-options="effectSize_slider.options"></rzslider>
+                </div>
+                <div class="padding-top-1em padding-bottom-2em">
+                    <big>Power for your effect size: <big><b id="pwrDisp">{{powerVal.toFixed(4)}}</b></big> </big>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-7">
+        <div class="row col-sm-offset-1">
+            <div ng-include src="'static/partials/webpage_help/statbasics/simulation_blurb.html'"></div>
+        </div>
+        
+        <div class="row padding-bottom-2em padding-top-1em" ng-controller="simPlotCtrl">
+            <p align="center">
+            <button type="button" class="btn btn-primary" ng-click="updateSimPlot(data.id);">
+                Simulate Random Experiment
+            </button></p>
+
+            <div class="row" ng-init="initSimPlot(helpService.simPlotData)">
+                <h4 align="center">p-value this simulation: <b id="pVal">{{data.pVal[0].toFixed(4)}}</b> </h4>
+
+                <div class="col-xs-12" id="simPlot">
+                    <nvd3 options="myOptions" data="myData" api="dummy.api"></nvd3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
