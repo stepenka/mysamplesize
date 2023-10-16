@@ -1,44 +1,35 @@
 <div class="page_content margin-bottom-1em">
-  <div class="text-center">
-    <h1>Sign Up</h1>
-    <p class="row background-grey padding-2em spacing">
-      To access our walkthrough DesignGuide, statistical tools, and chat support
-    </p>
-  </div>
 
-  <!-- <div
-    class="row padding-top-1em padding-bottom-1em padding-left-2em"
-    style="font-size: 15px"
-  >
-    <p>
-      Choose from the subscription options below. If you have a group license,
-      enter that in the <em>Enter license code</em> tab.
-    </p>
-  </div> -->
-
-  <!-- <uib-accordion>
-    <div uib-accordion-group is-open="isopen">
-      < uib-heading-with-iconpm title="Price Table"></uib-heading-with-iconpm>
-      <uib-accordion-heading ng-click="isopen=!isopen">
-        <p style="margin-bottom: 0">
-          <strong> Price Table </strong>
-          <i
-            class="pull-right fa"
-            ng-class="{'fa-plus':!isopen,'fa-minus':isopen}"
-          ></i>
+    <div class="text-center">
+        <h1> Sign Up </h1>
+        <p class="row background-grey padding-2em spacing">
+            To access our walkthrough DesignGuide, statistical tools, and chat support
         </p>
-      </uib-accordion-heading>
-
-      <div class="col-sm-12 col-md-10 col-md-offset-1">
-        <img class="width-30" ng-src="static/img/pricing.png" />
-      </div>
     </div>
-  </uib-accordion> -->
 
-  <div ng-include="'static/partials/webpage_auth/payment_form.html'"></div>
+    <div class="row padding-top-1em padding-bottom-1em padding-left-2em" style="font-size:15px">
+        <p>Choose from the subscription options below. If you have a group license, enter that in the
+        <em>Enter license code</em> tab. </p>
+    </div>
+    
+    <uib-accordion>
+        <div uib-accordion-group is-open="isopen">
+            <!-- uib-heading-with-iconpm title="Price Table"></uib-heading-with-iconpm-->
+            <uib-accordion-heading ng-click="isopen=!isopen"> <p style="margin-bottom: 0;">
+                <strong> Price Table </strong> <i class="pull-right fa" ng-class="{'fa-plus':!isopen,'fa-minus':isopen}"></i></p>
+            </uib-accordion-heading>
+            
+            <div class="col-sm-12 col-md-10 col-md-offset-1">
+                <img class="width-30" ng-src="static/img/pricing.png">   
+            </div>
+        </div>
+    </uib-accordion>    
+    
+    <div ng-include="'static/partials/webpage_auth/payment_form.html'"></div>
 
-  <!-- things to show after/during payment processing 
+    <!-- things to show after/during payment processing 
     <div class="col-xs-2 col-xs-offset-5" ng-show="stripe.in_progress">
         <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
     </div>-->
+    
 </div>

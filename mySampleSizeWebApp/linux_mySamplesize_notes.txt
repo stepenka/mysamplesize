@@ -1,0 +1,54 @@
+
+==================================
+Refs
+  What is a Bash Script
+	https://ryanstutorials.net/bash-scripting-tutorial/bash-script.php
+	https://www.computerhope.com/unix/ubash.htm
+	
+  Linux Tutorial for Beginners
+	https://ryanstutorials.net/linuxtutorial/
+	
+Prep for run
+	ls -l the_script.sh
+  if the permission is -rw-r--r--, ie does not have x, need to change mod
+    chmod 755 the_script.sh
+	
+To run, must start with ./ if the_script.sh is in the current path, if not, enter absolute path
+	./the_script.sh
+	
+How to add a directory to or remove from PATH
+	https://phoenixnap.com/kb/linux-add-to-path
+	
+=================================
+Bash Script
+  The first line of script (start with Sheband (#!), meaning the path to Bash interpreter)
+	#!/bin/bash
+	
+=================================
+diff between which and whereis
+	The whereis command lists all the binary executables while the which command only displays the first executable that gets executed when you type the said command in the shell
+	
+=================================
+linux startup process sequence:
+	exec .bashrc 
+	exec .bash_prfile if exists
+ or 
+	exec .bash_login if exists
+ otherwise
+	exec .profile 
+	
+==================================
+How to Create Python Virtual Environment on Ubuntu & Debian
+	https://tecadmin.net/create-python-virtual-environment-ubuntu/
+	
+==================================
+Check R version in Linux terminal
+	R --version
+	
+==================================
+Check GTK version
+	find libgtk which will tell
+	
+==================================
+GTK 3 for mac
+	https://gitlab.gnome.org/GNOME/gtk-osx/-/blob/master/gtk-osx-setup.sh
