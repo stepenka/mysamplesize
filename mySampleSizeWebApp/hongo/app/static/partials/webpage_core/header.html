@@ -1,85 +1,139 @@
-<nav ng-controller="menu_modal" class="navbar navbar-default navbar-fixed-top green_break" id="header">
-    <div class="container-fluid">
-<!-- Top easy click information bar for larger devices -->
-        <div class="row hidden-xs background-dkgrey header text-right">
+<nav
+  ng-controller="menu_modal"
+  class="navbar navbar-default navbar-fixed-top green_break"
+  id="header"
+>
+  <div class="container-fluid">
+    <!-- Top easy click information bar for larger devices -->
+    <div class="row hidden-xs background-dkgrey header text-right">
+      <div class="col-sm-8" id="headerFeedback">
+        <p>
+          <a
+            class="background-blue padding-1em"
+            target="_blank"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSc5nmaR5hFufTEDmiy2hrdXbpgPP0PuHvd_BoWECmYWG9YbRQ/viewform"
+          >
+            Feedback Form
+          </a>
+        </p>
+      </div>
 
-            <div class="col-sm-8" id="headerFeedback">
-                <p>
-                    <a class="background-blue padding-1em" target="_blank"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSc5nmaR5hFufTEDmiy2hrdXbpgPP0PuHvd_BoWECmYWG9YbRQ/viewform">
-                        Feedback Form
-                    </a>
-                </p>
-            </div>
-            
-            <div class="col-sm-3 cursor-pointer" id="headerLogin">
-                <p ng-show="!authService.authenticated"><a ui-sref="auth.home">Login | Sign Up</a></p>
-                <p ng-show="authService.authenticated"><a ui-sref="account.home">My Account</a></p>
-            </div>
-            
-            <div class="col-sm-1">
-                <div class="row">
-                    <div class="col-sm-2">
-                        <a ui-sref="help.contact" class="fa fa-envelope-o fa-2x" title="Contact Us" aria-hidden="true"></a>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
+      <div class="col-sm-3 cursor-pointer" id="headerLogin">
+        <!-- <p ng-show="!authService.authenticated"><a ui-sref="auth.home">Login | Sign Up</a></p>
+                <p ng-show="authService.authenticated"><a ui-sref="account.home">My Account</a></p> -->
+      </div>
 
-<!-- Header Navigation Menu -->
-        <div class="row background-white" id="main-header">
-            <div class="hidden-xs col-sm-4 col-md-5 col-lg-4">
-                <a ui-sref="home" class="navbarIMG"><img class="logo" alt="Brand" ng-src="{{imgPath}}/logos/logo_header_tt.png"></a>
-            </div> <!-- end col -->
-            <div class="visible-xs-block col-xs-9">
-                <a ui-sref="home" class="navbarIMG"><img alt="Brand" ng-src="{{imgPath}}/logos/auth_logo.png"></a>
-            </div>
-            
-    <!-- Header Navigation Menu for XS devices -->
-            <div class="col-xs-3 visible-xs-block">
-                <button type="button" class="navbar-toggle pull-right" ng-click="open('lg')" id="menubtn">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div> <!-- end col -->
-  
-    <!-- Header Navigation Menu for larger devices -->
-            <div class="hidden-xs col-sm-8 col-md-7 col-lg-8" id="main-header-content">
-                
-                <ul class="nav navbar-nav navbar-right">
-                    
-                    <li ui-sref-active="active">
-                        <a ui-sref="home">HOME</a>
-                    </li>
-                    
-                    <li ui-sref-active="active" class="dropdown">
-                        <a ui-sref="design_guide">DESIGN GUIDE</a>
-                    </li>
-                    
-                    <li class="dropdown" ng-class="{ active: state.includes('tools') }">
-                        <a ui-sref="tools.home" class="dropdown-toggle" data-toggle="dropdown">TOOLS<b class="caret hidden-sm hidden-md hidden-lg hidden-xl"></b></a>
-                        <ul class="dropdown-menu" ng-include="'/static/partials/webpage_core/navlist_tools.html'"></ul>
-                    </li>
-                    
-                    <li class="dropdown" ng-class="{ active: state.includes('report') }">
-                        <a ui-sref="report.home" class="dropdown-toggle" data-toggle="dropdown">REPORTS<b class="caret hidden-sm hidden-md hidden-lg hidden-xl"></b></a>
-                        <ul class="dropdown-menu" ng-include="'/static/partials/webpage_core/navlist_reports.html'"></ul>
-                    </li>
-                    
-                    <li class="dropdown" ng-class="{ active: state.includes('help') }">
-                        <a ui-sref="help.home" class="dropdown-toggle" data-toggle="dropdown">HELP<b class="caret hidden-sm hidden-md hidden-lg hidden-xl"></b></a>
-                        <ul class="dropdown-menu" ng-include="'/static/partials/webpage_core/navlist_help.html'"></ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        
+      <div class="col-sm-1">
         <div class="row">
-            <div class="hidden-xs" ng-hide="state.current.name === 'home' || state.current.name === 'design_guide'" ncy-breadcrumb></div>
+          <div class="col-sm-2">
+            <a
+              ui-sref="help.contact"
+              class="fa fa-envelope-o fa-2x"
+              title="Contact Us"
+              aria-hidden="true"
+            ></a>
+          </div>
         </div>
-
+      </div>
     </div>
-</nav> 
+
+    <!-- Header Navigation Menu -->
+    <div class="row background-white" id="main-header">
+      <div class="hidden-xs col-sm-4 col-md-5 col-lg-4">
+        <a ui-sref="home" class="navbarIMG"
+          ><img
+            class="logo"
+            alt="Brand"
+            ng-src="{{imgPath}}/logos/logo_header_tt.png"
+        /></a>
+      </div>
+      <!-- end col -->
+      <div class="visible-xs-block col-xs-9">
+        <a ui-sref="home" class="navbarIMG"
+          ><img alt="Brand" ng-src="{{imgPath}}/logos/auth_logo.png"
+        /></a>
+      </div>
+
+      <!-- Header Navigation Menu for XS devices -->
+      <div class="col-xs-3 visible-xs-block">
+        <button
+          type="button"
+          class="navbar-toggle pull-right"
+          ng-click="open('lg')"
+          id="menubtn"
+        >
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <!-- end col -->
+
+      <!-- Header Navigation Menu for larger devices -->
+      <div
+        class="hidden-xs col-sm-8 col-md-7 col-lg-8"
+        id="main-header-content"
+      >
+        <ul class="nav navbar-nav navbar-right">
+          <li ui-sref-active="active">
+            <a ui-sref="home">HOME</a>
+          </li>
+
+          <li ui-sref-active="active" class="dropdown">
+            <a ui-sref="design_guide">DESIGN GUIDE</a>
+          </li>
+
+          <li class="dropdown" ng-class="{ active: state.includes('tools') }">
+            <a
+              ui-sref="tools.home"
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+              >TOOLS<b class="caret hidden-sm hidden-md hidden-lg hidden-xl"></b
+            ></a>
+            <ul
+              class="dropdown-menu"
+              ng-include="'/static/partials/webpage_core/navlist_tools.html'"
+            ></ul>
+          </li>
+
+          <li class="dropdown" ng-class="{ active: state.includes('report') }">
+            <a
+              ui-sref="report.home"
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+              >REPORTS<b
+                class="caret hidden-sm hidden-md hidden-lg hidden-xl"
+              ></b
+            ></a>
+            <ul
+              class="dropdown-menu"
+              ng-include="'/static/partials/webpage_core/navlist_reports.html'"
+            ></ul>
+          </li>
+
+          <li class="dropdown" ng-class="{ active: state.includes('help') }">
+            <a
+              ui-sref="help.home"
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+              >HELP<b class="caret hidden-sm hidden-md hidden-lg hidden-xl"></b
+            ></a>
+            <ul
+              class="dropdown-menu"
+              ng-include="'/static/partials/webpage_core/navlist_help.html'"
+            ></ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div
+        class="hidden-xs"
+        ng-hide="state.current.name === 'home' || state.current.name === 'design_guide'"
+        ncy-breadcrumb
+      ></div>
+    </div>
+  </div>
+</nav>
