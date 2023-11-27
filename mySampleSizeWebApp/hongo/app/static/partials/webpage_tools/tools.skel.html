@@ -1,83 +1,118 @@
 <noscript>
-    <link rel="stylesheet" href="static/css/tools.css">
+  <link rel="stylesheet" href="static/css/tools.css" />
 </noscript>
 
 <div class="padding-top-2em padding-bottom-2em" ng-init="reset();">
-
-    <div class="form-container">
-        <div class="page-header spacing text-center padding-bottom-1em">
-            <h2 ng-if="state.current.name == 'tools.samplesize'">   Sample Size Calculator </h2>
-            <h2 ng-if="state.current.name == 'tools.powersize'">    Power Size Calculator </h2>
-            <h2 ng-if="state.current.name == 'tools.pwrgraph'">     Power Plots </h2>
-            <h2 ng-if="state.current.name == 'tools.rng'">          Random Number Generator </h2>
-            <h2 ng-if="state.current.name == 'tools.analysis'">     Data Analysis </h2>
-            <h2 ng-if="state.current.name == 'tools.sims'">         Experiment Simulations </h2>
-            <br>
-        </div>
-        
-        <ng-form class="form_tools background-grey">
-            <div ng-hide="(state.current.name=='tools.rng') || (state.current.name=='tools.post_hoc')">
-                <!-- Question 1: Statistical Test -->
-                <label class="padding-top-1em" id="tools-stattests">What type of statistical test are you using to analyze the results?
-                    <a class="text-black" ui-sref="help.stattests" target="_blank">
-                        <!--tooltip-modal ng-hide="design.DGcompleted" content="'Go through our DesignGuide for a recommendation. Click to read more about methods.'"></tooltip-modal-->
-                        <tooltip-modal ng-hide="design.DGcompleted" content="tooltip.typeStatTest" ></tooltip-modal>
-                        <tooltip-modal ng-show="design.DGcompleted" content="'Your DesignGuide Results: '+design.statMethod+'. Click to read more about methods.'"></tooltip-modal>
-                    </a>
-                </label>
-                
-                <div class="row">
-                    <div class="col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1 padding-top-1em" id="tools-testlist">
-                        <select ng-model="design.stat.selectedOption"
-                                ng-options="stat.name for stat in design.stat.options track by stat.id">
-                        </select>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Temporary Placeholder for SLM -->
-            <div ng-show="design.isSLM()">
-                <p class="text-center padding-top-2em">
-                    Not available at this time. Please consult one of our statistical consultants for help.
-                </p>
-            </div>
-
-            <div ng-hide="design.isNone() || design.isSLM()">
-                <div ng-if="state.current.name == 'tools.samplesize'">
-                    <div ng-include src="toolsPath+'tools.sample.html'"></div>
-                </div>
-                
-                <div ng-if="state.current.name == 'tools.powersize'">
-                    <div ng-include src="toolsPath+'tools.power.html'"></div>
-                </div>
-                
-                <div ng-if="state.current.name == 'tools.pwrgraph'">
-                    <div ng-include src="toolsPath+'tools.pwr_graph.html'"></div>
-                </div>
-                
-                <div ng-if="state.current.name == 'tools.analysis'">
-                    <div ng-include ng-controller="simPlotCtrl" src="toolsPath+'analysis/tools.sims.html'"></div>
-                </div>
-                
-                <div ng-if="state.current.name == 'tools.sims'">
-                    <div ng-include ng-controller="simPlotCtrl" src="toolsPath+'tools.sims.html'"></div>
-                </div>
-            </div>
-            
-            <div ng-if="state.current.name == 'tools.rng'">
-                <div ng-include src="toolsPath+'tools.rng.html'"></div>
-            </div>
-            <div ng-if="state.current.name == 'tools.post_hoc'">
-                <div ng-include src="toolsPath+'tools.post_hoc.html'"></div>
-            </div>
-            
-            <!-- Empty space for no Statistical Test-->
-            <div ng-show="design.isNone()" ng-init="register( empty )">
-                <p class="padding-top-2em padding-bottom-2em"></p>
-            </div>
-        </ng-form>
-        
-        <div class="background-dkgrey spacing text-center padding-bottom-2em" id="scrollArea"></div>
-        <div ng-controller="saveController" ng-include src="toolsPath+'tools.saveBtn.html'"> </div>
+  <div class="form-container">
+    <div class="page-header spacing text-center padding-bottom-1em">
+      <h2 ng-if="state.current.name == 'tools.samplesize'">
+        Sample Size Calculator
+      </h2>
+      <h2 ng-if="state.current.name == 'tools.powersize'">
+        Power Size Calculator
+      </h2>
+      <h2 ng-if="state.current.name == 'tools.pwrgraph'">Power Plots</h2>
+      <h2 ng-if="state.current.name == 'tools.rng'">Random Number Generator</h2>
+      <h2 ng-if="state.current.name == 'tools.analysis'">Data Analysis</h2>
+      <h2 ng-if="state.current.name == 'tools.sims'">Experiment Simulations</h2>
+      <br />
     </div>
+
+    <ng-form class="form_tools background-grey">
+      <div
+        ng-hide="(state.current.name=='tools.rng') || (state.current.name=='tools.post_hoc')"
+      >
+        <!-- Question 1: Statistical Test -->
+        <label class="padding-top-1em" id="tools-stattests"
+          >What type of statistical test are you using to analyze the results?
+          <a class="text-black" ui-sref="help.stattests" target="_blank">
+            <!--tooltip-modal ng-hide="design.DGcompleted" content="'Go through our DesignGuide for a recommendation. Click to read more about methods.'"></tooltip-modal-->
+            <tooltip-modal
+              ng-hide="design.DGcompleted"
+              content="tooltip.typeStatTest"
+            ></tooltip-modal>
+            <tooltip-modal
+              ng-show="design.DGcompleted"
+              content="'Your DesignGuide Results: '+design.statMethod+'. Click to read more about methods.'"
+            ></tooltip-modal>
+          </a>
+        </label>
+
+        <div class="row">
+          <div
+            class="
+              col-xs-12 col-xs-offset-0 col-sm-10 col-sm-offset-1
+              padding-top-1em
+            "
+            id="tools-testlist"
+          >
+            <select
+              ng-model="design.stat.selectedOption"
+              ng-options="stat.name for stat in design.stat.options track by stat.id"
+            ></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Temporary Placeholder for SLM -->
+      <div ng-show="design.isSLM()">
+        <p class="text-center padding-top-2em">
+          Not available at this time. Please consult one of our statistical
+          consultants for help.
+        </p>
+      </div>
+
+      <div ng-hide="design.isNone() || design.isSLM()">
+        <div ng-if="state.current.name == 'tools.samplesize'">
+          <div ng-include src="toolsPath+'tools.sample.html'"></div>
+        </div>
+
+        <div ng-if="state.current.name == 'tools.powersize'">
+          <div ng-include src="toolsPath+'tools.power.html'"></div>
+        </div>
+
+        <div ng-if="state.current.name == 'tools.pwrgraph'">
+          <div ng-include src="toolsPath+'tools.pwr_graph.html'"></div>
+        </div>
+
+        <div ng-if="state.current.name == 'tools.analysis'">
+          <div
+            ng-include
+            ng-controller="simPlotCtrl"
+            src="toolsPath+'analysis/tools.sims.html'"
+          ></div>
+        </div>
+
+        <div ng-if="state.current.name == 'tools.sims'">
+          <div
+            ng-include
+            ng-controller="simPlotCtrl"
+            src="toolsPath+'tools.sims.html'"
+          ></div>
+        </div>
+      </div>
+
+      <div ng-if="state.current.name == 'tools.rng'">
+        <div ng-include src="toolsPath+'tools.rng.html'"></div>
+      </div>
+      <div ng-if="state.current.name == 'tools.post_hoc'">
+        <div ng-include src="toolsPath+'tools.post_hoc.html'"></div>
+      </div>
+
+      <!-- Empty space for no Statistical Test-->
+      <div ng-show="design.isNone()" ng-init="register( empty )">
+        <p class="padding-top-2em padding-bottom-2em"></p>
+      </div>
+    </ng-form>
+
+    <div
+      class="background-dkgrey spacing text-center padding-bottom-2em"
+      id="scrollArea"
+    ></div>
+    <div
+      ng-controller="saveController"
+      ng-include
+      src="toolsPath+'tools.saveBtn.html'"
+    ></div>
+  </div>
 </div>

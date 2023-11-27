@@ -88,7 +88,7 @@ assets.cache = False
 
 # isAuthUser(user_id) is a standalone endpoint to test whether the input "user_id"
 # matches the session captured from Auth0
-PASS_AUTH = False    # should be set to False (set to True for testing/using without authentication on localhost. Setting True is also what the previous version works like)
+PASS_AUTH = True    # should be set to False (set to True for testing/using without authentication on localhost. Setting True is also what the previous version works like)
 from functools import wraps
 def uid_match_required(f):
     @wraps(f)

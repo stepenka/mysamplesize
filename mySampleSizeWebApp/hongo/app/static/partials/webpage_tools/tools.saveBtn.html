@@ -1,45 +1,101 @@
 <div class="toolSave" ng-controller="saveController">
-    <uib-accordion ng-hide="hideSave(design.stat.selectedOption.id)"> 
-        <div uib-accordion-group is-open="accordionStatus.isCustomHeaderOpen" class="text-center">
-        
-            <!-- heading -->
-            <uib-accordion-heading ng-if="design.notEmbedded">
-                <span> Click Here to Save Your Results </span>
-                <i class="fa padding-left-1em" ng-class="{'fa-angle-up': accordionStatus.isCustomHeaderOpen, 'fa-angle-down': !accordionStatus.isCustomHeaderOpen}"></i>
-            </uib-accordion-heading>
-            
-            <!-- Shown when user not logged in -->
-            <div class="row padding-bottom-2em padding-top-2em" ng-show="authService.authenticated==false">
-                <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-                    <a ui-sref="auth.home" class="btn btn-primary btn-lg margin-top-1em width-100">Login to Save</a>
-                </div>
+  <uib-accordion ng-hide="hideSave(design.stat.selectedOption.id)">
+    <div
+      uib-accordion-group
+      is-open="accordionStatus.isCustomHeaderOpen"
+      class="text-center"
+    >
+      <!-- heading -->
+      <uib-accordion-heading ng-if="design.notEmbedded">
+        <span> Click Here to Generate your Report </span>
+        <i
+          class="fa padding-left-1em"
+          ng-class="{'fa-angle-up': accordionStatus.isCustomHeaderOpen, 'fa-angle-down': !accordionStatus.isCustomHeaderOpen}"
+        ></i>
+      </uib-accordion-heading>
+
+      <!-- Shown when user not logged in -->
+      <div
+        class="row padding-bottom-2em padding-top-2em"
+        ng-show="authService.authenticated==false"
+      >
+        <div
+          class="row"
+          ng-hide="(tools.showSimPlots == false) && !(formData.repMeas.checked)"
+        >
+          <div class="green_break margin-bottom-2em"></div>
+          <div class="col-xs-6 col-xs-offset-3">
+            <a
+              ng-click="inProgress=true; stepUp()"
+              class="btn btn-block btn-primary"
+              id="dg-genReport"
+            >
+              Generate report
+              <span class="fa fa-angle-double-right"></span>
+            </a>
+            <br />
+            <p>
+              The report will include the design details as well as the power
+              plot and several simulation plots (if applicable).
+            </p>
+            <div ng-show="inProgress">
+              <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+              <i> Generating report ... This may take a few minutes. </i>
             </div>
-            
-            <!-- Show list of projects to save to if user currently logged in -->
-            <div class="row text-left padding-bottom-2em padding-top-2em" ng-show="authService.authenticated==true">
-                <div class="col-xs-8 col-sm-6 col-sm-offset-1 text-white">
-                    <label>Please select a project to save to:</label>
-                    <select ng-options="sqlprojects.name for sqlprojects in authService.sqlprojects.options track by sqlprojects.id" 
-                            ng-model="authService.sqlprojects.selected" 
-                            style="font-size: 1.3em;" class="width-100 text-black">
-                    </select>
-                    <br>
-                    <h4>
-                        Note: <span ng-bind="userWarn"></span> <br> <br>
-                        <span ng-bind="userInfo"></span>
-                    </h4>
-                </div>
-                
-                <div class="col-xs-4">
-                    <button type="button" id="Psave" class="btn btn-primary btn-lg width-100" ng-click="save()" style="padding:10px">
-                        <!--span ng-show="save_status==0" class="m-0"> Save<br>Project </span-->
-                        <span ng-show="save_status==0" class="m-0 text-bold"> <label> Save Project </label> <br> <span style="font-size:11px"> make sure you select <br>a project first! </span> </span>
-                        <span ng-show="save_status==1" class="m-0"> <b>Saved!</b> </span>
-                        <span ng-show="save_status==2" class="m-0" uib-tooltip="Please make sure all fields are filled out correctly."> <b>ERROR</b> </span>
-                    </button>
-                </div>
-            </div>
-            
+          </div>
         </div>
-    </uib-accordion>
+        <!-- <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                    <a ui-sref="auth.home" class="btn btn-primary btn-lg margin-top-1em width-100">Login to Save</a>
+                </div> -->
+      </div>
+
+      <!-- Show list of projects to save to if user currently logged in -->
+      <div
+        class="row text-left padding-bottom-2em padding-top-2em"
+        ng-show="authService.authenticated==true"
+      >
+        <div class="col-xs-8 col-sm-6 col-sm-offset-1 text-white">
+          <label>Please select a project to save to:</label>
+          <select
+            ng-options="sqlprojects.name for sqlprojects in authService.sqlprojects.options track by sqlprojects.id"
+            ng-model="authService.sqlprojects.selected"
+            style="font-size: 1.3em"
+            class="width-100 text-black"
+          ></select>
+          <br />
+          <h4>
+            Note: <span ng-bind="userWarn"></span> <br />
+            <br />
+            <span ng-bind="userInfo"></span>
+          </h4>
+        </div>
+
+        <div class="col-xs-4">
+          <button
+            type="button"
+            id="Psave"
+            class="btn btn-primary btn-lg width-100"
+            ng-click="save()"
+            style="padding: 10px"
+          >
+            <!--span ng-show="save_status==0" class="m-0"> Save<br>Project </span-->
+            <span ng-show="save_status==0" class="m-0 text-bold">
+              <label> Save Project </label> <br />
+              <span style="font-size: 11px">
+                make sure you select <br />a project first!
+              </span>
+            </span>
+            <span ng-show="save_status==1" class="m-0"> <b>Saved!</b> </span>
+            <span
+              ng-show="save_status==2"
+              class="m-0"
+              uib-tooltip="Please make sure all fields are filled out correctly."
+            >
+              <b>ERROR</b>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </uib-accordion>
 </div>
