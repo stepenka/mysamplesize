@@ -25,14 +25,16 @@
         >
           <div class="green_break margin-bottom-2em"></div>
           <div class="col-xs-6 col-xs-offset-3">
-            <a
-              ng-click="inProgress=true; stepUp()"
-              class="btn btn-block btn-primary"
-              id="dg-genReport"
-            >
-              Generate report
-              <span class="fa fa-angle-double-right"></span>
-            </a>
+            <span uib-tooltip-html="'This functionality is not yet available.'">
+              <a
+                ng-click="inProgress=true; stepUp()"
+                class="btn btn-block btn-primary"
+                id="dg-genReport"
+              >
+                Generate report
+                <span class="fa fa-angle-double-right"></span>
+              </a>
+            </span>
             <br />
             <p>
               The report will include the design details as well as the power
