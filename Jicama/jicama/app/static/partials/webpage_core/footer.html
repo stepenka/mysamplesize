@@ -1,0 +1,77 @@
+<footer id="footer" class="text-left">
+    <div class="container"> 
+        
+        <div class="hidden-xs">
+            <div class="col-sm-2">
+                <ul class="list-unstyled nav-footer">
+                    <li ui-sref-active="active">
+                        <a ui-sref="home">HOME</a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="design_guide">DESIGN GUIDE</a>
+                    </li>
+                    <ul class="list-unstyled nav-footer2" ng-include="'/static/partials/webpage_core/navlist_designguide.html'"></ul>
+                </ul>
+            </div><!-- end col -->
+            
+            <div class="col-sm-2">
+                <ul class="list-unstyled nav-footer">
+                    <li ui-sref-active="active">
+                        <a ui-sref="tools.home">TOOLS</a>
+                    </li>
+                    <ul id="footerTools" class="list-unstyled nav-footer2" ng-include="'/static/partials/webpage_core/navlist_tools.html'"></ul>
+                </ul>
+            </div><!-- end col -->
+            
+            <div class="col-sm-2">
+                <ul class="list-unstyled nav-footer">
+                    <li ui-sref-active="active">
+                        <a ui-sref="report.home">REPORTS</a>
+                    </li>
+                    <ul id="footerReports" class="list-unstyled nav-footer2" ng-include="'/static/partials/webpage_core/navlist_reports.html'"></ul>
+                </ul>
+            </div><!-- end col -->
+            
+            <div class="col-sm-2">
+                <ul class="list-unstyled nav-footer">
+                    <li ui-sref-active="active">
+                        <a ui-sref="help.home">HELP</a>
+                    </li>
+                    <ul id="footerHelp" class="list-unstyled nav-footer2" ng-include="'/static/partials/webpage_core/navlist_help.html'"></ul>
+                </ul>
+            </div><!-- end col -->
+        </div><!-- end xs hidden -->
+        
+        <div class="col-xs-12 col-sm-4 row">
+            <div class="padding-top-1em">
+                <a ui-sref="home" class="navbarIMG">
+                    <img class="img-responsive center-block" ng-src="{{imgPath}}/logos/logo_footer_noPowered.png">
+                    <!--img class="img-responsive center-block" ng-src="{{imgPath}}/logos/Source Files/gen png.png"-->
+                </a>
+            </div>
+      
+            <div class="icons text-center center-block">
+                <div class="col-xs-0 col-sm-6"></div>
+                <div class="col-xs-4 col-sm-2">
+                    <a ui-sref="help.contact" class="fa fa-envelope-o" aria-hidden="true"></a>
+                </div>
+                <!-- <div class="col-xs-4 col-sm-2">
+                    <div class="no-link linkedin-link">
+                    <a href="https://www.linkedin.com/company/tempest-technologies-stochastech-corp-dba?trk=company_logo" target="_blank" class="fa fa-linkedin"></a>
+                    </div>
+                </div>
+                <div class="col-xs-4 col-sm-2">
+                    <div class="twitter-link tooltip-social no-link">
+                    <a href="https://twitter.com/consiliastats" target="_blank" class="fa fa-twitter"></a>
+                    </div>
+                </div> -->
+            </div><!-- end icons -->
+        </div>        
+    </div>
+
+    <div class="copyright text-center">
+        &copy; <a href="http://tempest-tech.com/" target="_blank">Tempest Technologies</a>
+        All rights reserved  <span>|</span> Updated September 2019
+    </div>
+
+</footer>

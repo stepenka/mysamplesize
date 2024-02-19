@@ -1,0 +1,24 @@
+1/11/2024
+
+Files should not be edited directly
+  app/static/css/main.css
+  app/app.routes.js
+  app/pyhelp/html5routes.py
+  app/static/partials/webpage_core/sitemap.xml
+  
+- The file app/static/css/main.css is generate by "make_css.bat", therefore should not be edited directly. If in need of style modifications, then
+    1) Edit the file "scss/main.scss"
+    2) Run at the terminal prompt 
+          > make_css.bat 
+       that will update "app/static/css/main.css"
+    
+- Files   
+  app/app.routes.js
+  app/pyhelp/html5routes.py
+  app/static/partials/webpage_core/sitemap.xml
+
+  are updated by executing python script "app_routes.py". If in need of modifing app.routes.js (and other two files)
+    1) Edit the file "app_routes.py"
+    2) Run at the terminal prompt 
+          > python -m app_routes
+       that will update three files include app.routes.js

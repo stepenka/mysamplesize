@@ -1,0 +1,24 @@
+<div class="row text-center">
+    <div class="col-sm-12 padding-bottom-1em spacing">
+        <h3>Account</h3>
+    </div>
+</div>
+
+<div class="row padding-bottom-2em padding-top-2em">
+    <div class="col-sm-12 col-md-10 col-md-offset-1">
+
+        <button id="loginButton" class="btn btn-lg btn-primary" ng-click="authService.login()">Login</button>
+        <a ui-sref="auth.signup"><button class="btn btn-lg btn-info" id="signupButton">Sign Up</button></a>
+        <br><br>
+        <p>
+            Login to access our experimental design tools.
+            Sign up today for a 1-day trial period.
+        </p>
+
+        <hr class="padding-top-2em margin-top-2em green_break">
+        <p>
+            <tooltip-warn></tooltip-warn>
+            <b>Internet Explorer</b> users: please use the refresh button once after logging in.
+        </p>
+    </div>
+</div>

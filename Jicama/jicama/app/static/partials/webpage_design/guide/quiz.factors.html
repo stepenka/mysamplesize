@@ -1,0 +1,70 @@
+<div ng-init="resultsGenerated = false;"></div>
+
+<p class="indent margin-bottom-1em" id="pageIntro2">
+    Next, we consider nontreatment quantities -- beyond the treatments selected on the previous page -- that may influence the outcome measure of interest. These may be <b>categorical factors</b> such as sex or litter, or <b>continuous covariates</b> such as body mass. Often these quantities are referred to as confounding variables, since the effect of the treatment on the subjects may be moderated by them. 
+    <br><br>
+    It is important to distinguish experimenter-designed <b>treatment factors</b> from these <b>nontreatment factors</b>, so we ask you to enter them here on a separate tab rather than as treatments factors on the previous tab. 
+</p>
+<p class="green_break padding-half margin-bottom-2em"></p>
+
+<div class="row">
+    <fieldset class="form-group col-md-6">
+        <label>Categorical Factors</label>
+        <tooltip-modal content="tooltip.factors" modal="'factors'"></tooltip-modal>
+        
+        <div class="modal-body">
+            <p>
+                Categorical factors are discrete variables.
+            </p>
+        <div>
+        
+        </br></br>
+        <button type="button" class="icon btn btn-default" ng-click="addRow('factors')">
+            <span class="fa fa-plus"></span> Add Factor
+        </button>
+    </fieldset>
+
+    <fieldset class="form-group col-md-6" ng-disabled="true">
+        <label> Continuous Covariates </label>
+        <tooltip-modal content="tooltip.covariates" modal="'covariates'"></tooltip-modal>
+        
+        <div class="modal-body">
+            <p>
+                A covariate is a continuous variable corresponding to a characteristic of the subject.
+            </p>
+        <div>
+        
+        <br>
+        <span uib-tooltip-html="'This functionality is not yet available.'">
+            <button type="button" class="icon btn btn-default" ng-click="addRow('covariates')">
+                <span class="fa fa-plus"></span> Add Covariate
+            </button>
+        </span>
+    </fieldset>
+</div>
+
+
+<!-- Insert table from previous slide -->
+<fieldset class="form-group">
+    <p>
+        If applicable, enter the factor and covariate information below. 
+        Your controls and treatments are tabulated from the previous page.
+    </p>
+
+    <div ng-include src="quiztableinfo" class="table-hover"/>
+
+</fieldset>
+
+
+<div class="row">
+    <div class="col-xs-6 col-xs-offset-3">
+        <button class="btn btn-primary btn-block" ng-click="makeTreatmentTable(); resultsGenerated=true; scrollToElementById('quiz-table-groups');" id="fct-dg-check">
+            Check Your Design
+        </button>
+    </div>
+</div>
+
+<!-- Show table of computed groups -->
+<div ng-hide="resultsGenerated == false" class="text-center" id="quiz-table-groups">
+    <div ng-include src="quiztablegroups"></div>
+</div>

@@ -1,0 +1,93 @@
+<h2 class="text-grey text-lowercase">statistical power</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-newspaper-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            Power (1 - <i>&beta;</i>) represents the likelihood of detecting a true positive result.
+        </p>
+        <div class="row padding-top-1em padding-bottom-1em">
+            <div class="col-sm-6 col-sm-offset-3">
+                <img ng-src="{{imgPath}}/tools/tools_sig_TypeErrors.png" class="width-100" spinner-img-load>
+            </div>
+        </div><br>
+        <p>
+            Generally speaking, scientific hypotheses concern a causal relationship between a treatment or manipulation and an outcome. Experiments are conducted to build evidence for (or against) a scientific hypothesis. Since the burden of proof for the scientific conjecture is on the scientist, we phrase this process statistically in terms of the Null Hypothesis that the treatment has no effect, sort of like the legal principle of “innocent until proven guilty beyond a reasonable doubt.”
+        </p>
+        <p>
+            The Significance, or Type I error probability, is our quantification of “reasonable doubt.” Type II error, on the other hand, represents the chances of letting a guilty party go free in the legal analogy. Power, the complement of Type II error, is the likelihood of detecting guilt (that is, a finding a true positive).
+        </p>
+        <p>
+            To design an experiment to which statistical hypothesis testing applies, we must consider both types of errors: false positives and false negatives. If we consider only significance, then we may end up with low power (which is the same as a high false negative rate), meaning a high likelihood of missing real effects.  Moreover, low power leads to low positive predictive value of a study: the probability that a positive study outcome reflects a true positive depends decreases as power decreases (see, e.g., Button et al, 2013). 
+        </p>
+        <div>
+            The key quantities governing power are significance, outcome measure standard deviation, effect size, and sample size. Power increases as    
+            <ul>
+                <li> Sample size increases;</li>
+                <li> Effect size increases;</li>
+                <li> Standard deviation decreases;</li>
+                <li> Significance increases;</li>
+            </ul>
+        </div>
+        <p>
+            Sample size is the quantity over which the experimenter has obvious control. Effect size is determined by the science and should be kept small enough to capture differences in outcomes of scientific relevance. Strength of treatment dosages or manipulation can be chosen to make effect sizes of interest larger. Standard deviation in outcome measure is a property of the subject population, and use of in-bred subjects may have a reducing impact. Significance of 0.05 is typically the largest value of interest in the literature.        
+        </p>
+    </div>
+</div>
+
+<h2 class="text-grey margin-top text-lowercase">Test your understanding</h2>
+<hr>
+<div class="row">
+    <div class="col-sm-5 green_side">
+        <div class="row col-sm-offset-1">
+            <div ng-include src="'static/partials/webpage_help/statbasics/test_understanding_blurb.html'"></div>
+            <p class="text-bold"> 
+                Move the sliders to see how Effect Size and Sample Size affect Statistical Power.
+            </p>
+        </div>    
+        
+        <div class="row padding-bottom-2em" ng-init="initPlotType('power')">
+            <div class="col-xs-12">
+                <nvd3 options="esPlotOptions" data="powerPlotData"></nvd3>
+            </div>
+             
+            <p align="center"><big>Power for your effect size: <b id="pwrDisp">{{powerVal.toFixed(4)}}</b></big> </p>
+            
+            <div class="col-sm-6 padding-bottom-2em sliderWithLabel">
+                <h5> Number of Subjects per Group </h5><br>
+                <rzslider rz-slider-model="sampleSize_slider.value" rz-slider-options="sampleSize_slider.options"></rzslider>
+                <br>
+                <h5> Effect Size </h5><br>
+                <rzslider rz-slider-model="effectSize_slider.value" rz-slider-options="effectSize_slider.options"></rzslider>
+            </div>
+            <div class="col-sm-6 sliderWithLabel">
+                <h5> Standard Deviation </h5><br>
+                <rzslider rz-slider-model="stdev_slider.value" rz-slider-options="stdev_slider.options"></rzslider>
+                
+                <h5> Significance </h5><br>
+                <rzslider rz-slider-model="sigLevel_slider.value" rz-slider-options="sigLevel_slider.options"></rzslider>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-7">
+        <div class="row col-sm-offset-1">
+            <div ng-include src="'static/partials/webpage_help/statbasics/simulation_blurb.html'"></div>
+        </div>
+        
+        <div class="row padding-bottom-2em padding-top-1em" ng-controller="simPlotCtrl">
+            <p align="center">
+            <button type="button" class="btn btn-primary" ng-click="updateSimPlot(data.id);">
+                Simulate Random Experiment
+            </button></p>
+
+            <div class="row" ng-init="initSimPlot(helpService.simPlotData)">
+                <h4 align="center">p-value this simulation: <b id="pVal">{{data.pVal[0].toFixed(4)}}</b> </h4>
+
+                <div class="col-xs-12" id="simPlot">
+                    <nvd3 options="myOptions" data="myData" api="dummy.api"></nvd3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

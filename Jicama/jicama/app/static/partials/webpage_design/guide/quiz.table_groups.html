@@ -1,0 +1,57 @@
+<div id="quiz-table-html">
+    <p class="green_break padding-half margin-bottom-2em"></p>
+    <p class="medium">
+        These are all the groups suggested by this treatment and control design. <br>
+        <!-- You can remove groups by unchecking below. -->
+    </p>
+    <table class="table medium">
+        <thead>
+            <tr>
+                <th class="text-center"> Group </th>
+                <!-- <th class="text-center"> Retain group in experiment? </th> -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="n in treatment_table track by $index">
+                <td> {{ n.group }} </td>
+                <!-- <td> <input type="checkbox" ng-checked="n.selected" ng-model="n.selected"/> </td> -->
+            </tr>
+            
+            <tr ng-repeat="ct in formData.controlTypes track by $index">
+                <td ng-show="ct.selected"> Additional control: {{ ct.name }} </td>
+                <!--
+                <td ng-show="ct.selected"> <input type="checkbox" ng-checked="true" ng-disabled="true"/> </td>
+                -->
+            </tr>
+        </tbody>
+    </table>
+
+    <br /><br />
+    <div class="row" ng-if="formData.step==1">
+        <p class="text-center">Is this correct so far?</p>
+        <br>
+        <div class="col-sm-4 col-sm-offset-4">
+            <button ng-click='stepUp()' class="btn btn-block btn-primary">
+                Yes! Next Section
+                <span class="fa fa-angle-double-right"></span>
+            </button>
+        </div>
+    </div>
+
+    <div class="row" ng-if="formData.step==2">
+        <p class="text-center">Is this correct so far?</p>
+        
+        <div class="col-sm-3 col-sm-offset-3">
+            <button class="btn btn-block btn-primary" type="button" ng-click="resultsGenerated=false; stepDown();">
+                No, Go Back.
+            </button>
+        </div>
+        
+        <div class="col-sm-3" id="dg-fctNext">
+            <button ng-click='stepUp()' class="btn btn-block btn-primary">
+                Yes! Next Section
+                <span class="fa fa-angle-double-right"></span>
+            </button>
+        </div>
+    </div>
+</div>

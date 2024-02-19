@@ -1,0 +1,27 @@
+<div id="smlDiffPop">
+    <div class="modal-header">
+        <h3 class="modal-title">Difference Between Control and Treatment</h3>
+    </div>
+
+    <div class="modal-body">
+        <p>
+            Information entered here should represent the lower bound on differences between control and treatment outcomes that would matter scientifically. This number defines "the smallest positive" that would be meaningful within the context of your study.
+        </p>
+        <p class="padding-top-1em">
+            For example, how much of a reduction in tumor mass or travel distance would be meaningful? If an aspirin brings relief on average in 120 min (2 hours), and your new medicine brings relief in 119 minutes, does that one minute matter? If so, that one minute is an effect size worth detecting. If not, would 10 minutes matter? 
+        </p>
+        <p class="padding-top-1em">
+            Consider renal tumor diameter in an Eker rat of 8mm without pituitary tumors and 13mm with pituitary tumors. Is the 5mm difference clinically or scientifically relevant? 
+        </p>
+        <p class="padding-top-1em">
+            The number you enter, called an effect size, quantifies the difference in outcome measures of experimental groups in your scientific hypothesis.  For more on effect sizes, please check out our <a ui-sref="help.statbasics.effect">help pages</a>.
+        </p>
+        <p class="padding-top-1em">
+            To gain some feeling for the design process, you may want to simulate a simple experiment.  At this link, you can simulate a two-group or a multi-group comparison experiment to see how effect size, standard deviation, sample size per group, and significance govern statistical power and relate to your ability to detect underlying differences between your groups.  Click <a target="_blank" ui-sref="tools.sims">SIMULATION</a> to run simulations.
+        </p>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    </div>
+</div>

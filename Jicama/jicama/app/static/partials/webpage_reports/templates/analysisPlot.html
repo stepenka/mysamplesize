@@ -1,0 +1,70 @@
+<p class="small">
+    Note that the power and p-values are listed in order of each factor, the secondary interactions, and the three-way interactions (if applicable).
+</p>
+
+<br>
+
+<table>
+    <tr>
+        <td> Test </td>
+        <td> {{ row["test"] }} </td>
+    </tr>
+    <tr>
+        <td> Significance level </td>
+        <td> {{ row["sig"] }} </td>
+    </tr>
+    <tr>
+        <td> Standard deviation </td>
+        <td> {{ row["std"] }} </td>
+    </tr>
+    <tr>
+        <td> Subjects per group </td>
+        <td> {{ row["n"] }} </td>
+    </tr>
+    <tr>
+        <td> p-value(s) </td>
+        <td>
+            {% for pVal in row["pVal"] %}
+                {{ '%0.3e' % pVal }}, 
+            {% endfor %}
+        </td>
+    </tr>
+    
+{% if not row["isTest"]["twoT"] %}
+    <tr>
+        <td> nGroups </td>
+        <td>
+            {% if row["isTest"]["oneAOV"] %}
+                {{ row["p"] }}
+            {% elif row["isTest"]["twoAOV"] %}
+                {{ row["nLevels"] }}
+            {% elif row["isTest"]["multAOV"] %}
+                {{ row["nLevels3"] }}
+            {% endif %}
+        </td>
+    </tr>
+{% endif %}
+
+</table>
+
+<br>
+<h5> Input Data </h5>
+<br>
+
+<textarea class="small">
+{{ row["csvdata"] }}
+</textarea>
+<br>
+
+
+{% for tmp in img %}
+    {% if row["isTest"]["multAOV"] %}
+        {% set ndx = ((loop.index-1) % ((img|length)/2 | int)) %}
+        <h5>
+            Third Factor, Level {{(ndx+1) | int}}
+        </h5>
+    {% endif %}
+    
+    <img src="{{ tmp }}" />
+{% endfor %}
+

@@ -1,0 +1,165 @@
+<div class="text-center padding-bottom-2em" id="casestudy2">
+    <h3>Case Study 2: Repeated Measures Design<br><small class="text-black">Effects of social isolation from weaning on sensorimotor gating: modulation by water deprivation.</small></h3>
+</div>
+
+<h2 class="text-grey">objective</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-newspaper-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            Prepulse inhibition (PPI) of the acoustic startle reflex is an operational measure of sensorimotor gating and is reduced in neuropsychiatric disorders such as schizophrenia. Isolation rearing of rats is a developmentally specific, non-pharmacological manipulation that leads to deficits in sensorimotor gating that mimic those observed in schizophrenia patients.
+        </p>
+        <ul class="fa-ul">
+            <li>
+                <i class="fa-li fa fa-square text-green"></i>
+                This study examined the effects of an added stressor (water deprivation) on the magnitude of the isolation rearing effect on PPI.
+            </li>
+        </ul>
+        <h4 class="green_break padding-half text-grey text-bold"> hypothesis </h4>  
+        <blockquote><p>Water deprivation will potentate the effects of isolation rearing on PPI.</p></blockquote>  
+      </div>
+</div>
+
+<h2 class="text-grey">methods</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-list-ul text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            At the time of weaning, male (n = 80) and female (n = 80) rats were randomly assigned to either social housing or isolation housing and were subsequently assigned to the water-deprived or non-water deprived groups. Rats from each litter were equally assigned to the four treatment groups. Thus, the design was a 2 (sex) x 2 (housing) x 2 (water deprivation) design. Rats were tested for PPI at 3, 5 and 7 weeks post-weaning.
+        </p>
+        <table class="table table-striped">
+            <thead><tr>
+                <th></th>
+                <th></th>
+                <th>Male</th>
+                <th>Female</th>
+                </tr></thead>
+            <tbody>
+                <tr>
+                    <td>Social</td>
+                    <td>No Water Deprivation</td>
+                    <td>19</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Water Deprivation</td>
+                    <td>20</td>
+                    <td>19</td>
+                </tr>
+                <tr>
+                    <td>Isolate</td>
+                    <td>No Water Deprivation</td>
+                    <td>20</td>
+                    <td>19</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Water Deprivation</td>
+                    <td>19</td>
+                    <td>20</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<h2 class="text-grey">statistics</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-file-code-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            A repeated measures analysis of variance (ANOVA) with sex, housing and water treatment as between-subjects factors and week, block and prepulse intensity as within-subjects factors was performed on the % PPI data. An average % PPI value was obtained for each subject by combining the data from the three prepulse intensities. Where appropriate, post hoc analyses were carried out using Newman–Keuls. Alpha level was set to 0.05.
+        </p>
+        <pre><code>
+    library(agricolae)    
+    set.seed(10)    
+    case_study2 <- read.csv(sampledata.csv)
+    case_study2 <- <- within(case_study2, {
+      sex   <- factor(sex)
+      housing <- factor(housing)
+      treatment <- factor(treatment)
+      week <- factor(week)
+      block <- factor(block)
+      intensity <- factor(intensity)
+    })
+
+    aov_result <- aov(PPI ~ sex + housing + treatment + week + block + intensity + Error( PPI / (sex + housing + treatment + week)), data=case_study2)
+    summary(aov_result)
+
+    newman_keuls_result <- SNK.test(aov_result, trt, DFerror, MSerror, alpha = 0.05, group=TRUE, main = NULL)
+    newman_keuls_result
+        </code></pre>
+        
+        <p>Results:</p>
+        <pre><code>
+    $statistics
+        Mean      CV  MSerror
+      27.625 17.1666 22.48917
+
+    $parameters
+      Df ntr alpha test name.t
+       8   4  0.05  SNK  virus
+
+    $SNK
+         Table CriticalRange
+    2 3.261182      8.928965
+    3 4.041036     11.064170
+    4 4.528810     12.399670
+
+    $means
+          yield      std r  Min  Max
+    cc 24.40000 3.609709 3 21.7 28.5
+    fc 12.86667 2.159475 3 10.6 14.9
+    ff 36.33333 7.333030 3 28.0 41.8
+    oo 36.90000 4.300000 3 32.1 40.4
+
+    $comparison
+    NULL
+
+    $groups
+      trt    means M
+    1  oo 36.90000 a
+    2  ff 36.33333 a
+    3  cc 24.40000 b
+    4  fc 12.86667 c
+        </code></pre>
+    </div>
+</div>
+
+
+<h2 class="text-grey">results</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-line-chart text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            ANOVA revealed a main effect of housing [F(1,145) = 16.65, p < 0.001] with isolated rats showing a decrease in PPI at all 3 weeks and at all prepulse intensities (Figure 1). There were no main effects of sex or water deprivation. There were also no interactions between housing and sex, water deprivation, prepulse intensity, or week. Thus, isolation rearing was associated with decreased PPI at all three weeks in both males and females, as illustrated in Figure 2. Although there was no housing by water deprivation interaction, there was a trend for the water-deprived (WD) isolates to show less of a PPI deficit than non-water deprived (NWD) isolates. This trend was most apparent at week 7 (Figure 2). There was a main effect of week [F(2,290) = 8.85, p < 0.005] and a week by sex interaction [F(2,290) = 3.25, p < 0.05]. PPI levels at week 5 were higher than those observed during weeks 3 and 7.
+        </p>
+        <p>
+            Although there was no interaction between housing, water deprivation, and week, inspection of the data revealed a trend toward a decrease in the housing effect as the weeks progressed.  Thus, ANOVAs were performed at each week in the water deprived and non-water deprived groups separately.  In the NWD group, the effect of housing was apparent at week 3 [F(1,73) = 11.7, p < 0.01] and week 7 [F(1,73) = 10.4, p < 0.01] with only a trend towards a housing effect at week 5 [F(1,73) = 3.33, p=0.07]. In the WD group, the housing effect diminished over time, as indicated by a significant effect of housing at week 3 [F(1,72) = 8.55, p < 0.01], but not at week 5 [F(1,72) = 1.44, n.s.] or week 7 [F(1,72) = 0.03, n.s.].
+        </p>
+        <h4 class="green_break padding-half text-grey text-bold"> conclusions </h4>
+        <p>
+            Isolated rats showed a significant decrease in PPI that was apparent at all 3 weeks. Water deprivation did not significantly affect PPI, nor was there a significant interaction between housing and water treatment or between sex and housing. Isolation rearing significantly disrupts PPI in male and female rats independent of any effects of water deprivation.
+        </p>
+        
+        <figure class="row figure margin-top-2em">
+            <div class="col-sm-6">
+                <img ng-src="{{imgPath}}/cs2_result1.png" alt="" class="img-responsive text-center"/>
+                <figcaption class="figure-caption text-xs-right">
+                    Fig. 1. Mean (S.E.M.) % PPI collapsed across prepulse intensities (3, 6, 12 dB above Background) in Cohort 1 socials and isolates at Weeks 3, 5, and 7 postweaning. Data are collapsed across sex and treatment group.
+                </figcaption>
+            </div>
+            <div class="col-sm-6">
+                <img ng-src="{{imgPath}}/cs2_result2.png" alt="" class="img-responsive text-center"/>
+                <figcaption class="figure-caption text-xs-right">
+                    Fig. 2. Mean (S.E.M.) % PPI collapsed across prepulse intensity in non-water-deprived (NWD) and water-deprived (WD) socials and isolates from Cohort 1 at Weeks 3,5,7 postweaning.
+                </figcaption>
+            </div>
+        </figure>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="row padding-bottom-2em" id="helpTutorialPg">
+
+    <h2 class="text-center text-grey spacing"> Tutorial </h2> <br>
+
+    <div class="col-sm-12 col-lg-10 col-lg-offset-1">
+    
+        <div ng-repeat="c in tutorialContents">
+            <a class="" ui-sref="{{c.ui_sref}}">
+                <div class="h4 grey-hover text-left text-uppercase spacing">
+                    {{c.title}}
+                    <i class="pull-right fa fa-chevron-right"></i>
+                </div>
+            </a>
+            
+            <div ng-repeat="g in c.groups">
+                <span class="padding-left-1em">{{::g.title}}</span>
+            </div>
+        </div>
+    </div>
+</div>

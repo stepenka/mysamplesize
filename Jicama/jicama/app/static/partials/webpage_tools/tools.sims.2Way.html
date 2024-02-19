@@ -1,0 +1,149 @@
+
+<div class="col-sm-3 table-responsive" ng-init="checkValid(simForm); updateSimPlot()">
+    <table class="table align-middle"><tbody>
+        <tr>
+            <td> <label>Number of subjects per group </label> </td>
+            <td> <input type="number" name="nSubjects2" min="2" step="1" ng-model="data.n" ng-change="updateSimPlot()" ng-disabled="!design.notEmbedded" ng-required="true" /> </td>
+            <td>
+                <tooltip-link url="standalone.samplesize" content="'tooltip.sample'"  ng-show="checkValid(simForm, 'nSubjects2')"></tooltip-link>
+                
+                <tooltip-warn content="'Invalid input'" ng-show="!checkValid(simForm, 'nSubjects2')"></tooltip-link>
+            </td>
+        </tr>
+        
+        <tr>
+            <td> <label>Standard Deviation</label> </td>
+            <td> <input type="number" name="std2" min="0.001" step="0.001" ng-model="data.std" ng-change="updateSimPlot()" ng-disabled="!design.notEmbedded" ng-required="true" /> </td>
+            <td>
+                <tooltip-link url="standalone.stdev" content="'tooltip.std'"  ng-show="checkValid(simForm, 'std2')"></tooltip-link>
+                
+                <tooltip-warn content="'Invalid input'" ng-show="!checkValid(simForm, 'std2')"></tooltip-link>
+            </td>
+        </tr>
+        
+        <tr>
+            <td> <label>Significance Level</label> </td>
+            <td> <input type="number" name="sig2" min="0.001" step="0.001" max="0.999" ng-model="data.sig" ng-change="updateSimPlot()" ng-required="true" /> </td>
+            <td>
+                <tooltip-link url="standalone.sig" content="'tooltip.sig'"  ng-show="checkValid(simForm, 'sig2')"></tooltip-link>
+                
+                <tooltip-warn content="'Invalid input'" ng-show="!checkValid(simForm, 'sig2')"></tooltip-link>
+            </td>
+        </tr>
+        
+        <tr ng-show="design.stat.selectedOption.id !== 8">
+            <td> <label> Mean response for control group </label> </td>
+            <td> <input type="number" name="mu2" min="-100000" max="100000" step="0.01" ng-model="data.mu" ng-change="updateSimPlot()" ng-required="true" /> </td>
+            <td>
+                <tooltip-link url="standalone.groups" content="'tooltip.groups'"  ng-show="checkValid(simForm, 'mu2')"></tooltip-link>
+                
+                <tooltip-warn content="'Invalid input'" ng-show="!checkValid(simForm, 'mu2')"></tooltip-link>
+            </td>
+        </tr>
+        
+        <tr>
+            <td> <label>Effect Size</label> </td>
+            <td> <input type="number" name="es2" min="0.001" step="0.001" ng-model="data.effectSize" ng-change="updateSimPlot()" ng-disabled="!design.notEmbedded" ng-required="true" /> </td>
+            <td>
+                <tooltip-link url="standalone.effect" content="'tooltip.effect'"  ng-show="checkValid(simForm, 'es2')"></tooltip-link>
+                
+                <tooltip-warn content="'Invalid input'" ng-show="!checkValid(simForm, 'es2')"></tooltip-link>
+            </td>
+        </tr>
+        
+        <!-- if 2-way or 3-way ANOVA -->
+        <tr>
+            <td> <label> Number of levels in Main Factor </label> </td>
+            <td> <input type="number" name="n1_2" min="2" max="10" step="1" ng-model="data.nLevels[0]" ng-change="updateSimPlot()" ng-disabled="!design.notEmbedded" ng-required="true" /> </td>
+            <td>
+                <tooltip-link url="standalone.groups" content="'tooltip.groups'"  ng-show="checkValid(simForm, 'n1_2')"></tooltip-link>
+                
+                <tooltip-warn content="'Invalid input'" ng-show="!checkValid(simForm, 'n1_2')"></tooltip-link>
+            </td>
+        </tr>
+        
+        <tr>
+            <td> <label> Number of levels in Second Factor </label> </td>
+            <td> <input type="number" name="n2_2" min="2" max="10" step="1" ng-model="data.nLevels[1]" ng-change="updateSimPlot()" ng-disabled="!design.notEmbedded" ng-required="true" /> </td>
+            <td>
+                <tooltip-link url="standalone.groups" content="'tooltip.groups'" ng-show="checkValid(simForm, 'n2_2')"></tooltip-link>
+                
+                <tooltip-warn content="'Invalid input'" ng-show="!checkValid(simForm, 'n2_2')"></tooltip-link>
+            </td>
+        </tr>
+    </tbody></table>
+    
+    <p class="panel padding-2em text-bold" ng-show="design.stat.selectedOption.id == 7">
+        Your main factor power: <span ng-bind="data.powerVal[0]"></span> <br>
+        Your second factor power: <span ng-bind="data.powerVal[1]"></span> <br>
+        Your interaction power: <span ng-bind="data.powerVal[2]"></span> <br>
+    </p>
+</div>
+
+<div class="col-sm-9">
+    
+    <div class="row">
+        <div class="col-sm-4">
+            <button type="button" class="btn btn-primary" ng-click="updateSimPlot()"> Simulate Random Experiment</button>
+            
+            <h4>
+                p-values this simulation: <br>
+                <small> Main: {{data.pVal[0].toExponential(3)}} </small><br>
+                <small> Second: {{data.pVal[1].toExponential(3)}} </small><br>
+                <small> Interaction: {{data.pVal[2].toExponential(3)}} </small>
+            </h4>
+        </div>
+        <div class="col-sm-6 col-sm-offset-1 padding-bottom-1em">
+            <table class="table">
+                <tr>
+                    <td><label> Main Factor </label>
+                    <td>
+                        <tooltip content="'How do you think the first factor impacts your outcome? Do you expect your outcome to increase, to decrease, to look like a U shape, or an inverted U? Select one below:'"></tooltip>
+                    </td>
+                    <td>
+                        <select ng-model="anova.response[0]"
+                            ng-options="options.label for options in response.options"
+                            ng-change="updateSimPlot()">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label> Second Factor </label></td>
+                    <td>
+                        <tooltip content="'How do you think the second factor impacts your outcome? Do you expect your outcome to increase, to decrease, to look like a U shape, or an inverted U? Select one below:'"></tooltip>
+                    </td>
+                    <td>
+                        <select ng-model="anova.response[1]"
+                            ng-options="options.label for options in response.options"
+                            ng-change="updateSimPlot()">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label> Interaction </label></td>
+                    <td>
+                        <tooltip content="'Do the first and second factors work together or in opposition?'"></tooltip>
+                    </td>
+                    <td>
+                        <select ng-model="anova.response[2]"
+                            ng-options="options.label for options in response2.options"
+                            ng-change="updateSimPlot()">
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div ng-class="{'processing': myOptions.processing}">
+        <span class="col-xs-12 text-center" ng-show="myOptions.processing">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+        </span><br>
+        <nvd3 options="multiBar.options" data="multiBar.data" config="chartConfig"></nvd3>
+        
+        <div class="grey4_break margin-bottom-2em padding-bottom-2em"></div>
+        <h4 class="text-bold margin-bottom-2em padding-bottom-2em"> Quantile plot </h4>
+        <nvd3 options="boxPlots.options" data="boxPlots.data" config="chartConfig"></nvd3>
+    </div>
+    
+</div>

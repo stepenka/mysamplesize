@@ -1,0 +1,21 @@
+
+{% if not row %}
+    No contextual data associated with this plot. Run and save the plot again to include this data.
+    
+{% else %}
+    
+    {% if row["plotType"] == "tools.pwrgraph" %}
+        <h5> Power Plot </h5>
+        {% include 'static/partials/webpage_reports/templates/powerPlot.html' %}
+        
+    {% elif row["plotType"] == "tools.sims" %}
+        <h5> Simulation </h5>
+        {% include 'static/partials/webpage_reports/templates/simPlot.html' %}
+
+    {% elif row["plotType"] == "tools.analysis" %}
+        <h5> Data Analysis </h5>
+        {% include 'static/partials/webpage_reports/templates/analysisPlot.html' %}
+
+    {% endif %}
+
+{% endif %}

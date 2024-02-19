@@ -1,0 +1,30 @@
+<div class="col-sm-2 sidebar">
+    <h2 ng-show="!authService.authenticated"><a ui-sref="auth.home">Account</a></h2>
+    <h2 ng-show="authService.authenticated"><a ui-sref="account.home">Account</a></h2>
+    
+    <ul class="list-unstyled nav">
+        <div ng-if="!authService.authenticated">
+            <li ui-sref-active="active"><a ui-sref="auth.signup">           Sign Up </a></li>
+            <li class="cursor-pointer"><a ng-click="authService.login()">   Login </a></li>
+        </div>
+        
+        <div ng-if="authService.authenticated" id="myaccount-sidebar">
+            <li>
+                <label> </label>
+                <ul class="help-submenu">
+                    <li> <a ui-sref-active="active" ui-sref="account.billing"> Billing </a></li>
+                    <li> <a ui-sref-active="active" ui-sref="account.update"> Change Password </a></li>
+                    <li> <a ui-sref-active="active" ui-sref="account.projects"> My Projects </a></li>
+                </ul>
+            </li>
+            <li class="cursor-pointer" id="navLogout"><a ng-click="authService.logOut()">   Logout </a></li>
+        </div>
+    </ul>
+</div>
+
+<div class="col-sm-10 col-sm-offset-2">
+    <div class="page_content padding-top-1em">
+        <!-- Content goes here -->
+        <div ui-view autoscroll='true'></div>
+    </div>
+</div>

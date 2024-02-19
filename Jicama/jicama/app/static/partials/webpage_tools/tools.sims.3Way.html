@@ -1,0 +1,206 @@
+
+<div class="col-sm-3 table-responsive" ng-init="checkValid(simForm)">
+    <table class="table align-middle"><tbody>
+        <tr>
+            <td> <label>Number of subjects per group </label> </td>
+            <td> <input type="number" name="nSubjects3" min="2" step="1" ng-model="data.n" ng-change="updateSimPlot()" ng-disabled="!design.notEmbedded" ng-required="true" /> </td>
+            <td>
+                <tooltip-link url="standalone.samplesize" content="'tooltip.sample'"  ng-show="checkValid(simForm, 'nSubjects3')"></tooltip-link>
+                
+                <tooltip-warn content="'Invalid input'" ng-show="!checkValid(simForm, 'nSubjects3')"></tooltip-link>
+            </td>
+        </tr>
+        
+        <tr>
+            <td> <label>Standard Deviation</label> </td>
+            <td> <input type="number" name="std3" min="0.001" step="0.001" ng-model="data.std" ng-change="updateSimPlot()" ng-disabled="!design.notEmbedded" ng-required="true" /> </td>
+            <td>
+                <tooltip-link url="standalone.stdev" content="'tooltip.std'"  ng-show="checkValid(simForm, 'std3')"></tooltip-link>
+                
+                <tooltip-warn content="'Invalid input'" ng-show="!checkValid(simForm, 'std3')"></tooltip-link>
+            </td>
+        </tr>
+        
+        <tr>
+            <td> <label>Significance Level</label> </td>
+            <td> <input type="number" name="sig3" min="0.001" step="0.001" max="0.999" ng-model="data.sig" ng-change="updateSimPlot()" ng-required="true" /> </td>
+            <td>
+                <tooltip-link url="standalone.sig" content="'tooltip.sig'"  ng-show="checkValid(simForm, 'sig3')"></tooltip-link>
+                
+                <tooltip-warn content="'Invalid input'" ng-show="!checkValid(simForm, 'sig3')"></tooltip-link>
+            </td>
+        </tr>
+        
+        <tr ng-show="!design.isTTest2()">
+            <td> <label> Mean response for control group </label> </td>
+            <td> <input type="number" name="mu3" min="-100000" max="100000" step="0.01" ng-model="data.mu" ng-change="updateSimPlot()" ng-required="true" /> </td>
+            <td>
+                <tooltip-link url="standalone.groups" content="'tooltip.groups'"  ng-show="checkValid(simForm, 'mu3')"></tooltip-link>
+                
+                <tooltip-warn content="'Invalid input'" ng-show="!checkValid(simForm, 'mu3')"></tooltip-link>
+            </td>
+        </tr>
+        
+        <tr>
+            <td> <label>Effect Size</label> </td>
+            <td> <input type="number" name="es3" min="0.001" step="0.001" ng-model="data.effectSize" ng-change="updateSimPlot()" ng-disabled="!design.notEmbedded" ng-required="true" /> </td>
+            <td>
+                <tooltip-link url="standalone.effect" content="'tooltip.effect'"  ng-show="checkValid(simForm, 'es3')"></tooltip-link>
+                
+                <tooltip-warn content="'Invalid input'" ng-show="!checkValid(simForm, 'es3')"></tooltip-link>
+            </td>
+        </tr>
+        
+        <tr>
+            <td> <label> Number of levels in Main Factor </label> </td>
+            <td> <input type="number" name="n1_3" min="2" max="10" step="1" ng-model="data.nLevels3[0]" ng-change="updateSimPlot()" ng-disabled="!design.notEmbedded" ng-required="true" /> </td>
+            <td>
+                <tooltip-link url="standalone.groups" content="'tooltip.groups'"  ng-show="checkValid(simForm, 'n1_3')"></tooltip-link>
+                
+                <tooltip-warn content="'Invalid input'" ng-show="!checkValid(simForm, 'n1_3')"></tooltip-link>
+            </td>
+        </tr>
+        
+        <tr>
+            <td> <label> Number of levels in Second Factor </label> </td>
+            <td> <input type="number" name="n2_3" min="2" max="10" step="1" ng-model="data.nLevels3[1]" ng-change="updateSimPlot()" ng-disabled="!design.notEmbedded" ng-required="true" /> </td>
+            <td>
+                <tooltip-link url="standalone.groups" content="'tooltip.groups'"  ng-show="checkValid(simForm, 'n2_3')"></tooltip-link>
+                
+                <tooltip-warn content="'Invalid input'" ng-show="!checkValid(simForm, 'n2_3')"></tooltip-link>
+            </td>
+        </tr>
+        
+        <tr>
+            <td> <label> Number of levels in Third Factor </label> </td>
+            <td> <input type="number" name="n3_3" min="2" max="10" step="1" ng-model="data.nLevels3[2]" ng-change="updateSimPlot()" ng-disabled="!design.notEmbedded" ng-required="true" /> </td>
+            <td>
+                <tooltip-link url="standalone.groups" content="'tooltip.groups'"  ng-show="checkValid(simForm, 'n3_3')"></tooltip-link>
+                
+                <tooltip-warn content="'Invalid input'" ng-show="!checkValid(simForm, 'n3_3')"></tooltip-link>
+            </td>
+        </tr>
+    </tbody></table>
+    
+    <p class="padding-top-1em">
+        <table class="table table-condensed text-bold small panel borderless">
+            <thead>
+                <td> Factor / Interaction </td>
+                <td> Power </td>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> Main </td>
+                    <td> <span ng-bind="data.powerVal[0]"></span> </td>
+                </tr>
+                <tr>
+                    <td> Second </td>
+                    <td> <span ng-bind="data.powerVal[1]"></span> </td>
+                </tr>
+                <tr>
+                    <td> Third </td>
+                    <td> <span ng-bind="data.powerVal[2]"></span> </td>
+                </tr>
+                <tr>
+                    <td> Main-Second </td>
+                    <td> <span ng-bind="data.powerVal[3]"></span> </td>
+                </tr>
+                <tr>
+                    <td> Main-Third </td>
+                    <td> <span ng-bind="data.powerVal[4]"></span> </td>
+                </tr>
+                <tr>
+                    <td> Second-Third </td>
+                    <td> <span ng-bind="data.powerVal[5]"></span> </td>
+                </tr>
+                <tr>
+                    <td> Three-Way </td>
+                    <td> <span ng-bind="data.powerVal[6]"></span> </td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </p>
+</div>
+
+<div class="col-sm-9">
+    
+    <div class="row">
+        <div class="col-sm-4">
+            <button type="button" class="btn btn-primary" ng-click="updateSimPlot()"> Simulate Random Experiment</button>
+        
+            <table class="table table-condensed small">
+                <thead>
+                    <td> Factor / Interaction </td>
+                    <td> p-value this simulation: </td>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> Main </td>
+                        <td> <span ng-bind="data.pVal[0].toExponential(3)"></span> </td>
+                    </tr>
+                    <tr>
+                        <td> Second </td>
+                        <td> <span ng-bind="data.pVal[1].toExponential(3)"></span> </td>
+                    </tr>
+                    <tr>
+                        <td> Third </td>
+                        <td> <span ng-bind="data.pVal[2].toExponential(3)"></span> </td>
+                    </tr>
+                    <tr>
+                        <td> Main-Second </td>
+                        <td> <span ng-bind="data.pVal[3].toExponential(3)"></span> </td>
+                    </tr>
+                    <tr>
+                        <td> Main-Third </td>
+                        <td> <span ng-bind="data.pVal[4].toExponential(3)"></span> </td>
+                    </tr>
+                    <tr>
+                        <td> Second-Third </td>
+                        <td> <span ng-bind="data.pVal[5].toExponential(3)"></span> </td>
+                    </tr>
+                    <tr>
+                        <td> Three-Way </td>
+                        <td> <span ng-bind="data.pVal[6].toExponential(3)"></span> </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-6 col-sm-offset-1 padding-bottom-1em">
+            <p><label>
+                How do you think each factor impacts your outcome? Do you expect your outcome to increase, to decrease, to look like a U shape, or an inverted U? Select one below:
+            </p></label>
+            <select ng-model="anova.response[0]"
+                ng-options="options.label for options in response.options"
+                ng-change="updateSimPlot()">
+            </select>
+            <br><br>
+            <p><label>
+                Do the interactions between factors work together or in opposition?
+            </p></label>
+            <select ng-model="anova.response[2]"
+                ng-options="options.label for options in response2.options"
+                ng-change="updateSimPlot()">
+            </select>
+        </div>
+    </div>
+    
+    <div ng-class="{'processing': myOptions.processing}">
+        <span class="col-xs-12 text-center" ng-show="myOptions.processing">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+        </span><br>
+        <div ng-repeat="n in multiBar.options track by $index">
+            <div class="title h4 text-center">Third Factor, Level {{$index+1}} </div>
+            <nvd3 options="multiBar.options[$index]" data="multiBar.data[$index]" config="chartConfig"></nvd3><hr>
+        </div>
+        
+        <div class="grey4_break margin-bottom-2em padding-bottom-2em"></div>
+        <h4 class="text-bold"> Quantile plots </h4>
+        <div ng-repeat="n in boxPlots.options track by $index">
+            <div class="title h4 text-center">Third Factor, Level {{$index+1}} </div>
+            <nvd3 options="boxPlots.options[$index]" data="boxPlots.data[$index]" config="chartConfig"></nvd3><hr>
+        </div>
+    </div>
+    
+</div>

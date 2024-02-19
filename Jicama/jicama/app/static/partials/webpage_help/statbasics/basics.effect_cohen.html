@@ -1,0 +1,262 @@
+<div ng-controller="helpEffectController">
+<h2 class="text-grey text-lowercase">Effect Size and Cohen’s d and f  Values</h2>
+<hr>
+<div class="row">
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-newspaper-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p class="padding-bottom-1em">
+            The term "effect size" refers to the magnitude of a difference in outcomes that you are studying. An effect size is a numerical value whose units are the same as the outcome measure you are using to conduct your study.
+        </p>
+        <p class="padding-bottom-1em">
+            You may be familiar with Cohen’s effect sizes (Cohen, 1988), especially Cohen’s <b><i>d</b></i> for t-tests and Cohen’s <b><i>f</b></i> for ANOVAs. These quantities are "relative" effect sizes: roughly speaking, Cohen’s d and f values correspond to the ratios of effect size to outcome standard deviation for T-test and ANOVA test, respectively. Their use in MySampleSize requires a bit of arithmetic that we can do for you below.
+        </p>
+        <p class="padding-1em border text-center">
+            Explore Cohen's <i>d</i> and <i>f</i> values below!
+        </p>
+
+    </div>
+</div>
+
+<hr class="green_break">
+<h2 class="text-grey margin-top text-lowercase">Cohen's d</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-xs-12 col-sm-2 col-sm-offset-1">
+        <em class="small">
+            One-sample, two-sample, or paired T-tests
+        </em>
+    </div>
+    <div class="col-sm-8">
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="border-dashed-grey"><table class="table table-condensed borderless">
+                <tr>
+                    <td class="text-muted">Calculate:</td>
+                </tr>
+                <tr>
+                    <td> <label>Cohen's d</label> </td>
+                    <td> <label>Standard deviation</label> </td>
+                    <td> <label>Effect Size</label> </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input ng-model="cohenD.dval" min="0" step="0.1" ng-change="cohenD_calc()" type="number" required />
+                    </td>
+                    <td>
+                        <input min="0" ng-model="cohenD.stdev" step="0.01" ng-change="cohenD_calc()" type="number" required />
+                    </td>
+                    <td>
+                        <label>{{cohenD.effectSize.toFixed(3)}}</label>
+                    </td>
+                </tr>
+            </table></div>
+        </div>
+        <p class="padding-top-1em">
+            <div katex>
+                \text{EffectSize} = \left ( \text{standard deviation} \right) * \left ( \text{Cohen's } d \right)
+            </div>
+        </p>
+        <p class="padding-top-1em">
+            Alternatively, you can input the value of 1 for the standard deviation and Cohen’s d for the effect size in a T-test design to obtain sample size and/or power.
+        </p>
+    </div>
+</div>
+
+<hr class="green_break">
+<h2 class="text-grey margin-top text-lowercase">Cohen's f</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-newspaper-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            For designs that have more than two groups, Cohen’s f is a common relative effect size. Cohen’s f can be used in designs with one or more experimental factors, for studying individual factor effects or interaction effects.  Each factor has a number of levels, and the number of experimental groups is the product of the numbers of levels for each factor.
+        </p>
+        
+    </div>
+</div>
+
+<div class="margin-bottom-2em">
+    <hr>
+    <div class="row">
+        <div class="col-xs-12 col-sm-2 col-sm-offset-1">
+            <em class="small">
+                For a main, secondary, or tertiary factor in a more-than-two-groups experiment
+            </em>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+            <div class="border-dashed-grey"><table class="table table-condensed borderless">
+                <tr>
+                    <td class="text-muted">Calculate:</td>
+                </tr>
+                <tr>
+                    <td> <label>Cohen's f</label> </td>
+                    <td> <label>Standard deviation</label> </td>
+                    <td> <label>Number of levels in factor of interest</label> </td>
+                    <td> <label>Effect Size</label> </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input ng-model="cohenF[0].fval" min="0" step="0.1" ng-change="cohenF[0].calc()" type="number" required />
+                    </td>
+                    <td>
+                        <input min="0" ng-model="cohenF[0].stdev" step="0.01" ng-change="cohenF[0].calc()" type="number" required />
+                    </td>
+                    <td>
+                        <input min="2" ng-model="cohenF[0].nLevels" step="1" ng-change="cohenF[0].calc()" type="number" required />
+                    </td>
+                    <td>
+                        <label>{{cohenF[0].effectSize.toFixed(3)}}</label>
+                    </td>
+                </tr>
+            </table></div>
+            
+            <p class="padding-top-1em">
+                <div katex>
+                \begin{aligned}
+                    \text{EffectSize} &= \left ( \text{standard deviation} \right) * \left ( \text{Cohen's } f \right)
+                      * \sqrt{ \frac{\text{nLevels}}{ \text{nLevels}-1 } }
+                \end{aligned}
+                </div>
+            </p>
+            <p class="padding-top-1em">
+                Alternatively, you can input the value of 1 for the standard deviation and Cohen’s d for the effect size in a t-test design to obtain sample size and/or power.
+            </p>
+            <p class="padding-top-1em">
+                You may recall that an ANOVA with two groups and a two-sample T-test are equivalent. However, Cohen’s <b><i>d</b></i> and <b><i>f</b></i> are actually different numbers for these two tests. Here are the relationships for an ANOVA with exactly two groups:
+                
+                <div katex>
+                \begin{aligned}
+                    \text{Cohen's } f &= \frac{1}{2} * \left( \text{Cohen's } d \right) \\
+                    \text{effectSize} &= \frac{1}{\sqrt{2}} * (\text{Cohen's } d) * (\text{standard deviation})
+                \end{aligned}
+                </div>
+            </p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12 col-sm-2 col-sm-offset-1">
+            <em class="small">
+                For an interaction between two factors
+            </em>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+            <p>
+                For experiments seeking to detect an interaction between two factors, Cohen’s f may also be used. 
+            </p>
+            <div class="border-dashed-grey"><table class="table table-condensed borderless">
+                <tr>
+                    <td class="text-muted">Calculate:</td>
+                </tr>
+                <tr>
+                    <td> <label>Cohen's f</label> </td>
+                    <td> <label>Standard deviation</label> </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input ng-model="cohenF[1].fval" min="0" step="0.1" ng-change="cohenF[1].calc()" type="number" required />
+                    </td>
+                    <td>
+                        <input min="0" ng-model="cohenF[1].stdev" step="0.01" ng-change="cohenF[1].calc()" type="number" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td> <label>Number of levels in first factor</label> </td>
+                    <td> <label>Number of levels in second factor</label> </td>
+                    <td> <label>Effect Size</label> </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input ng-model="cohenF[1].nLevels[0]" min="2" step="1"  ng-change="cohenF[1].calc()" type="number" required />
+                    </td>
+                    <td>
+                        <input ng-model="cohenF[1].nLevels[1]" min="2" step="1" ng-change="cohenF[1].calc()" type="number" required />
+                    </td>
+                    <td>
+                        <label>{{cohenF[1].effectSize.toFixed(3)}}</label>
+                    </td>
+                </tr>
+            </table></div>
+            
+            <p class="padding-top-1em">
+                <katex>
+                \begin{aligned}
+                    \text{EffectSize} &= \left ( \text{standard deviation} \right) * \left ( \text{Cohen's } f \right) \\ 
+                        &* \sqrt{ \frac{ \text{nLevels}_1 * \text{nLevels}_2 }{ (\text{nLevels}_1-1) * (\text{nLevels}_2-1) } }
+                \end{aligned}
+                </katex>
+            </p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12 col-sm-2 col-sm-offset-1">
+            <em class="small">
+                For a three-way interaction
+            </em>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+            <p>
+                For experiments seeking to detect a three-way interaction between two factors, Cohen’s f  is still the relative effect size commonly used. 
+            </p>
+            <div class="border-dashed-grey"><table class="table table-condensed borderless">
+                <tr>
+                    <td class="text-muted">Calculate:</td>
+                </tr>
+                <tr>
+                    <td> <label>Cohen's f</label> </td>
+                    <td> <label>Standard deviation</label> </td>
+                    <td> <label>Number of levels in first factor</label> </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input ng-model="cohenF[2].fval" min="0" step="0.1" ng-change="cohenF[2].calc()" type="number" required />
+                    </td>
+                    <td>
+                        <input ng-model="cohenF[2].stdev" min="0" step="0.01" ng-change="cohenF[2].calc()" type="number" required />
+                    </td>
+                    <td>
+                        <input ng-model="cohenF[2].nLevels[0]" min="2" step="1" ng-change="cohenF[2].calc()" type="number" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td> <label>Number of levels in second factor</label> </td>
+                    <td> <label>Number of levels in third factor</label> </td>
+                    <td> <label>Effect Size</label> </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input ng-model="cohenF[2].nLevels[1]" min="2" step="1" ng-change="cohenF[2].calc()" type="number" required />
+                    </td>
+                    <td>
+                        <input ng-model="cohenF[2].nLevels[2]" min="2" step="1" ng-change="cohenF[2].calc()" type="number" required />
+                    </td>
+                    <td>
+                        <label>{{cohenF[2].effectSize.toFixed(3)}}</label>
+                    </td>
+                </tr>
+            </table></div>
+            
+            <p class="padding-top-1em">
+                <div katex>
+                    \begin{aligned}
+                    \text{EffectSize} &= \left ( \text{standard deviation} \right) * \left ( \text{Cohen's } f \right) \\
+                        &* \sqrt{ \frac{ \text{nLevels}_1 * \text{nLevels}_2 * \text{nLevels}_3 }{ (\text{nLevels}_1-1) * (\text{nLevels}_2-1) * (\text{nLevels}_3-1) } }
+                    \end{aligned}
+                </div>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+<hr class="green_break">
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-bullhorn text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p class="padding-bottom-1em">
+            Like means, standard deviations, and proportions, there are "true" or population effect sizes as well as "estimated" or sample effect sizes. In the planning stage, a researcher needs an idea of the smallest effect size that would be scientifically or clinically relevant if discovered. A strong design will have enough subjects to detect this minimally relevant effect size with sufficient power.
+        </p>
+    </div>
+</div>
+</div>  <!-- end controller -->

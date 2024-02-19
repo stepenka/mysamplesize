@@ -1,0 +1,171 @@
+<div class="text-center padding-bottom-2em" id="casestudy1">  <!-- padding-top-2em -->
+    <h3>Case Study 1: Simple Randomized Design<br><small class="text-black">Effects of metabotropic glutamate receptor agonist, DCG-IV, on acute neuronal degeneration after traumatic brain injury in rats.</small></h3>
+</div>
+
+
+<h2 class="text-grey">objective</h2>
+<hr>
+ <div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-newspaper-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            The role of metabotropic glutamate receptor activation after traumatic brain injury (TBI)
+            is not well understood. <em>In vitro</em> studies suggest that activation of Group II metabotropic
+            glutamate receptors may provide some degree of neuroprotection and may be potential targets for
+            the development of therapeutic strategies.
+        </p>
+
+        <ul class="fa-ul">
+            <li><i class="fa-li fa fa-square text-green"></i>
+                This examined the effects of a Group II selective agonist on neuronal degeneration after <em>in vivo</em> TBI.
+            </li>
+        </ul>
+
+        <h4 class="green_break padding-half text-grey text-bold"> hypothesis </h4>
+        <blockquote>
+            <p>
+                Pharmacological activation of Group II metabotropic glutamate receptors with compound DCG-IV
+                will reduce neuronal cell degeneration measured at 24 hours after experimental TBI in rats.
+            </p>
+        </blockquote>
+      </div>
+</div>
+
+<h2 class="text-grey">methods</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-list-ul text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>Rats were randomly assigned to the following groups;</p>
+           <table class="table">
+                <thead><tr>
+                    <th></th>
+                    <th>Artificial CSF<br>Vehicle control</th>
+                    <th>20 fmol DCG-IV</th>
+                    <th>100 fmol DCG-IV</th>
+                    <th>500 fmol DCG-IV</th>
+                    </tr></thead>
+                <tbody>
+                    <tr>
+                        <td>Number of Subjects</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>6</td>
+                        <td>6</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        <p>
+            Anesthetized rats were administered a moderate magnitude of fluid percussion TBI.
+            Five minutes after TBI, DCG-IV or aCSF was slowly infused into the lateral ventricle over a 1 hour.
+            At 24 hours after TBI, rats were euthanized and brains processed for fluoro-jade histology
+            to detect degenerating neurons.
+        </p>
+        <p>
+            Degenerating cells were counted in 4 coronal sections in the hippocampus were in a 1.5 mm block of brain tissue.
+        </p>
+    </div>
+</div>
+
+
+<h2 class="text-grey">design considerations</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-pencil-square-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            We are conducting a simple exploratory study to investigate pharmacological activation of
+            Group II metabotropic glutamate receptors. To keep the study as simple as possible, we are
+            only examining a single treatment type with a small number of treatment settings.
+        </p>
+
+        <h4><b> Outcome Measure </b></h4>
+        <p>
+            One response or outcome measure is taken, namely the count of fluoro-jade positive neurons.
+        </p>
+
+        <h4><b> Treatment </b></h4>
+        <p>
+            One treatment is applied (DCG-IV) at three different settings. The settings were chosen from experience to be able to stimulate responses of scientific significance. An additional experimental group is the vehicle control to ensure that the treatment delivery vehicle is not the source of the treatment response.
+        </p>
+
+        <h4><b> Factors and covariates </b></h4>
+        <p>
+            No properties of the experimental units (individual subjects) were deemed important sources of variation for which we need to control.
+        </p>
+
+        <p>
+            These considerations lead to a simple randomized design and a one way ANOVA statistical analysis with four groups (one control and three treatment groups). To plan the study, we need to balance the number of subjects per group against our ability to detect a difference among the mean responses.
+        </p>
+
+        <p>
+            To plan the study, we examine the statistical power, detectable signal-to-noise ratio, and sample size. The null hypothesis is that all three treatments will have the same mean level of response as does the control. The alternative hypothesis is that at least one of these four mean responses will be different. Type I error is rejecting the null hypothesis when it is true (a false positive), and we choose a significance level of ?=0.05 as the likelihood of a type I error. Type II error is failing to reject the null hypothesis when the alternative is true. Rejecting the null when the alternative is true is detecting a true positive. The likelihood detecting a true positive, the statistical power of the test, is determined by our specification of alpha=0.05, but it also depends on the sample size, the actual difference in means, and the standard deviation of the outcome measure. The detectable relative effect size or detectable signal-to-noise ratio is the ratio of the actual mean difference to the standard deviation.
+        </p>
+
+        <p>
+            In the following plots we examine the sample size required to achieve certain selected levels of statistical power, as a function of the detectable relative effect size.
+        </p>
+
+        <img ng-src="{{imgPath}}/example_1.png">
+
+
+      </div>
+</div>
+
+<h2 class="text-grey">statistics</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-file-code-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>One way ANOVA followed by Dunnett’s test.</p>
+        
+        <pre><code>
+        library(multcomp)
+        set.seed(10)
+        case_study1 <- read.csv(sampledata.csv)
+
+        aov_result <- aov(cell_count ~ group, data=case_study1)
+        summary(aov_result)
+
+        aov_result_lm <- lm(cell_count ~ group, data=case_study1)
+        summary(aov_result_lm)
+
+        dunnet_result <- glht(aov_result, linfct=mcp(Group="Dunnett")))
+        summary(dunnet_result)
+        </code></pre>
+        
+        <p>Results:</p>
+        <pre>
+        <code>    Multiple Comparisons of Means: Dunnett Contrasts
+
+
+        Fit: aov(formula = cell_count ~ group, data = case_study1)
+
+        Linear Hypotheses:
+                   Estimate Std. Error t value Pr(>|t|)
+        B - A == 0 -0.35990    0.37009  -0.972  0.76545
+        C - A == 0 -0.26896    0.37009  -0.727  0.90019
+        D - A == 0 -0.09026    0.37009  -0.244  0.99894
+        ---
+        Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+        (Adjusted p values reported -- single-step method)</code>
+        </pre>
+    </div>
+</div>
+
+
+<h2 class="text-grey">results</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-line-chart text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            Cell counts of degenerating neurons in the CA2/3 sectors of the dorsal hippocampus. Bars represent the group means (+ SEM). Injury magnitude expressed as atmospheres (atm) is labeled below each group’s bar. 500 fmol DCGIV significantly reduced the number of degenerating neurons. * P < 0.05 compared to the vehicle group (aCSF).
+        </p>
+        <figure class="figure">
+            <img ng-src="{{imgPath}}/cs1_result1.png" alt="" class="img-responsive text-center"/>
+            <figcaption class="figure-caption text-xs-right">Fig. 1</figcaption>
+        </figure>
+    </div>
+</div>

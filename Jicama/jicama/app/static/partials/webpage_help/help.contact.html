@@ -1,0 +1,103 @@
+<div class="row padding-bottom-2em">
+
+  <h2 class="text-center text-grey spacing">
+    Contact
+    <br>
+    <small>We'd Love to Hear From You!</small>
+    <hr>
+  </h2>
+  <br>
+
+  <div class="col-sm-12 col-md-10 col-md-offset-1">
+    <p>
+<!-- replacing
+      <a href="http://consiliastats.com">Consilia</a>, a Tempest Technologies company, is dedicated to meeting the growing needs of companies by providing analysis, software, consulting and collaborative instruction services in mathematical and statistical modeling, optimization and control, data collection, and database construction and management.
+-->
+      <a href="https://bfitzpatrick.lmu.build">
+        Professor Ben Fitzpatrick
+      </a>
+      is an applied mathematician and statistician with over 40 years of experience collaborating with engineers, biologists, public health scientists, social scientists, business analysts, and policy makers on quantitative modeling, simulation, and data analysis. He holds the Clarence J. Wallen, S.J., endowed chair in the Mathematics Department at Loyola Marymount University and is President and Principal Analyst of Tempest Technologies.
+    </p>
+    <br> <br>
+
+    <form ng-controller="ContactForm" ng-submit="submit()" id="contact_form">
+      <div class="row">
+        <div class="form-group col-lg-4">
+          <label> Name </label>
+          <input
+            type="text"
+            id="contact_name"
+            class="form-control"
+            ng-model="formData.name"
+            required
+          >
+        </div>
+        
+        <div class="form-group col-lg-4">
+          <label> Email Address </label>
+          <input
+            type="email"
+            id="contact_email"
+            class="form-control"
+            ng-model="formData.email"
+            required
+          >
+        </div>
+
+        <div class="form-group col-lg-4">
+          <label> Phone Number </label>
+          <input
+            type="phone"
+            id="contact_phone"
+            class="form-control"
+            ng-model="formData.phone"
+          >
+        </div>
+        
+        <div class="clearfix"></div>
+        <div class="form-group col-lg-12">
+          <label> Message </label>
+          <textarea
+            ng-model="formData.message"
+            id="contact_msg"
+            class="form-control"
+            rows="6"
+            required
+          ></textarea>
+        </div>
+                
+        <div class="form-group col-lg-12">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            ng-disabled="send_status==1"
+          >
+            <div ng-show="send_status==0"> Submit </div>
+            <div ng-show="send_status==1"> Sending... </div>
+            <div ng-show="send_status==2"> <b>Sent!</b> </div>
+          </button>
+        </div>
+        
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="col-sm-12 col-md-10 col-md-offset-1 center" style="padding:4em 0 4em 0;">
+  <p class="text-center">
+    Ben G. Fitzpatrick <br>
+    Department of Mathematics <br>
+    Loyola Marymount University <br>
+    1 LMU Drive <br>
+    Los Angeles CA 90045
+    <br><br>
+
+    <i class="fa fa-phone"></i>
+    <abbr title="Phone"> P: </abbr> 310.338.7892
+    <br>
+      
+    <i class="fa fa-envelope-o"></i>
+    <abbr title="Email"> E: </abbr>
+    <a href="mailto:bfitzpatrick@lmu.edu">bfitzpatrick@lmu.edu</a>
+  </p>
+</div>

@@ -1,0 +1,47 @@
+<div class="row padding-bottom-2em" id="helpFaqPg">
+
+    <h2 class="text-center text-grey spacing">FAQ</h2> 
+    <br>
+    
+    <div class="col-sm-12 col-lg-10 col-lg-offset-1">
+
+        <uib-accordion ng-init="heads=[0,0,0,0,0,0,0]"> 
+            <div uib-accordion-group is-open="heads[0]">
+                <uib-heading-with-icon title="'How do I use this page?'" active="heads[0]"></uib-heading-with-icon>
+                <p id="How do I use this page">
+                    The <a ui-sref="help.tutorial.home">tutorials</a> section of the website will provide you with the details on how to use the <i>DESIGN GUIDE</i> and <i> TOOLS </i>. 
+                    <br><br>
+                    The <a ui-sref="report.home">reports</a> section will aid you in putting the results of your experiment together
+                    in a way recommended by the <a href="https://www.nc3rs.org.uk/arrive-guidelines">ARRIVE guidelines</a>.
+                </p>
+            </div>
+            
+            <div uib-accordion-group is-open="heads[1]">
+                <uib-heading-with-icon title="'What is Statistical Power?'" active="heads[1]"></uib-heading-with-icon>
+                <p id="What is Statistical Power">
+                    <b>Statistical Power</b> is the probability that the null hypothesis is correctly rejected. As statistical power increases, the probability of a Type II error decreases. To find out more on statistical power, check out the <a ui-sref="help.statbasics.overview">overview</a> in Statistical Basics under <i> HELP </i>.
+                </p>
+            </div>
+            
+            <div uib-accordion-group is-open="heads[2]">
+                <uib-heading-with-icon title="'Why is Statistical Power important?'" active="heads[2]"></uib-heading-with-icon>
+                <p id="Why is Statistical Power important">
+                    Calculating Statistical Power is essential for deciding on the Experimental Design. Without the appropriate Sample Size for a specific experimental design, a results of a study may not have the ability to be able to detect a biologically significant <effect-size></effect-size>.
+                    <br><br>
+                    Calculate Statistical Power <a ui-sref="tools.powersize">here</a> (you must be logged in to access the page).
+                </p>
+            </div>
+            
+            <div uib-accordion-group is-open="heads[3]">
+                <uib-heading-with-icon title="'What if I need more help?'" active="heads[3]"></uib-heading-with-icon>
+                <p id="What if I need more help">
+                    Use our chat located at the bottom of the page, or <a ui-sref="help.contact">contact us.</a>
+                </p>
+            </div>
+        </uib-accordion>
+    </div>
+    
+</div>
+
+<!-- adding extra padding -->
+<div style="padding-bottom: 400px;"></div>

@@ -1,0 +1,55 @@
+/*********************************************************************************/
+/* BUTTONS                                                                       */
+/*********************************************************************************/
+button.btn-primary, .btn-primary {
+    background-color: $main_green;
+    border-color: $main_green;
+    color: black;
+    border-radius: 0;
+    
+    a {
+        color: black;
+        letter-spacing: 0.3em;
+    }
+    
+    &:hover, &:focus {
+        background-color: $main_green_lt;
+        border-color: $main_green_lt;
+        color: black;
+    }
+}
+
+.btn-primary_lt {
+    background-color: $main_green_lt;
+    border-color: $main_green_lt;
+    color: black;
+    border-radius: 0;
+}
+
+.btn-primary:active, 
+.btn-primary.active, 
+.btn-primary_lt:hover, 
+.btn-primary_lt:focus
+{
+    background-color: $main_green_dk;
+    border-color: $main_green_dk;
+    color: black;
+}
+
+
+.btn-primary:disabled, 
+.btn-primary[disabled],
+.btn-primary:disabled:hover, 
+.btn-primary[disabled]:hover
+ {
+    background-color: $main_green_lt;
+    border-color: $main_green_lt;
+    background-image: none;
+}
+
+.btn-help {
+    width: 100%;
+    
+    @media (max-width: $large) { font-size: 11px; }
+    @media (max-width: 992px) { margin-top: 0.5em; }
+}

@@ -1,0 +1,23 @@
+
+Create a new database (e.g. start from a clean state) using makeDB.py, which will be called "myDB.sqlite".
+Note that this name is different from the webapp default, database.sqlite, so as to not overwrite the data.
+
+This file also has an auto-populate feature to import database for the "users" TABLE from JSON.
+
+Unzip the information from Auth0 using 
+    >> gzip -d filename.json.gz
+
+
+To make a new database, open python
+--- PYTHON
+    >> import makeDB
+    >> makeDB.makeDB()
+
+will make the blank database
+
+To make a database from JSON data, open Python and run
+--- PYTHON
+    >> import makeDB
+    >> makeDB.create_DB_from_auth0_file("webmaster.json")
+
+or whatever your filename is.

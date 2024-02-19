@@ -1,0 +1,186 @@
+<div id="suppRpt-methods">
+
+    <fieldset class="form-group">
+        <label>Ethical Statement</label>
+        <input type="text" class="form-control" value="{{formData.methods.ethicalStatement}}" ng-model="formData.methods.ethicalStatement">
+        <p>Please state relevant document/policy title or licenses.</p>
+    </fieldset>
+    
+    
+    <!------------------------------------------------>
+    <!-- STUDY DESIGN 
+    <!------------------------------------------------>
+    <fieldset class="form-group">
+        <legend> Study Design </legend>
+        
+        <fieldset class="form-group">
+            <label>Number of Experimental Groups</label><br>
+            <span ng-repeat="nExpGroups in formData.methods.experimentalGroups.n">
+                {{::nExpGroups}}
+                <span ng-show="$last">+</span>
+
+                <input type="radio" name="expGroups" ng-value="{{nExpGroups}}"
+                    ng-checked="$index+1==formData.methods.experimentalGroups.selected" ng-model="formData.methods.experimentalGroups.selected">
+                </input>
+            </span>
+        </fieldset>
+    
+        <fieldset class="form-group">
+            <label>Number of Control Groups</label><br>
+            
+            <span ng-repeat="nCtrlGroups in formData.methods.controlGroups.n">
+                {{::nCtrlGroups}}
+                <span ng-show="$last">+</span>
+
+                <input type="radio" name="ctrlGroups" value="{{nCtrlGroups}}"
+                    ng-checked="$index+1==formData.methods.controlGroups.selected" ng-model="formData.methods.controlGroups.selected">
+                </input>
+            </span>
+        </fieldset>
+        
+        <fieldset class="form-group">
+            <label>Subjective Bias</label>
+            <p>Please note what procedures were followed to reduce bias.</p>
+                
+            <div ng-repeat='elems in formData.methods.bias' class="radio">
+                <label>
+                    <input type="checkbox" value="{{elems.id}}" 
+                        ng-checked="elems.selected" ng-model="formData.methods.bias[$index].selected">
+                        {{::elems.name}}
+                </label>
+            </div>
+        </fieldset>
+        
+        <fieldset class="form-group">
+            <label>What is your experimental unit?</label><br>
+            
+            <input type="text" class="form-control" value="{{formData.methods.expUnit}}" ng-model="formData.methods.expUnit">
+        </fieldset>
+    </fieldset>
+    
+    
+    <!------------------------------------------------>
+    <!-- UPLOAD DESIGN SCHEMATIC 
+    <!------------------------------------------------>
+    <fieldset class="form-group">
+        <legend>Upload Design Schematic</legend>
+
+        <label for="upload_design">Upload Design</label>
+        <input type="file" name="upload_design"/>
+    </fieldset>
+    
+
+    <!------------------------------------------------>
+    <!-- EXPERIMENTAL PROCEDURES 
+    <!------------------------------------------------>
+    <fieldset class="form-group">
+        <legend>Experimental Procedures</legend>
+        
+        <table>
+            <tr ng-repeat="n in formData.methods.expProcedures">
+                <td>{{::n.name}}</td>
+                <td> <input type="text" value="{{n.content}}"/> </td>
+            </tr>
+        </table>
+    </fieldset>
+    
+    
+    <!------------------------------------------------>
+    <!-- EXPERIMENTAL SUBJECT 
+    <!------------------------------------------------>
+    <fieldset class="form-group">
+        <legend>Experimental Subject</legend>
+        <table>
+            <tr ng-repeat="n in formData.methods.expSubject">
+                <td>{{::n.name}}</td>
+                <td> <input type="text" value="{{n.content}}"/> </td>
+            </tr>
+        </table>
+    </fieldset>
+    
+    
+    <!------------------------------------------------>
+    <!-- HOUSING AND HUSBANDRY
+    <!------------------------------------------------>
+    <fieldset class="form-group">
+        <legend>Housing and Husbandry</legend>
+        <table>
+            <tr ng-repeat="n in formData.methods.housingHusbandry">
+                <td>{{::n.name}}</td>
+                <td> <input type="text" value="{{n.content}}"/> </td>
+            </tr>
+        </table>
+    </fieldset>
+    
+    
+    <!------------------------------------------------>
+    <!-- SAMPLE SIZE
+    <!------------------------------------------------>
+    <fieldset class="form-group">
+        <legend>Sample Size</legend>
+        
+        <fieldset class="form-group">
+            <label>Total Number of Subjects Used:</label>
+            <input type="text" class="form-control" value="{{formData.methods.sampSize.totalSubjects}}" ng-model="formData.methods.sampSize.totalSubjects">
+        </fieldset>
+        
+        <fieldset class="form-group">
+            <label>TABLE PLACEHOLDER</label>
+            <input type="text" class="form-control" value="temp">
+            <p>MAKE THIS A TABLE AUTOMATICALLY FILLED IN WITH NUMBER OF EXPERIMENTAL AND CONTROL GROUPS, LINK TO CALC SAMPLE SIZE</p>
+        </fieldset>
+        
+        <fieldset class="form-group">
+            <label>Explain how the number of subjects was arrived at.</label>
+            <input type="text" class="form-control" value="{{formData.methods.sampSize.totalSubjectsExpl}}" ng-model="formData.methods.sampSize.totalSubjectsExpl">
+            <p>Provide details of any sample size calculation used.</p>
+        </fieldset>
+        
+        <fieldset class="form-group">
+            <label>Indicate the number of independent replications of each experiment, if relevant.</label>
+            <input type="text" class="form-control">
+        </fieldset>
+    </fieldset>
+    
+    
+    <!------------------------------------------------>
+    <!-- allocation to experimental groups
+    <!------------------------------------------------>
+    <fieldset class="form-group">
+        <legend>Allocation To Experimental Groups</legend>
+        
+        <fieldset class="form-group">
+            <label>How were subjects allocated to experimental groups?</label>
+            <input type="text" class="form-control" value="{{formData.methods.allocation.how}}">
+        </fieldset>
+        
+        <fieldset class="form-group">
+            <label>Describe the order in which the subjects in the different experimental groups were treated and assessed.</label>
+            <input type="text" class="form-control" value="{{formData.methods.allocation.order}}">
+        </fieldset>
+    </fieldset>
+    
+    
+    <!------------------------------------------------>
+    <!-- Experimental outcomes
+    <!------------------------------------------------>
+    <fieldset class="form-group">
+        <legend>Experimental Outcomes</legend>
+        
+        <fieldset class="form-group">
+            <label>Clearly define the primary and secondary experimental outcomes assessed</label>
+            <input type="text" class="form-control" placeholder="e.g. cell death, molecular markers, behavioral changes">
+        </fieldset>
+        
+        <fieldset class="form-group">
+            <label>Method 1</label>
+            <input type="text" class="form-control">
+        </fieldset>
+        
+        <fieldset class="form-group">
+            <label>Method 2</label>
+            <input type="text" class="form-control">
+        </fieldset>
+    </fieldset>
+
+</div>

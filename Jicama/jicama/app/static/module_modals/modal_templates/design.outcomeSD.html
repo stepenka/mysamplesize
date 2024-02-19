@@ -1,0 +1,21 @@
+<div id="stdPop">
+    <div class="modal-header">
+        <h3 class="modal-title">Standard Deviation in outcome measure</h3>
+    </div>
+
+    <div class="modal-body">
+        <p>
+            If you have prior knowledge from a pilot study or the literature, please use that information here. We are asking about the subject-to-subject variability in the units of your outcome measure.  A standard deviation from a pilot or literature study may be used.
+        </p>
+        <p class="padding-top-1em">
+            Our sample size and power calculations assume that the standard deviation does not depend on treatment settings or biological factors. This assumption is called homoscedasticity. For more on standard deviation, please check out our <a ui-sref="help.statbasics.stdev">help pages</a>.
+        </p>
+        <p class="padding-top-1em">
+            To gain some feeling for the design process, you may want to simulate a simple experiment.  At this link, you can simulate a two-group or a multi-group comparison experiment to see how effect size, standard deviation, sample size per group, and significance govern statistical power and relate to your ability to detect underlying differences between your groups.  Click <a target="_blank" ui-sref="tools.sims">SIMULATION</a> to run simulations.        
+        </p>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    </div>
+</div>

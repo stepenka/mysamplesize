@@ -1,0 +1,71 @@
+<h2 class="text-grey" id="dt-factorial">Factorial</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-newspaper-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>A Factorial design is one in which a researcher controls the variability of 2 or more discrete independent variables (treatments).</p>
+        <ul class="fa-ul padding-top-1em">
+            <li><i class="fa-li fa fa-square text-green"></i>NOTE</li>
+            <p>
+                A Factorial design specifically describes the arrangement of the <em>treatments</em>. This means that theoretically you could have a Randomized Block design but the treatments are structured as a Factorial design.
+            <p>
+        </ul>
+        <p>
+            For example, consider an experiment with 9 subjects and that has one treatment (or factor) with 3 settings (Drug A, B and C). The subjects have weights that vary greatly and it is known that weight will introduce some variation or noise to the results. To account for this variation, the experiment can be set up in one of two methods: weight classes can be added as a blocking group (Block 1, 2, and 3) or a Factor (Treatment B1, B2, or B3);
+        </p>
+        <img ng-src="{{imgPath}}/design/design_fact.png" class="img-responsive"></img>
+        <p class="no_link">
+            While the design visually appear similar, the two designs serve to answer two different hypotheses. In the Factorial design, the statistics applied will look at the effect on the response of Treatment (or also called Factor) A, Treatment B, and/or if there is an interaction between the two factors. In the Block design, the statistics applied will look at the effect of Treatment A on the response and the blocking group is used to help reduce variation within the results (meaning the expectation is that the pattern of the effect of treatment should be the same within each group, see <a ui-sref="help.designtype_random">Randomized Block</a> for more information).
+        </p>
+        <ul class="fa-ul padding-top-1em">
+            <li><i class="fa-li fa fa-square text-green"></i>Fully Factorial or Fractional Factorial</li>
+            <p>
+                A Fully Factorial design (like the example below) is one where every combination for each factor is included. For example, if you had 3 factors for your treatment (drug type) and 4 factors for your covariate (4 age groups) then a Fully Factorial design would have 3 X 4 = 12 total groups. There are times, usually when you have many factors, that makes this design impractical. A Fractional Factorial design aims to reduce the number of total groups with a balanced subset of all groups that will still allow you gain information about the factors being studied. The factors that are chosen should be determined a priori and ensure that an effect of variables can still be obtained.
+            <p>
+        </ul> 
+    </div>
+</div>
+
+<h2 class="text-grey">example</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-picture-o text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>
+            A researcher is interested in testing the effectiveness of a new drug. 20 individuals are chosen to participate in the study. One hypothesis is that the effect of the drug will be different on individuals who smoke cigarettes and subjects are divided into two groups of 10: smokers and non smokers. Each group is randomly assigned to 1 of 2 treatments; Drug A or Drug B. This would be considered a 2 X 2 Fully Factorial design, where Factor A is smoking group and Factor B is drug type.
+        </p>
+        <table class="table table-striped">
+            <thead><tr>
+                <th></th>
+                <th>Drug A</th>
+                <th>Drug B</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Smokers</th>
+                    <td> 1   8   4   9   3</td>
+                    <td>13  16  18  12  20</td>
+                </tr>
+                <tr>
+                    <th>Nonsmokers</th>
+                    <td> 6   7   5  10   2</td>
+                    <td>14  17  11  15  19</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<h2 class="text-grey">statistical tests</h2>
+<hr>
+<div class="row margin-bottom-2em">
+    <div class="col-sm-2"><span class="fa-4x"><i class="fa fa-line-chart text-green"></i></span></div>
+    <div class="col-sm-10">
+        <p>Statistical tests that are commonly appropriate for this design:</p>
+        <ul class="fa-ul">
+            <li><i class="fa-li fa fa-square text-green"></i>ANOVA</li>
+            <li><i class="fa-li fa fa-square text-green"></i>Regression</li>
+        </ul> <br>
+    </div>
+</div>
