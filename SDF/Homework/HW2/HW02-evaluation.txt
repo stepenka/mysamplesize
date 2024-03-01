@@ -1,0 +1,45 @@
+
+Evaluation and Feedback
+CMSI 4072 project ~ Spring 2024
+
+XXXXXXXXX project
+Evaluation for homework02
+===============================
+
+5-1 component-based vs service-oriented             5 of  5 points
+5-2 most appropriate architecture for tictactoe     5 of  5 points
+5-4 internet chess appropriate architecture         5 of  5 points
+5-6 database for ClassyDraw                         5 of  5 points
+5-8 state machine diagram for floats                8 of 10 points
+6-1 compare/contrast ClassyDraw subclasses         10 of 10 points
+6-2 inheritance diagram from 6-1                   10 of 10 points
+
+
+Total possible score: 50 points
+
+EVALUATION
+============================================================================
+Your score: 48 out of 50 = 96.0% which is an A
+
+Comments:
+---------
+Nice work on this assignment.
+
+problem 5.2 a component-based architecture would work, but for something as
+   simple as tic tac toe you might not need that level of sophistication.
+   Consider a monolithic architecture which would encapsulate all of the
+   game functions in one application.
+
+problem 5.6 you make a good case for the audit trail architecture.  You may
+   also consider having NO database, since each drawing would be a single
+   file which can be managed by the operating system.  If there is a user
+   requirement to maintain a past history, then a version maintenance system
+   might be implemented using the operating system as well.  Still, you have
+   a good idea there!
+
+problem 5.8 your state machine doesn't take signs into consideration.  You
+   don't handle things like "-1.234e+5" or "+1.35e-1.27" which are valid
+   floating point numbers.
+
+Good job, and keep up the good work!
+
