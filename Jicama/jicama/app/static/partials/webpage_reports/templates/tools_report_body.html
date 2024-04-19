@@ -28,7 +28,7 @@
     {% set nGroups = row["totalNGroups"] %}
 {% endif %}
 
-<table class="table">
+<table class="table" style="display: block;">
 {% if projectname %}
     <tr>
         <td class="text-right">Project:</td>
@@ -132,7 +132,7 @@
     {% set outputVectorPD, outputVectorPT = row["samplesizePD"], row["samplesizePT"] %}
 {% endif %}
 
-<div class="text-center" style="border:thin solid black;">
+<div class="text-center">
     <h4><strong> The results of the {{ calcType }} Calculation are </strong></h4>
     
 	<!-- for nGroup=3; 2-Way, Multi-Way, and Repeated Measures Parallel ANOVA -->
@@ -141,7 +141,7 @@
             The estimates of {{calcType}} below are listed by Effect, followed by all possible Interactions.
         </h5>
 
-        <table class="table text-center">
+        <table class="table text-center" style="display: block;">
 			<thead><tbody>
 				<td>Effect</td>
 				{% if isSampleCalc %}
@@ -218,7 +218,7 @@
 			{% if row["isTest"]["twoAOV"] or row["isTest"]["multAOV"] %}
 				<!-- Dunnett Test -->
 				<tbody>
-					<tr><td style="border-bottom: 1px solid;" align="left">
+					<tr><td align="left">
 						<h5><b> Post hoc Dunnett Test </h5></b>
 					</td></tr>
 					{% for cc1 in outputVectorPD %}

@@ -1,215 +1,187 @@
-
-<h3 class="text-center"><img src="{{ url_for('static', filename='img/logos/report_logo.png') }}">Design Guide Summary Report</h3> 
+<h3 class="text-center">
+  <img
+    src="static/img/logos/report_logo.png" style="zoom: 20%"
+  />Design Guide Summary Report
+</h3>
 <h5 class="text-center">
-    Generated with MySampleSize.com for <small>{{email}}</small>
+  Generated with MySampleSize.com
 </h5>
-<br><br>
+<br /><br />
+
+<div class="row">Your hypothesis is: <i>{{hypoth}}</i></div>
+<br /><br />
+<div class="row">
+  You will be testing this hypothesis using the outcome measure
+  <i>{{outMeas}}</i> in units of <i>{{obsUnits}}</i>.
+</div>
+<br /><br />
 
 <div class="row">
-    Your hypothesis is: <i>{{hypoth}}</i>
+  Your hypothesis involves treatment(s) of {% for ii in range( treatments|length
+  - 1 ) %}
+  <i> {{ treatments[ii]['description'] }}</i>, {% endfor %} {% if
+  treatments|length > 1 %} and {% endif %}
+
+  <i>{{ treatments[treatments|length - 1]['description'] }}</i>, and associated
+  control(s) of {% for ii in range( treatments|length - 1 ) %}
+  <i
+    >{{ treatments[ii]['control']['name'] }} ({{ treatments[ii]['control_desc']
+    }})</i
+  >, {% endfor %} {% if treatments|length > 1 %} and {% endif %}
+
+  <i
+    >{{ treatments[treatments|length - 1]['control']['name'] }} ({{
+    treatments[treatments|length - 1]['control_desc'] }})</i
+  >. Other factors in your experiment are {% if factors|length %} {% for ii in
+  range( factors|length - 1 ) %} <i>{{ factors[ii]['description'] }}</i>, {%
+  endfor %} {% if factors|length > 1 %} and {% endif %}
+
+  <i>{{ factors[factors|length - 1]['description'] }}</i>. {% else %}
+
+  <i> none</i>. {% endif %} The following table shows the treatments, factors,
+  and their levels.
 </div>
-<br><br>
+
+<br />
+
 <div class="row">
-    You will be testing this hypothesis using the outcome measure <i>{{outMeas}}</i> in units of <i>{{obsUnits}}</i>.
-</div>
-<br><br>
+  <h4>Treatments and Factors</h4>
 
-<div class="row">
-    Your hypothesis involves treatment(s) of 
-        {%   for ii in range( treatments|length - 1 )   %}
-            <i> {{ treatments[ii]['description'] }}</i>, 
-        {% endfor %}
-        
-        {% if treatments|length > 1 %}
-            and
-        {% endif %}
-        
-        <i>{{ treatments[treatments|length - 1]['description'] }}</i>, 
-        
-    
-    and associated control(s) of 
-        {%   for ii in range( treatments|length - 1 )   %}
-            <i>{{ treatments[ii]['control']['name'] }} ({{ treatments[ii]['control_desc'] }})</i>, 
-        {% endfor %}
-        
-        {% if treatments|length > 1 %}
-            and
-        {% endif %}
-        
-        <i>{{ treatments[treatments|length - 1]['control']['name'] }} ({{ treatments[treatments|length - 1]['control_desc'] }})</i>.
-    
-    Other factors in your experiment are 
-        {% if factors|length %}
-            
-            {%   for ii in range( factors|length - 1 )   %}
-                <i>{{ factors[ii]['description'] }}</i>, 
-            {% endfor %}
-            
-            {% if factors|length > 1 %}
-                and
-            {% endif %}
-            
-            <i>{{ factors[factors|length - 1]['description'] }}</i>.
-            
-        {% else %}
-        
-            <i> none</i>.
-            
-        {% endif %}
-
-    
-    The following table shows the treatments, factors, and their levels. 
-</div>
-
-<br>
-
-<div class="row"> 
-    <h4> Treatments and Factors </h4> 
-
-    <table class="table text-center">
+  <table class="table text-center">
     <thead>
-        <tr> 
-            <th> </th>
-            <th> Name </th>
-            <th> Levels / Description </th>
-            <th> Control Type</th>
-            <th> Control Name</th>
-            <th></th>
-        </tr>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Levels / Description</th>
+        <th>Control Type</th>
+        <th>Control Name</th>
+        <th></th>
+      </tr>
     </thead>
     <tbody>
-    
-    {% for ii in range( factors|length ) %}
-        <tr class="green_border">
-            <td> Nontreatment {{ii+1}}</td>
-            <td>
-                {{ factors[ii]['description'] }}
-            </td>
-            <td colspan="4" class="text-center"> n/a </td>
-        </tr>
-        
-        {% for jj in range( factors[ii]['level'] | length ) %}
-            <tr>
-                <td colspan="2"></td>
-                <td>
-                    <div>
-                        Level {{jj+1}} : {{ factors[ii].level[jj].name }}
-                    </div>
-                </td>
-                <td colspan="2"></td>
-            </tr>
-        {% endfor %}
-    {% endfor %}
+      {% for ii in range( factors|length ) %}
+      <tr class="green_border">
+        <td>Nontreatment {{ii+1}}</td>
+        <td>{{ factors[ii]['description'] }}</td>
+        <td colspan="4" class="text-center">n/a</td>
+      </tr>
 
-    {% for ii in range( treatments|length ) %}
-        <tr class="green_border">
-            <td> Treatment {{ii+1}} </td>
-            <td> {{ treatments[ii]['description'] }}        </td>
-            <td> </td>
-            <td> {{ treatments[ii]['control']['name'] }}    </td>
-            <td> {{ treatments[ii]['control_desc'] }}       </td>
-            <td></td>
-        </tr>
-    
-        {% for jj in range( treatments[ii]['level'] | length ) %}
-            <tr>
-                <td colspan="2"></td>
-                <td>
-                    <div>
-                        Setting {{jj+1}} : {{ treatments[ii].level[jj].name }}
-                    </div>
-                </td>
-                <td colspan="2"></td>
-            </tr>
-        {% endfor %}
-    {% endfor %}
-    
+      {% for jj in range( factors[ii]['level'] | length ) %}
+      <tr>
+        <td colspan="2"></td>
+        <td>
+          <div>Level {{jj+1}} : {{ factors[ii].level[jj].name }}</div>
+        </td>
+        <td colspan="2"></td>
+      </tr>
+      {% endfor %} {% endfor %} {% for ii in range( treatments|length ) %}
+      <tr class="green_border">
+        <td>Treatment {{ii+1}}</td>
+        <td>{{ treatments[ii]['description'] }}</td>
+        <td></td>
+        <td>{{ treatments[ii]['control']['name'] }}</td>
+        <td>{{ treatments[ii]['control_desc'] }}</td>
+        <td></td>
+      </tr>
+
+      {% for jj in range( treatments[ii]['level'] | length ) %}
+      <tr>
+        <td colspan="2"></td>
+        <td>
+          <div>Setting {{jj+1}} : {{ treatments[ii].level[jj].name }}</div>
+        </td>
+        <td colspan="2"></td>
+      </tr>
+      {% endfor %} {% endfor %}
     </tbody>
-    </table>
+  </table>
 </div>
-<br>
+<br />
 
 <div class="row">
-    <p style="border-top: thin solid #c8e04b;padding-top-2em;"></p>
-     <h4> Groups </h4> 
+  <p style="border-top: thin solid #c8e04b;padding-top-2em;"></p>
+  <h4>Groups</h4>
 
-    <p class="small">
-        These are all the groups possible with these treatments and factors. 
-        <!-- Unchecked groups are ones you excluded in the DesignGuide. -->
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th class="text-center"> Group </th>
-                <!-- th class="text-center"> Retain group in experiment? </th -->
-            </tr>
-        </thead>
-        <tbody>
-        {% for ii in range( treatment_table | length ) %}
-            <tr class="text-center">
-                <td> {{ treatment_table[ii]['group'] }} </td>
-                <!-- td>
+  <p class="small">
+    These are all the groups possible with these treatments and factors.
+    <!-- Unchecked groups are ones you excluded in the DesignGuide. -->
+  </p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="text-center">Group</th>
+        <!-- th class="text-center"> Retain group in experiment? </th -->
+      </tr>
+    </thead>
+    <tbody>
+      {% for ii in range( treatment_table | length ) %}
+      <tr class="text-center">
+        <td>{{ treatment_table[ii]['group'] }}</td>
+        <!-- td>
                     {% if treatment_table[ii]['selected'] %}
                         &#x2713;
                     {% endif %}
                 </td -->
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
-<hr>
-<br>
+<hr />
+<br />
 
 <div class="row">
-    Your inputs result in a <b>{{designType}}</b> design and a <b>{{statMethod}}</b> as your statistical test.
+  Your inputs result in a <b>{{designType}}</b> design and a
+  <b>{{statMethod}}</b> as your statistical test.
 </div>
 
 <!-- This could be empty if not navigated to Sample Size tab -->
 {% if row %}
 <div class="row">
-    <h4 class="text-center"><strong>Statistical Power and Sample Size Calculation Summary</strong></h4> 
-    {% include 'static/partials/webpage_reports/templates/tools_report_body.html' %}
+  <h4 class="text-center">
+    <strong>Statistical Power and Sample Size Calculation Summary</strong>
+  </h4>
+  {% include 'static/partials/webpage_reports/templates/tools_report_body.html'
+  %}
 </div>
 {% endif %}
 
 <div class="row">
-    {% set glen = outputGraphs|length %}
-    
-    <!-- for multi-way ANOVA -->
-    <!-- Output graphs should only show for 3-Way ANOVA (nThirdFactors) -->
-    {% set ns = namespace(AOVM_counter=0) %}
-    {% set lastFactor = (allTreatmentsAndFactors | last) %}
-    {% set nThirdFactors = (lastFactor.level | length)  %}
-    {% if ('control' in  lastFactor) %}
-        {% set nThirdFactors = (lastFactor.level | length) + 1 %}
+  {% set glen = outputGraphs|length %}
+
+  <!-- for multi-way ANOVA -->
+  <!-- Output graphs should only show for 3-Way ANOVA (nThirdFactors) -->
+  {% set ns = namespace(AOVM_counter=0) %} {% set lastFactor =
+  (allTreatmentsAndFactors | last) %} {% set nThirdFactors = (lastFactor.level |
+  length) %} {% if ('control' in lastFactor) %} {% set nThirdFactors =
+  (lastFactor.level | length) + 1 %} {% endif %}
+  <!-- ------------- -->
+
+  {% for ii in range(glen) %}
+    {% if ii % 2 == 1 and ii != 0 %}
+    <pdf:nextpage>
     {% endif %}
-    <!-- ------------- -->
-    
-    {% for ii in range(glen) %}
-        <h4>
-        {% if ii == (glen-1) %}
-            Power Plot
-            <br><br><small>Note: "You are here" point does not show up. We are working on this issue.</small>
-        {% else %}
-            {% if statMethod == 'Multi-Way ANOVA' %}
-                {% set nPlot = (ii % nThirdFactors) %}
-                
-                {% if nPlot == 0 %}   <!-- if a modulo of the # of tertiary factors, display a title -->
-                    <hr>
-                    {% set ns.AOVM_counter = ns.AOVM_counter + 1 %}
-                    Simulation {{ns.AOVM_counter}}
-                {% endif %}
-                <br>
-                <h5 style="text-align:center">Third Factor {{nPlot+1}} of {{nThirdFactors}}</h5>
-            {% else %}
-                Simulation Plot {{ii+1}}
-            {% endif %}
-        {% endif %}
-        </h4>
-        <h5> {{graphsText[ii]}} </h5>
-        
-        <img style="width:80%" src="{{outputGraphs[ii]}}" >
-        <br>
-    {% endfor %}
+  <h4>
+    {% if ii == (glen-1) %} Power Plot
+    <br /><br /><small
+      >Note: "You are here" point does not show up. We are working on this
+      issue.</small
+    >
+    {% else %} {% if statMethod == 'Multi-Way ANOVA' %} {% set nPlot = (ii %
+    nThirdFactors) %} {% if nPlot == 0 %}
+    <!-- if a modulo of the # of tertiary factors, display a title -->
+    <hr />
+    {% set ns.AOVM_counter = ns.AOVM_counter + 1 %} Simulation
+    {{ns.AOVM_counter}} {% endif %}
+    <br />
+    <h5 style="text-align: center">
+      Third Factor {{nPlot+1}} of {{nThirdFactors}}
+    </h5>
+    {% else %} Simulation Plot {{ii+1}} {% endif %} {% endif %}
+  </h4>
+  <h5>{{graphsText[ii]}}</h5>
+
+  <img style="width: 80%; zoom: 70%" src="{{outputGraphs[ii]}}" />
+  <br />
+  {% endfor %}
 </div>

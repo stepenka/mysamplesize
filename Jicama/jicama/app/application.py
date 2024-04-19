@@ -16,6 +16,8 @@ from pyhelp import genCombinations as genC
 # Bundle for combining and/or minifying Javascripts --
 from flask_assets import Environment, Bundle
 
+from pathlib import Path
+
 assets = Environment(app)
 css_bundle = Bundle(
     "css/bootstrap.min.css",
@@ -881,8 +883,33 @@ def design_report():
     authDict    = json.loads( check_auth() )
     tmp         = design_report_template( user_id )
     dg_pdf      = HTML( string=tmp )
-    
-    return render_pdf( dg_pdf )
+
+    # xhtml2pdf testing
+    from xhtml2pdf import pisa
+
+    output_filename = Path().cwd().joinpath("static/designGuideReport.pdf")
+
+    # open output file for writing (truncated binary)
+    result_file = open(output_filename, "w+b")
+
+    # convert HTML to PDF
+    pisa.CreatePDF(
+            tmp,                # the HTML to convert
+            dest=result_file)           # file handle to recieve result
+
+    # close output file
+    result_file.close()
+
+    # pdf_response =  make_response(result_file)
+    # pdf_response.headers['Content-Type'] = 'application/pdf'
+    # pdf_response.headers['Content-Disposition'] = \
+    #         'inline; filename=%s.pdf' % 'designGuideReport'
+
+
+    # with open("static/designGuideReport.pdf", 'rb') as static_file:
+    #     return send_file(static_file, attachment_filename='designGuideReport.pdf')
+
+    return redirect("/static/designGuideReport.pdf")
 
 
 #--------------------------------------------------------#
