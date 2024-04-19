@@ -1,3 +1,0 @@
-
-- [< Database Home](../)
-- [SQLite3](./)
